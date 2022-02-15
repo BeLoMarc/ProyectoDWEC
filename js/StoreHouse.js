@@ -28,7 +28,7 @@ import { Product } from "./classProduct.js";
 import { Store } from "./classStore.js";
 import { EmptyValueException, InvalidValueException } from "./Excepciones.js";
 
-export class StoreHouse {
+class StoreHouse {
     #name;
     #categories;
     #stores;
@@ -265,13 +265,14 @@ export class StoreHouse {
         let guardar = 0;// variable q nos ayuda a contar la cantidad de productos eliminados
         let total = 0;// variable donde almacenamos todos los productos eliminados
         this.#stores.forEach(element => {
-            if (element.warehouse.has(product.serialNumber)) {
+            // if (element.warehouse.has(product.serialNumber)) {
+            if (element.warehouse.has(product.name)) {
+                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
 
-                guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
 
-
-
-                this.#stores[cuentatienda].warehouse.delete(product.serialNumber);
+                //this.#stores[cuentatienda].warehouse.delete(product.serialNumber);
+                this.#stores[cuentatienda].warehouse.delete(product.name);
                 this.#stores[cuentatienda].warehouse.size;
                 cuentatienda = cuentatienda + 1;
             } else {
@@ -360,8 +361,8 @@ export class StoreHouse {
 
                 // total = guardar + number;
 
-                this.#stores[cuentatienda].warehouse.set(product.serialNumber, number);
-
+                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, number);
+                this.#stores[cuentatienda].warehouse.set(product.name, number);
             }
             else {
                 cuentatienda = cuentatienda + 1;
@@ -412,26 +413,107 @@ export class StoreHouse {
         this.#stores.forEach(element => {
             if (element.CIF == shop.CIF) {
 
-                guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-
+                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
                 total = guardar + number;
 
-                this.#stores[cuentatienda].warehouse.set(product.serialNumber, total);
-
+                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, total);
+                this.#stores[cuentatienda].warehouse.set(product.name, total);
             }
             else {
                 cuentatienda = cuentatienda + 1;
             }
         });
-        return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+        // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+        return this.#stores[cuentatienda].warehouse.get(product.name);
+    }
+
+    *  getShopProducts(shop, product) {
+        // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
+
+        if (!(shop instanceof Store)) {
+
+            throw new InvalidValueException("shop", "StoreHouse", 436);
+
+        }
+
+        // el yield tiene q mostrar 
+        // SI PASAMOS UNA TIENDA:
+        //no tiene que decir todos los productos y el stock de estos en esa tienda concreta
+        if (product == undefined) {
+            for (const siguiente of this.shops()) {
+                if (siguiente.value.CIF == shop.CIF)
+                    yield siguiente.value.CIF;
+            }
+
+        } else {
+
+            // el yield tiene q mostrar 
+            //SI PASAMOS UN PRODUCTO:
+            // devolvera todos el stock de ese producto en esa tienda en concreto
+
+            let cuentatienda = 0;
+            if (product instanceof Product) {
+                for (const siguiente of this.shops()) {
+                    if (siguiente.value.CIF == shop.CIF) {
+                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                        this.#stores[cuentatienda].warehouse.get(product.name);
+                    }
+                    cuentatienda += 1;
+                }
+
+            }
+        }
+
+
+
 
     }
-    // Para Luego
-    getShopProducts() {
-    }
-    //Para Luego
-    getCategoryProducts() {
 
+
+// MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
+   * getCategoryProducts(category, product) {
+        /**Devuelve la relación de todos los productos
+        añadidos en una categoría con sus
+        cantidades en stock. Si pasamos un tipo de
+        producto, el resultado estará filtrado por
+        ese tipo */
+        
+        if (!(category instanceof Category)) {
+
+            throw new InvalidValueException("Category", "StoreHouse", 486);
+
+        }
+
+        // el yield tiene q mostrar 
+        // SI PASAMOS UNA CATEGORIA:
+        //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
+        if (product == undefined) {
+            for (const siguiente of this.categories()) {
+                if (siguiente.value.title == category.title) {
+                    yield siguiente.value.title;
+                }
+            }
+
+        } else {
+
+            // el yield tiene q mostrar 
+            //SI PASAMOS UN PRODUCTO:
+            // devolvera todos el stock de ese producto en esa tienda en concreto
+
+            let cuentacategoria = 0;
+            if (product instanceof Product) {
+                for (const siguiente of this.categories()) {
+                    if (siguiente.value.title == category.title) {
+                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                        this.#categories[cuentacategoria].products;
+                    }
+                    cuentacategoria += 1;
+                }
+
+            }
+        }
+        
     }
 
     removeShop(shop) {
@@ -466,7 +548,8 @@ export class StoreHouse {
 
                 for (let [key] of this.#stores[cuentatienda].warehouse) {
 
-                    guardar = this.#stores[cuentatienda].warehouse.get(key.serialNumber);
+                    // guardar = this.#stores[cuentatienda].warehouse.get(key.serialNumber);
+                    guardar = this.#stores[cuentatienda].warehouse.get(key.name);
                     // recojo el valor del producto de la tienda base
                     //total = guardar + this.#stores[0].warehouse.get(key.serialNumber);
 
@@ -486,3 +569,23 @@ export class StoreHouse {
     }
 
 }
+
+const SingletonStoreHouse = (function () {
+    var instance;
+
+    function createInstance(name) {
+        var classObj = new StoreHouse(name);
+        return classObj;
+    }
+
+    return {
+        getInstance: function (name) {
+            if (!instance) {
+                instance = createInstance(name);
+            }
+            return instance;
+        }
+    }
+})();
+
+export default SingletonStoreHouse;

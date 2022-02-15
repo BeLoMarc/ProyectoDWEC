@@ -1,5 +1,5 @@
 'use strict'
-import { StoreHouse } from "./StoreHouse.js";
+import SingletonStoreHouse from "./StoreHouse.js";
 import { Product } from "./classProduct.js";
 import { Category } from "./classCategory.js";
 import { Coords } from "./classCoords.js";
@@ -24,9 +24,9 @@ function test() {
   let nisu = new Laptop("33333", "msi", "ordenador", 1000, "21%", "sasas", "nisu", "Muy buena", "17A", "keyboard fino");
   //CASCOS
   //serialNumber, name, description, price, tax, images,model, microphone = "none", frequency
-  let cascos1 = new Headset("21111", "superCascos", "azules", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
-  let cascos2 = new Headset("22222", "superCascos", "verdes", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
-  let cascos3 = new Headset("23333", "superCascos", "rojos", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
+  let cascos1 = new Headset("21111", "superCascos1", "azules", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
+  let cascos2 = new Headset("22222", "superCascos2", "verdes", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
+  let cascos3 = new Headset("23333", "superCascos3", "rojos", "100", "30%", "aaaaaaaa", "bbbbbbb", "si tiene micro", "80GHZ");
   //TELEFONOS
   //serialNumber, name, description, price, tax, images,battery, screen, OS
   let xiaomi = new Phone("31111", "xiaomi", "bbbbbbbbbbb", "12432", "42%", "blob", "13A", "pequeña", "ANDROid");
@@ -41,7 +41,7 @@ function test() {
   // a la hora de hacer el test me he econtrado con el problema de que los productos aparecen en la tienda
   // antes de añadirlos
 
-  let almacen = new StoreHouse("Almacen");
+  let almacen = SingletonStoreHouse.getInstance("Almacen");
   console.log(almacen.name);
   almacen.addCategory(p);
   almacen.addCategory(c);
@@ -133,6 +133,28 @@ function test() {
   try {
     console.log("instancio un producto");
     almacen.addQuantityProductInShop(asus, TabernaHumeante, 200);
+  } catch (error) {
+    console.error(error.message)
+  }
+
+
+  try {
+    console.log("PRUEBA DEL GENERADOR")
+    almacen.addProduct(cascos1, c);
+    almacen.addProduct(cascos2, c);
+    almacen.addProduct(cascos3, c);
+    almacen.addProductInShop(cascos1, TabernaHumeante, 100);
+    almacen.addProductInShop(cascos2, TabernaHumeante, 100);
+    almacen.addProductInShop(cascos3, TabernaHumeante, 100);
+
+    for (const siguiente of almacen.ShopProducts(TabernaHumeante, cascos1)) {
+      console.log(siguiente.next);
+    }
+    
+    for (const siguiente of almacen.ShopProducts(TabernaHumeante)) {
+      console.log(siguiente.next);
+    }
+
   } catch (error) {
     console.error(error.message)
   }
