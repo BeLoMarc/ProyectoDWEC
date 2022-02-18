@@ -1,0 +1,467 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+img {
+  width: 100%;
+}
+
+body {
+  background-color: rgb(129, 86, 86);
+  background-size: 250px;
+  display: grid;
+  grid-template-areas:"header header"
+                      "nav nav" 
+                      "main aside" 
+                      "tags tags" 
+                      "form form" 
+                      "book book" 
+                      "new new" 
+                      "footer footer";
+}
+
+#categoria {
+  grid-template-areas: "header header" "nav nav" "title title" "main aside" "footer footer";
+}
+
+.header {
+  background: rgb(20,4,4);
+  background: linear-gradient(90deg, rgba(20,4,4,1) 5%, rgba(157,29,36,1) 100%);
+  background-size: cover;
+  grid-area: header;
+  height: calc(20px + 12vw);
+  text-align: left;
+  vertical-align: sub;
+}
+
+.header__logo {
+  padding: 2%;
+  width: 30%;
+  height: auto;
+}
+
+.nav {
+  border-top: 2px solid rgba(255, 255, 255);
+  display: flex;
+  
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.3em;
+  grid-area: nav;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+
+.nav.no-sticky {
+  position: static;
+}
+
+.nav__index__img {
+  padding: 10px 5px;
+  width: calc(10px + 4vw);
+}
+
+.nav__options {
+  background-color: var(--ctl-bg);
+  border-bottom-right-radius: 20px;
+  font-size: calc(0.5em + 1vw);
+  display: none;
+  width: max-content;
+  position: r;
+}
+
+.nav__options__link {
+  color: white;
+  display: block;
+  padding: 10px 50px 10px 15px;
+  text-decoration: none;
+}
+
+.nav__category {
+  padding: 16px 0px;
+  width: max-content;
+}
+
+.nav__category__link {
+  color: white;
+  text-decoration: none;
+}
+
+.nav__category__link__span {
+  font-size: calc(0.5em + 1vw);
+  padding: 16px 20px;
+}
+
+.nav__index:hover,
+.nav__category:hover {
+  background-color: #1111113b;
+  transition: 0.5s;
+}
+
+.nav__index:active,
+.nav__category:active {
+  background-color: #5a0000;
+}
+
+.nav__index:hover .nav__options {
+  display: block;
+}
+
+.nav__options__link:hover {
+  background-color: #1111113b;
+  transition: background-color 50ms;
+}
+
+.nav__options__link:active {
+  background-color: #00000083;
+}
+
+.nav__options__link.last:hover {
+  background-color: #0000003a;
+  border-bottom-right-radius: 20px;
+}
+
+.nav__options__link.last:active {
+  background-color: #00000083;
+  border-bottom-right-radius: 20px;
+}
+
+.main {
+  align-content: start;
+ /** background-color: var(--ctl-bgdiv);*/
+  border-radius: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-self: end;
+  max-width: 1200px;
+  margin: 10px 5px 10px 10px;
+  padding: 20px 10px;
+}
+
+.main__book {
+  box-shadow: 0.125em 0.125em 0.125em gray, 0.75em 0.75em 0.75em rgba(0, 0, 0, 0.2), 2em 2em 5em rgba(0, 0, 0, 0.3);
+  height: 750px;
+  margin: 20px;
+  overflow: hidden;
+  padding-top: 180px;
+  position: relative;
+  width: 500px;
+  flex-basis: 50%;
+  align-items: flex-start;
+}
+
+.main__book__link {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 3;
+}
+
+.main__book__cover {
+  background: #ccc;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.main__book__cover img {
+  height: auto;
+  width: 100%;
+}
+
+.main__book__description {
+  background-color: rgba(255, 255, 255, 0.4);
+  bottom: 0;
+  position: absolute;
+  max-height: 30px;
+  min-height: 30px;
+  width: 100%;
+}
+
+.main__book__description__title {
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 6px;
+}
+
+.main__book__description__title__box {
+  margin: auto;
+  width: fit-content;
+  max-width: 200px;
+}
+
+.main__book__description__title__box__name {
+  display: inline-block;
+  margin: 0px 20px;
+  text-align: center;
+}
+
+.main__book__description__title__box__underline {
+  background-color: rgb(0, 0, 0);
+  border-radius: 5px;
+  height: 5px;
+}
+
+.main__book__description__tags {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 0.75em;
+  font-weight: bold;
+  justify-content: center;
+  max-height: 55px;
+  padding: 5px;
+  position: relative;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.main__book__description__tags__link {
+  background-color: gainsboro;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  color: black;
+  margin: 2px;
+  padding: 2px 5px;
+  text-decoration: none;
+}
+
+.finish,
+.no-finish,
+.sketchy,
+.plus {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.finish {
+    background-color: springgreen;
+}
+
+.no-finish {
+    background-color: orange;
+}
+
+.sketchy {
+    background-color: deepskyblue;
+}
+
+.plus {
+    background-color: darkgray;
+}
+
+.main__book__description__author {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Sarabun", sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 5px 0px;
+  opacity: 0;
+  padding: 0px 10px;
+}
+
+.main__book__description__author__label {
+  margin-right: 5px;
+}
+
+.main__book__description__synopsis {
+  font-family: "Times New Roman", Times, serif;
+  opacity: 0;
+  padding: 0px 10px 10px;
+  text-align: justify;
+}
+
+.main__book__description__synopsis__label {
+  font-weight: bold;
+}
+
+.main__book:hover {
+  box-shadow: 0.125em 0.125em 0.125em rgb(243, 3, 3), 0.75em 0.75em 0.75em rgb(138, 21, 21), 1em 1em 3em rgba(48, 8, 8, 0.5);
+}
+
+.main__book:hover .main__book__description {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding-top: 10px;
+  max-height: 375px;
+}
+
+.main__book,
+.main__book:hover {
+  transition: box-shadow 250ms;
+}
+
+.main__book:hover .main__book__description,
+.main__book:hover .main__book__description__tags,
+.main__book:hover .main__book__description__author,
+.main__book:hover .main__book__description__synopsis {
+  opacity: 1;
+  transition: 1500ms;
+}
+
+.main__book__description,
+.main__book__description__tags,
+.main__book__description__author,
+.main__book__description__synopsis {
+  transition: 1750ms;
+}
+
+@supports (object-fit: cover) {
+  .main__book__cover img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+  }
+}
+
+.aside {
+  grid-area: aside;
+  justify-self: start;
+  margin: 10px 10px 10px 5px;
+  max-width: 450px;
+}
+
+.aside__event {
+  color: lightgrey;
+  background-color: rgba(54, 54, 54, 0.8);
+  border-radius: 20px;
+  display: flex;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.aside__event--publicidad{
+  border-radius: 20px;
+  display: flex;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.aside__event__figure--publicidad {
+  width: 100%;
+}
+
+
+.aside__event__figure {
+  width: 40%;
+}
+
+.aside__event__description {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding-left: 5px;
+  width: 60%;
+}
+
+.aside__event__description__time {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.aside__event__description__text {
+  font-size: 1.1em;
+}
+
+@supports (object-fit: cover) {
+  .aside__event__figure img {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+  }
+}
+
+.footer {
+
+  color: white;
+  background: rgb(20,4,4);
+  background: linear-gradient(90deg, rgba(20,4,4,1) 5%, rgba(157,29,36,1) 100%);
+  display: grid;
+  grid-template-areas:"datos autor socialMedia"
+            ;
+
+/**  display: flex;*/
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: calc(0.5em + 1vw);
+  grid-area: footer;
+  height: 1 rem;/* unidad del contenedor relativa a la fuente*/
+  margin-top: 10px;
+  padding: 30px 20px 5px;
+}
+
+.footer p,
+.footer dt {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.footer__direction {
+  /*flex-basis: 35%;*/
+  grid-area:datos;
+}
+
+.footer__direction p,
+.footer dt {
+  color: rgb(161, 82, 16);
+}
+
+.footer__direction span,
+.footer dd {
+  color: rgb(233, 186, 116);
+}
+
+.footer__cc {
+  grid-area:autor;
+  /*flex-basis: 40%;*/
+  text-align: center;
+}
+
+.footer__cc a {
+  color: var(--ctl-bg);
+}
+
+.footer__cc a:hover {
+  color: orangered;
+}
+
+.footer__social {
+  align-self: center;
+  grid-auto-flow:row ;
+  grid-area: socialMedia;
+  margin: 5px;
+  text-align: right;
+}
+
+.footer__social a {
+  position: relative;
+  text-decoration: none;
+  top: -20px;
+}
+
+.footer__social img {
+  width: 20%;
+}
+.footer__social__figure {
+  width: 20%;
+  
+}
+/*-------------------------------------ESTILO DE CARTAS-------------------------------*/
+.card-title{
+  color:#e98e48;
+}
+
+
+.card-body{
+  margin: 10px;
+}
