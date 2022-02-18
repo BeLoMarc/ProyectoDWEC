@@ -8,7 +8,7 @@
 Como métodos tendrá los getter y setter habituales para cada propiedad.
 
  **/
-import {EmptyValueException,InvalidValueException} from "./Excepciones.js";
+import {EmptyValueException,InvalidValueException,InvalidAccessConstructorException} from "./Excepciones.js";
 export class Product {
     #serialNumber;// solo get
     #name;// set y get
@@ -20,7 +20,7 @@ export class Product {
     //los compos obligatorios les doy como valor undefined
     constructor(serialNumber, name, description, price, tax, images) {
         if (new.target === Product) {
-            throw new InvalidAccessConstructorException;
+            throw new InvalidAccessConstructorException("classProduct",23);
         }
         if (!serialNumber) {
             throw new InvalidValueException("serialNumber",serialNumber,25);

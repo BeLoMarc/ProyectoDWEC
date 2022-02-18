@@ -102,7 +102,7 @@ class StoreHouse {
             },
             Last: function () {
                 return {
-                    value: categories[categories.lenght]
+                    value: categories[categories.length]
                 }
             }
 
@@ -143,7 +143,7 @@ class StoreHouse {
             },
             Last: function () {
                 return {
-                    value: shops[shops.lenght]
+                    value: shops[shops.length]
                 }
             }
 
