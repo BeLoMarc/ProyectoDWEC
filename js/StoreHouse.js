@@ -80,7 +80,7 @@ class StoreHouse {
                     next: function () {
                         if (nextIndex < categories.length) {
                             return {
-                                value: categories[nextIndex++],
+                                value: categories[nextIndex++].category,
                                 done: false
                             }
                         } else {
@@ -121,7 +121,7 @@ class StoreHouse {
                     next: function () {
                         if (nextIndex < shops.length) {
                             return {
-                                value: shops[nextIndex++],
+                                value: shops[nextIndex++].shop,
                                 done: false
                             }
                         } else {
@@ -314,7 +314,10 @@ class StoreHouse {
 
         });
 
-        this.#stores.push(shop);
+        this.#stores.push({
+            shop: shop,
+            warehouse: new Map()
+        });
         return this.#stores.length;
     }
 
@@ -427,8 +430,8 @@ class StoreHouse {
         // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
         return this.#stores[cuentatienda].warehouse.get(product.name);
     }
-
-    *  getShopProducts(shop, product) {
+    // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
+    *  getShopProducts(shop, product, type = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
 
         if (!(shop instanceof Store)) {
@@ -437,10 +440,21 @@ class StoreHouse {
 
         }
 
+
+
+
+        // cada vez q se itere me devuelve el yields 
+        for (const product of this.#products) {
+            if (product instanceof type) {
+                yield product
+            }
+        }
+
+
         // el yield tiene q mostrar 
         // SI PASAMOS UNA TIENDA:
-        //no tiene que decir todos los productos y el stock de estos en esa tienda concreta
-        if (product == undefined) {
+        //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
+        if ((product instanceof Product)) {
             for (const siguiente of this.shops()) {
                 if (siguiente.value.CIF == shop.CIF)
                     yield siguiente.value.CIF;
@@ -471,14 +485,14 @@ class StoreHouse {
     }
 
 
-// MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
-   * getCategoryProducts(category, product) {
+    // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
+    * getCategoryProducts(category, product) {
         /**Devuelve la relación de todos los productos
         añadidos en una categoría con sus
         cantidades en stock. Si pasamos un tipo de
         producto, el resultado estará filtrado por
         ese tipo */
-        
+
         if (!(category instanceof Category)) {
 
             throw new InvalidValueException("Category", "StoreHouse", 486);
@@ -513,7 +527,7 @@ class StoreHouse {
 
             }
         }
-        
+
     }
 
     removeShop(shop) {

@@ -30,7 +30,7 @@ export class Coords {
         return this.#longitude = newLongitude;
     }
     toString() {
-        console.log("La longitud de la tiensa es: " + this.#longitude + " y la latitud " + this.#latitude)
+        return("La longitud de la tiensa es: " + this.#longitude + " y la latitud " + this.#latitude);
     }
     //Los metodos aqui
 }

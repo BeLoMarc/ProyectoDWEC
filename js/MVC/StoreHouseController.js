@@ -1,11 +1,11 @@
 'use strict'
-export class StoreHouseController {
+ class StoreHouseController {
     //campos privados
     #modelStoreHouse;
     #viewStoreHouse;
     constructor(modelStoreHouse, viewStoreHouse) {
-        this.modelStoreHouse = this.#modelStoreHouse;
-        this.viewStoreHouse = this.#viewStoreHouse;
+        this.#modelStoreHouse =modelStoreHouse;
+        this.#viewStoreHouse =viewStoreHouse;
         //esto llama al on init de abajo que llama al init de storehouseview
         // que es el que carga el html
         this.onInit();
@@ -21,3 +21,5 @@ export class StoreHouseController {
 
 
 }
+
+export default StoreHouseController;

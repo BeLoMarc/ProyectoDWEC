@@ -1,5 +1,5 @@
 'use strict'
-export class StoreHouseViewView {
+class StoreHouseView {
     constructor() {
 
         this.main=$('main');
@@ -146,9 +146,12 @@ init(){
 
 `)
 }
-
+// aqui las funciones
 
 
 
     
 }
+
+
+export default StoreHouseView;

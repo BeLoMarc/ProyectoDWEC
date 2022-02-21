@@ -1,5 +1,5 @@
 import StoreHouseController from './StoreHouseController.js';
-import StoreHouseModel from './StoreHouseModel.js';
+//import StoreHouseModel from './StoreHouseModel.js';
 import StoreHouseView from './StoreHouseView.js';
 
 $(function(){

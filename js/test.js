@@ -49,8 +49,8 @@ function test() {
   almacen.addShop(TabernaHumeante);
   almacen.addShop(PonyPisador);
   // nos enseña las categorias
-  for (const iterator of almacen.categories) {
-    console.log(iterator);
+  for (const categoria of almacen.categories) {
+    console.log(categoria);
   }
   // nos enseña las tiendas
   for (const iterator of almacen.shops) {

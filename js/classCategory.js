@@ -26,7 +26,7 @@ export class Category {
         this.#title = newTitle;
     }
     toString() {
-        console.log("El titulo de la categoria es: " + this.#title + " y su descripcion: " + this.#description);
+       return ("El titulo de la categoria es: " + this.#title + " y su descripcion: " + this.#description);
     }
     
 
