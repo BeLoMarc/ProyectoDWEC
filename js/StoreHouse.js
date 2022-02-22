@@ -52,8 +52,9 @@ class StoreHouse {
         //CIF, name,address,phone,coords
         this.#baseShop = new Store("0000", "tienda base", "direccion base", "telefono base", this.#baseCoords);
         this.#baseCategory = new Category("categoria base", "descripcion de la categoria por defecto");
-        //addShop(this.#baseShop); creo que tengo que hacer esto para poder usar la tienda base
-        //addCategory(this.#baseCategory);
+
+
+
 
     }
 
@@ -150,6 +151,107 @@ class StoreHouse {
 
         };
     }
+    
+    // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
+    *  getShopProducts(shop, product, type = Object) {
+    // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
+
+    if (!(shop instanceof Store)) {
+
+        throw new InvalidValueException("shop", "StoreHouse", 436);
+
+    }
+
+
+
+
+    // cada vez q se itere me devuelve el yields 
+    /*for (const product of this.#products) {
+        if (product instanceof type) {
+            yield product
+        }
+    }*/
+
+
+    // el yield tiene q mostrar 
+    // SI PASAMOS UNA TIENDA:
+    //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
+    if ((product instanceof Product)) {
+        for (const siguiente of this.shops()) {
+            if (siguiente.value.CIF == shop.CIF)
+                yield siguiente.value.CIF;
+        }
+
+    } else {
+
+        // el yield tiene q mostrar 
+        //SI PASAMOS UN PRODUCTO:
+        // devolvera todos el stock de ese producto en esa tienda en concreto
+
+        let cuentatienda = 0;
+        if (product instanceof Product) {
+            for (const siguiente of this.shops()) {
+                if (siguiente.value.CIF == shop.CIF) {
+                    //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                    this.#stores[cuentatienda].warehouse.get(product.name);
+                }
+                cuentatienda += 1;
+            }
+
+        }
+    }
+
+
+
+
+}
+
+
+// MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
+* getCategoryProducts(category, product) {
+    /**Devuelve la relación de todos los productos
+    añadidos en una categoría con sus
+    cantidades en stock. Si pasamos un tipo de
+    producto, el resultado estará filtrado por
+    ese tipo */
+
+    if (!(category instanceof Category)) {
+
+        throw new InvalidValueException("Category", "StoreHouse", 486);
+
+    }
+
+    // el yield tiene q mostrar 
+    // SI PASAMOS UNA CATEGORIA:
+    //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
+    if (product == undefined) {
+        for (const siguiente of this.categories()) {
+            if (siguiente.value.title == category.title) {
+                yield siguiente.value.title;
+            }
+        }
+
+    } else {
+
+        // el yield tiene q mostrar 
+        //SI PASAMOS UN PRODUCTO:
+        // devolvera todos el stock de ese producto en esa tienda en concreto
+
+        let cuentacategoria = 0;
+        if (product instanceof Product) {
+            for (const siguiente of this.categories()) {
+                if (siguiente.value.title == category.title) {
+                    //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                    this.#categories[cuentacategoria].products;
+                }
+                cuentacategoria += 1;
+            }
+
+        }
+    }
+
+}
+
     addCategory(category) {
 
         if (category == null) {
@@ -167,7 +269,7 @@ class StoreHouse {
 
             this.#categories.push({
                 category: category,
-                products: []
+                products: []// aqui van los nombres de los productos
             })
         }
         return this.#categories.length;
@@ -219,20 +321,148 @@ class StoreHouse {
             throw new InvalidValueException("Product", "StoreHouse", 194);
         }
         let cont = 0;
+
         this.#categories.forEach(element => {
 
             if (element.category.title == Category.title) {
-                this.#categories[cont].products.push(
-
+                this.#categories[cont].products.push({
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
-                    { ProductId: Product.serialNumber }
+                    //{ ProductId: Product.serialNumber }
+                    product: Product,
+                    shops: []
 
-                );
+                });
             } else {
                 cont = cont + 1;
             }
         });
         return this.#categories.length;
+    }
+
+    addShop(shop) {
+        if (!(shop instanceof Store)) {
+            throw new InvalidValueException("shop", "StoreHouse", 240);
+        }
+        if (!(shop)) {
+            throw new EmptyValueException("shop", "StoreHouse", 243);
+        }
+        this.#stores.forEach(element => {
+            if (element.CIF == shop.CIF) {
+                throw new InvalidValueException("shop", "StoreHouse", 247);
+            }
+
+        });
+
+        this.#stores.push({
+            shop: shop,
+            warehouse: []
+        });
+        return this.#stores.length;
+    }
+
+    addProductInShop(product, shop, number) {
+        let cuentatienda = 0;
+        //  let guardar = 0;
+        //  let total = 0;
+        let cont = 0;
+        let flag = false;
+        for (const element of this.#categories) {
+            if (flag === false) {
+                if (element.products[cont] == product.name) {
+                    flag == true;
+                } else {
+                    cont = cont + 1;
+                }
+            } else {
+                throw new InvalidValueException("product", "StoreHouse", 320);
+            }
+        }
+        let comprueba = (this.#stores.findIndex(function (elem) {
+            return elem.shop.CIF == shop.CIF
+        }));
+        if (comprueba == -1) {
+
+            throw new InvalidValueException("shop", "StoreHouse", 318);
+
+        }
+
+        //busco en el array de tiendas la posicion de la tienda que la lleva ademas cuentatienda
+        this.#stores.forEach(element => {
+            if (element.shop.CIF == shop.CIF) {
+
+                //guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+
+                // total = guardar + number;
+
+                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, number);
+                //this.#stores[cuentatienda].warehouse.set(product.name, number);
+                this.#stores[cuentatienda].warehouse.push({
+                    product: product.name,
+                    stock: number
+                });
+            }
+            else {
+                cuentatienda = cuentatienda + 1;
+            }
+        });
+        return this.#stores[cuentatienda].warehouse.size;
+    }
+    addQuantityProductInShop(product, shop, number) {
+
+        if (number < 0) {
+            throw new InvalidValueException("number", "StoreHouse", 351);
+        }
+
+
+
+        let cont = 0;
+        let flag = false;
+        this.#categories.forEach(element => {
+            if (flag == false) {
+                if (element.products[cont].ProductId == product.serialNumber) {
+                    flag == true;
+                    cont = cont + 1;
+                } else {
+                    cont = cont + 1;
+                }
+            } else {
+                throw new InvalidValueException("product", "StoreHouse", 320);
+            }
+
+        });
+
+
+
+
+        let comprueba = (this.#stores.findIndex(function (elem) {
+            return elem.CIF == shop.CIF
+        }));
+        if (comprueba == -1) {
+
+            throw new InvalidValueException("shop", "StoreHouse", 367);
+        }
+
+
+
+        let cuentatienda = 0;
+        let guardar = 0;
+        let total = 0;
+        this.#stores.forEach(element => {
+            if (element.CIF == shop.CIF) {
+
+                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
+                total = guardar + number;
+
+                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, total);
+                this.#stores[cuentatienda].warehouse.set(product.name, total);
+            }
+            else {
+                cuentatienda = cuentatienda + 1;
+            }
+        });
+        // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+        return this.#stores[cuentatienda].warehouse.get(product.name);
     }
 
     removeProduct(product) {
@@ -300,236 +530,6 @@ class StoreHouse {
 
     }
 
-    addShop(shop) {
-        if (!(shop instanceof Store)) {
-            throw new InvalidValueException("shop", "StoreHouse", 240);
-        }
-        if (!(shop)) {
-            throw new EmptyValueException("shop", "StoreHouse", 243);
-        }
-        this.#stores.forEach(element => {
-            if (element.CIF == shop.CIF) {
-                throw new InvalidValueException("shop", "StoreHouse", 247);
-            }
-
-        });
-
-        this.#stores.push({
-            shop: shop,
-            warehouse: new Map()
-        });
-        return this.#stores.length;
-    }
-
-    addProductInShop(product, shop, number) {
-        let cuentatienda = 0;
-        //  let guardar = 0;
-        //  let total = 0;
-        let cont = 0;
-        let flag = false;
-        this.#categories.forEach(element => {
-            if (flag == false) {
-                if (element.products[cont].ProductId == product.serialNumber) {
-                    flag == true;
-                } else {
-                    cont = cont + 1;
-                }
-            } else {
-                throw new InvalidValueException("product", "StoreHouse", 320);
-            }
-
-        });
-
-
-
-
-
-        //   if (!(this.#stores.includes(shop.CIF))) {
-        //      throw new InvalidValueException("shop", "StoreHouse", 304);
-        // }
-        let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.CIF == shop.CIF
-        }));
-        if (comprueba == -1) {
-
-            throw new InvalidValueException("shop", "StoreHouse", 318);
-
-        }
-
-        //busco en el array de tiendas la posicion de la tienda que la lleva ademas cuentatienda
-        this.#stores.forEach(element => {
-            if (element.CIF == shop.CIF) {
-
-                //guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-
-                // total = guardar + number;
-
-                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, number);
-                this.#stores[cuentatienda].warehouse.set(product.name, number);
-            }
-            else {
-                cuentatienda = cuentatienda + 1;
-            }
-        });
-        return this.#stores[cuentatienda].warehouse.size;
-    }
-    addQuantityProductInShop(product, shop, number) {
-
-        if (number < 0) {
-            throw new InvalidValueException("number", "StoreHouse", 351);
-        }
-
-
-
-        let cont = 0;
-        let flag = false;
-        this.#categories.forEach(element => {
-            if (flag == false) {
-                if (element.products[cont].ProductId == product.serialNumber) {
-                    flag == true;
-                    cont = cont + 1;
-                } else {
-                    cont = cont + 1;
-                }
-            } else {
-                throw new InvalidValueException("product", "StoreHouse", 320);
-            }
-
-        });
-
-
-
-
-        let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.CIF == shop.CIF
-        }));
-        if (comprueba == -1) {
-
-            throw new InvalidValueException("shop", "StoreHouse", 367);
-        }
-
-
-
-        let cuentatienda = 0;
-        let guardar = 0;
-        let total = 0;
-        this.#stores.forEach(element => {
-            if (element.CIF == shop.CIF) {
-
-                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
-                total = guardar + number;
-
-                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, total);
-                this.#stores[cuentatienda].warehouse.set(product.name, total);
-            }
-            else {
-                cuentatienda = cuentatienda + 1;
-            }
-        });
-        // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-        return this.#stores[cuentatienda].warehouse.get(product.name);
-    }
-    // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
-    *  getShopProducts(shop, product, type = Object) {
-        // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
-
-        if (!(shop instanceof Store)) {
-
-            throw new InvalidValueException("shop", "StoreHouse", 436);
-
-        }
-
-
-
-
-        // cada vez q se itere me devuelve el yields 
-        for (const product of this.#products) {
-            if (product instanceof type) {
-                yield product
-            }
-        }
-
-
-        // el yield tiene q mostrar 
-        // SI PASAMOS UNA TIENDA:
-        //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
-        if ((product instanceof Product)) {
-            for (const siguiente of this.shops()) {
-                if (siguiente.value.CIF == shop.CIF)
-                    yield siguiente.value.CIF;
-            }
-
-        } else {
-
-            // el yield tiene q mostrar 
-            //SI PASAMOS UN PRODUCTO:
-            // devolvera todos el stock de ese producto en esa tienda en concreto
-
-            let cuentatienda = 0;
-            if (product instanceof Product) {
-                for (const siguiente of this.shops()) {
-                    if (siguiente.value.CIF == shop.CIF) {
-                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                        this.#stores[cuentatienda].warehouse.get(product.name);
-                    }
-                    cuentatienda += 1;
-                }
-
-            }
-        }
-
-
-
-
-    }
-
-
-    // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
-    * getCategoryProducts(category, product) {
-        /**Devuelve la relación de todos los productos
-        añadidos en una categoría con sus
-        cantidades en stock. Si pasamos un tipo de
-        producto, el resultado estará filtrado por
-        ese tipo */
-
-        if (!(category instanceof Category)) {
-
-            throw new InvalidValueException("Category", "StoreHouse", 486);
-
-        }
-
-        // el yield tiene q mostrar 
-        // SI PASAMOS UNA CATEGORIA:
-        //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
-        if (product == undefined) {
-            for (const siguiente of this.categories()) {
-                if (siguiente.value.title == category.title) {
-                    yield siguiente.value.title;
-                }
-            }
-
-        } else {
-
-            // el yield tiene q mostrar 
-            //SI PASAMOS UN PRODUCTO:
-            // devolvera todos el stock de ese producto en esa tienda en concreto
-
-            let cuentacategoria = 0;
-            if (product instanceof Product) {
-                for (const siguiente of this.categories()) {
-                    if (siguiente.value.title == category.title) {
-                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                        this.#categories[cuentacategoria].products;
-                    }
-                    cuentacategoria += 1;
-                }
-
-            }
-        }
-
-    }
-
     removeShop(shop) {
         if (!(shop instanceof Store)) {
             throw new InvalidValueException("shop", "StoreHouse", 402);
@@ -538,7 +538,7 @@ class StoreHouse {
             throw new EmptyValueException("shop", "StoreHouse", 405);
         }
         let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.CIF == shop.CIF
+            return elem.shop.CIF == shop.CIF
         }));
         if (comprueba == -1) {
 
@@ -550,37 +550,26 @@ class StoreHouse {
         //   let total = 0;
         let cuentatienda = 0;// esta variable me dice la posicion de la tienda en el array
 
-
-
-        this.#stores.forEach(element => {
-
-            if (element.CIF == shop.CIF) {
-
-                // creo q el valor no me hace falta, pero para cogerlo en la cajita de la key habria que añadir ,value
-                //aqui lo que hagi es que conforme voy leyendo el mapa de la tienda a borrar,
-                //voy añadiendo dichos productos a la tienda base comprobando si ademas estos ya existian para añadir la suma total;
-
-                for (let [key] of this.#stores[cuentatienda].warehouse) {
-
-                    // guardar = this.#stores[cuentatienda].warehouse.get(key.serialNumber);
-                    guardar = this.#stores[cuentatienda].warehouse.get(key.name);
-                    // recojo el valor del producto de la tienda base
-                    //total = guardar + this.#stores[0].warehouse.get(key.serialNumber);
-
-                    //  this.#stores[0].warehouse.set(key, guardar);
-                    this.#baseShop.warehouse.set(key, guardar);
-                }
-
-            }
-            else {
-                cuentatienda = cuentatienda + 1;
-            }
+        let index = this.#stores.findIndex((elem) => {
+            return elem.store.CIF === shop.CIF
         });
+        this.#stores[index].warehouse.forEach((elem) => {
+            this.#categories.forEach((categoria) => {
+                categoria.products.forEach((product) => {
+                    if (product.serialNumber === elem.serialNumber) {
+
+                    }
+                })
+            })
+        })
+
+
 
         this.#stores.splice(cuentatienda, 1);
         return this.#stores.length;
 
     }
+
 
 }
 

@@ -27,10 +27,7 @@ export class Store {
             this.#address=address;
             this.#phone=phone;
             this.#coords=coords
-            // para ayudar a la gestion del stock de la tienda he añadido este mapa
-            // tomara como clave los Nombres de los productos y como valor las cantidades de estos
-            // cada tienda tendra el suyo propio para tener cierta independencia entre estas
-            this.#warehouse=new Map();
+            
     }
     //Los metodos aqui
     get name() {
