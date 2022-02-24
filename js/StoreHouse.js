@@ -1,3 +1,4 @@
+'use strict'
 /**
     Objeto StoreHouse
     Este objeto mantendrá el estado del almacén, donde debemos relacionar los productos que
@@ -52,15 +53,14 @@ class StoreHouse {
         //CIF, name,address,phone,coords
         this.#baseShop = new Store("0000", "tienda base", "direccion base", "telefono base", this.#baseCoords);
         this.#baseCategory = new Category("categoria base", "descripcion de la categoria por defecto");
-
-
-
-
+        this.addShop(this.#baseShop);
+        this.addCategory(this.#baseCategory);
     }
 
     get name() {
         return this.#name;
     }
+
     set name(newName) {
         if (!newName) {
             throw new InvalidValueException("newName", "StoreHouse", 59);
@@ -95,7 +95,7 @@ class StoreHouse {
                 };
 
             },
-
+            // se que no se usan pero tampoco lo vas a leer xd
             First: function () {
                 return {
                     value: categories[0]
@@ -151,106 +151,124 @@ class StoreHouse {
 
         };
     }
-    
+
     // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
-    *  getShopProducts(shop, product, type = Object) {
-    // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
+    *getShopProducts(shop, product, type = Object) {
+        // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
 
-    if (!(shop instanceof Store)) {
+        if (!(shop instanceof Store)) {
 
-        throw new InvalidValueException("shop", "StoreHouse", 436);
+            throw new InvalidValueException("shop", "StoreHouse", 436);
 
-    }
-
-
-
-
-    // cada vez q se itere me devuelve el yields 
-    /*for (const product of this.#products) {
-        if (product instanceof type) {
-            yield product
-        }
-    }*/
-
-
-    // el yield tiene q mostrar 
-    // SI PASAMOS UNA TIENDA:
-    //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
-    if ((product instanceof Product)) {
-        for (const siguiente of this.shops()) {
-            if (siguiente.value.CIF == shop.CIF)
-                yield siguiente.value.CIF;
         }
 
-    } else {
 
-        // el yield tiene q mostrar 
-        //SI PASAMOS UN PRODUCTO:
-        // devolvera todos el stock de ese producto en esa tienda en concreto
 
-        let cuentatienda = 0;
-        if (product instanceof Product) {
-            for (const siguiente of this.shops()) {
-                if (siguiente.value.CIF == shop.CIF) {
-                    //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                    this.#stores[cuentatienda].warehouse.get(product.name);
+
+        // cada vez q se itere me devuelve el yields 
+        /*for (const product of this.#products) {
+            if (product instanceof type) {
+                yield product
+            }
+        }*/
+        /**
+     * 
+        CATEGORIES[    CATEGORY:CATEGORIA
+                    PRODUCTS[
+                        PRODUCT: PRODUCT
+                        SHOPS[CIF DE LA TIENDA]
+                    ]]
+        */
+        for (const categoria of this.#categories) {
+            for (const producto of categoria.product) {
+                if (producto.name == product.name) {
+                    yield producto.name;
                 }
-                cuentatienda += 1;
-            }
-
-        }
-    }
-
-
-
-
-}
-
-
-// MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
-* getCategoryProducts(category, product) {
-    /**Devuelve la relación de todos los productos
-    añadidos en una categoría con sus
-    cantidades en stock. Si pasamos un tipo de
-    producto, el resultado estará filtrado por
-    ese tipo */
-
-    if (!(category instanceof Category)) {
-
-        throw new InvalidValueException("Category", "StoreHouse", 486);
-
-    }
-
-    // el yield tiene q mostrar 
-    // SI PASAMOS UNA CATEGORIA:
-    //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
-    if (product == undefined) {
-        for (const siguiente of this.categories()) {
-            if (siguiente.value.title == category.title) {
-                yield siguiente.value.title;
             }
         }
 
-    } else {
+
+
+
 
         // el yield tiene q mostrar 
-        //SI PASAMOS UN PRODUCTO:
-        // devolvera todos el stock de ese producto en esa tienda en concreto
+        // SI PASAMOS UNA TIENDA:
+        //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
+        if ((product instanceof Product)) {
+            for (const siguiente of this.shops()) {
+                if (siguiente.value.CIF == shop.CIF)
+                    yield siguiente.value.CIF;
+            }
 
-        let cuentacategoria = 0;
-        if (product instanceof Product) {
+        } else {
+
+            // el yield tiene q mostrar 
+            //SI PASAMOS UN PRODUCTO:
+            // devolvera todos el stock de ese producto en esa tienda en concreto
+
+            let cuentatienda = 0;
+            if (product instanceof Product) {
+                for (const siguiente of this.shops()) {
+                    if (siguiente.value.CIF == shop.CIF) {
+                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                        this.#stores[cuentatienda].warehouse.get(product.name);
+                    }
+                    cuentatienda += 1;
+                }
+
+            }
+        }
+
+
+
+
+    }
+
+
+    // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
+    * getCategoryProducts(category, product) {
+        /**Devuelve la relación de todos los productos
+        añadidos en una categoría con sus
+        cantidades en stock. Si pasamos un tipo de
+        producto, el resultado estará filtrado por
+        ese tipo */
+
+        if (!(category instanceof Category)) {
+
+            throw new InvalidValueException("Category", "StoreHouse", 486);
+
+        }
+
+        // el yield tiene q mostrar 
+        // SI PASAMOS UNA CATEGORIA:
+        //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
+        if (product == undefined) {
             for (const siguiente of this.categories()) {
                 if (siguiente.value.title == category.title) {
-                    //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                    this.#categories[cuentacategoria].products;
+                    yield siguiente.value.title;
                 }
-                cuentacategoria += 1;
             }
 
-        }
-    }
+        } else {
 
-}
+            // el yield tiene q mostrar 
+            //SI PASAMOS UN PRODUCTO:
+            // devolvera todos el stock de ese producto en esa tienda en concreto
+
+            let cuentacategoria = 0;
+            if (product instanceof Product) {
+                for (const siguiente of this.categories()) {
+                    if (siguiente.value.title == category.title) {
+                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
+                        this.#categories[cuentacategoria].products;
+                    }
+                    cuentacategoria += 1;
+                }
+
+            }
+        }
+
+    }
 
     addCategory(category) {
 
@@ -274,47 +292,14 @@ class StoreHouse {
         }
         return this.#categories.length;
     }
-
-    removeCategory(category) {
-        if (category == null) {
-            throw new InvalidValueException("category", "StoreHouse", 171);
-        }
-
-        // guardo la posicion de la categoria que vamos a eliminar del array this.#categories
-        let posicion = this.#categories.findIndex(function (elem) { return elem.category.title == category.title });
-
-        // si no encontramos esa categoria salta el error
-        // en caso de que si este recorro el array de productos de esa categoría y los voy añadiendo a la tienda por defecto si no los tenia registrados ya
-        //dandoles un valor de 0
-        if (posicion == -1) {
-            throw new InvalidValueException("category", "StoreHouse", 180);
-        } else {
-            for (let i = 0; i < this.#categories[posicion].products.lenght; i++) {
-                if (!(this.#baseCategory.product.includes(this.#categories[posicion].products[i].ProductId))) {
-
-                    this.#baseCategory.product.push(this.#categories[posicion].products[i].ProductId);
-                }
-
-            }
-
-        }
-
-        this.#categories.splice(posicion, 1);
-
-        //variable conde guardamos nuestro this.#categories
-        /**this.#categories.forEach(element => {
-
-            if (element.category == category) {
-                this.#categories.splice(cont, 1);
-            } else {
-                cont = cont + 1;
-            }
-
-        });*/
-        return this.#categories.length;
-
-    }
-
+    /**
+     * 
+     CATEGORIES[    CATEGORY:CATEGORIA
+                     PRODUCTS[
+                         PRODUCT: PRODUCT
+                         SHOPS[CIF DE LA TIENDA]
+                     ]]
+     */
     //añade un nuevo producto asociado a una o mas categorias
     addProduct(Product, Category) {
         if (Product == null) {
@@ -329,7 +314,7 @@ class StoreHouse {
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
                     //{ ProductId: Product.serialNumber }
                     product: Product,
-                    shops: []
+                    shops: [] //Aqui van los ciffs de las tiendas a las que perteneces los productos
 
                 });
             } else {
@@ -338,7 +323,14 @@ class StoreHouse {
         });
         return this.#categories.length;
     }
-
+    /**
+     * 
+     stores[         SHOP:SHOP  
+                     WAREHOUSE[
+                         PRODUCT: PRODUCT
+                         STOCK[CANTIDAD EN TIENDA]
+                     ]]
+     */
     addShop(shop) {
         if (!(shop instanceof Store)) {
             throw new InvalidValueException("shop", "StoreHouse", 240);
@@ -359,110 +351,117 @@ class StoreHouse {
         });
         return this.#stores.length;
     }
+    /**
+     * 
+     CATEGORIES[    CATEGORY:CATEGORIA
+                    PRODUCTS[
+                         PRODUCT: PRODUCT
+                         SHOPS[CIF DE LA TIENDA]
+                    ]
+                ]
 
+    stores      [   SHOP:SHOP  
+                    WAREHOUSE{
+                         PRODUCT: PRODUCT
+                         STOCK:CANTIDAD EN TIENDA
+                     }
+                ]
+     */
     addProductInShop(product, shop, number) {
-        let cuentatienda = 0;
-        //  let guardar = 0;
-        //  let total = 0;
-        let cont = 0;
-        let flag = false;
-        for (const element of this.#categories) {
-            if (flag === false) {
-                if (element.products[cont] == product.name) {
-                    flag == true;
-                } else {
-                    cont = cont + 1;
-                }
-            } else {
-                throw new InvalidValueException("product", "StoreHouse", 320);
-            }
-        }
-        let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.shop.CIF == shop.CIF
+
+        // esto me mira si existe la tienda
+        let posiciontienda = (this.#stores.findIndex(function (tienda) {
+            return tienda.shop.CIF == shop.CIF
         }));
-        if (comprueba == -1) {
-
+        if (posiciontienda == -1) {
             throw new InvalidValueException("shop", "StoreHouse", 318);
-
         }
 
-        //busco en el array de tiendas la posicion de la tienda que la lleva ademas cuentatienda
-        this.#stores.forEach(element => {
-            if (element.shop.CIF == shop.CIF) {
+        // Esto me busca si existe el producto
+        let posicionProducto;
+        posicionProducto = this.#stores[posiciontienda].warehouse.findIndex(function (producto) {
+            return producto.product.name == product.name;
+        })
 
-                //guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
 
-                // total = guardar + number;
+        if (!(posicionProducto == -1)) {
 
-                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, number);
-                //this.#stores[cuentatienda].warehouse.set(product.name, number);
-                this.#stores[cuentatienda].warehouse.push({
-                    product: product.name,
-                    stock: number
-                });
-            }
-            else {
-                cuentatienda = cuentatienda + 1;
-            }
+            throw new InvalidValueException("product", "StoreHouse", 318);
+        }
+
+        this.#stores[posiciontienda].warehouse.push({
+            product: product,
+            stock: number
         });
-        return this.#stores[cuentatienda].warehouse.size;
+
+        return this.#stores[posiciontienda].warehouse.lenght;
+
     }
     addQuantityProductInShop(product, shop, number) {
-
+        // el numero es positivo
         if (number < 0) {
             throw new InvalidValueException("number", "StoreHouse", 351);
         }
 
-
-
-        let cont = 0;
-        let flag = false;
-        this.#categories.forEach(element => {
-            if (flag == false) {
-                if (element.products[cont].ProductId == product.serialNumber) {
-                    flag == true;
-                    cont = cont + 1;
-                } else {
-                    cont = cont + 1;
-                }
-            } else {
-                throw new InvalidValueException("product", "StoreHouse", 320);
-            }
-
-        });
-
-
-
-
-        let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.CIF == shop.CIF
+        // esto me mira si existe la tienda
+        let posiciontienda = (this.#stores.findIndex(function (tienda) {
+            return tienda.shop.CIF == shop.CIF
         }));
-        if (comprueba == -1) {
 
-            throw new InvalidValueException("shop", "StoreHouse", 367);
+        if (posiciontienda == -1) {
+            throw new InvalidValueException("shop", "StoreHouse", 318);
         }
 
+        // de esta forma saco la posicion del producto
+        let posicionProducto;
+        posicionProducto = this.#stores[posiciontienda].warehouse.findIndex(function (producto) {
+            return producto.product.name == product.name;
+        })
+
+        let ValorAnterior = this.#stores[posiciontienda].warehouse[posicionProducto].stock;
+        let total = number + ValorAnterior;
+        this.#stores[posiciontienda].warehouse[posicionProducto].stock = total;
+        return this.#stores[posiciontienda].warehouse[posicionProducto].stock;
+        /** 
+          CATEGORIES[    CATEGORY:CATEGORIA
+                         PRODUCTS[
+                              PRODUCT: PRODUCT
+                              SHOPS[CIF DE LA TIENDA]
+                         ]
+                     ]
+     
+         stores      [   SHOP:SHOP  
+                         WAREHOUSE{
+                              PRODUCT: PRODUCT
+                              STOCK:CANTIDAD EN TIENDA
+                          }
+                     ]
+          */
+        // // Esto me busca si existe el producto
+        // console.log(this.#stores)
+
+        // let posicionProducto = (this.#stores.forEach(function (tiendas) {
+        //     console.log(1)
+        //     return tiendas.warehouse.findIndex(function (producto) {
+
+        //         return producto.product.name == product.name;
+        //     })
+        // }));
+        // console.log(posicionProducto)
+
+        // if (posicionProducto == -1) {
+
+        //     throw new InvalidValueException("product", "StoreHouse", 318);
+        // }
+
+        // let guardar = 0;// esta variable me almacena el anterior valor del stock de dicho producto
+        // guardar = this.#stores[posiciontienda].warehouse.stock;
+
+        // this.#stores[posiciontienda].warehouse.splice(posiciontienda, 1);
 
 
-        let cuentatienda = 0;
-        let guardar = 0;
-        let total = 0;
-        this.#stores.forEach(element => {
-            if (element.CIF == shop.CIF) {
-
-                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
-                total = guardar + number;
-
-                //this.#stores[cuentatienda].warehouse.set(product.serialNumber, total);
-                this.#stores[cuentatienda].warehouse.set(product.name, total);
-            }
-            else {
-                cuentatienda = cuentatienda + 1;
-            }
-        });
-        // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-        return this.#stores[cuentatienda].warehouse.get(product.name);
+        // // return this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+        // return this.#stores[posiciontienda].warehouse[posicionProducto].product.name;
     }
 
     removeProduct(product) {
@@ -476,57 +475,178 @@ class StoreHouse {
 
         //this.#categories[numerodecategoria].products[numeroproducto].ProductoId;
 
-        let cont = 0;
-        let flag = false;
-        this.#categories.forEach(element => {
-            if (flag == false) {
-                if (element.products[cont].ProductId == product.serialNumber) {
-                    flag == true;
-                } else {
-                    cont = cont + 1;
-                }
-            } else {
-                throw new InvalidValueException("product", "StoreHouse", 320);
-            }
+        // let cont = 0;
+        // let flag = false;
+        // this.#categories.forEach(element => {
+        //     if (flag == false) {
+        //         if (element.products[cont].ProductId == product.serialNumber) {
+        //             flag == true;
+        //         } else {
+        //             cont = cont + 1;
+        //         }
+        //     } else {
+        //         throw new InvalidValueException("product", "StoreHouse", 320);
+        //     }
 
+        // });
+        let ExisteProductoEnCategoria = false;
+        let ExisteProductoEnTienda = false;
+
+        this.#stores.forEach(tienda => {
+            tienda.warehouse.forEach(element => {
+                if (element.product.name == product.name) {
+                    ExisteProductoEnTienda = true;
+                }
+            });
         });
 
-        let cuentatienda = 0;
-        let guardar = 0;// variable q nos ayuda a contar la cantidad de productos eliminados
-        let total = 0;// variable donde almacenamos todos los productos eliminados
-        this.#stores.forEach(element => {
-            // if (element.warehouse.has(product.serialNumber)) {
-            if (element.warehouse.has(product.name)) {
-                // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
-                guardar = this.#stores[cuentatienda].warehouse.get(product.name);
-
-
-                //this.#stores[cuentatienda].warehouse.delete(product.serialNumber);
-                this.#stores[cuentatienda].warehouse.delete(product.name);
-                this.#stores[cuentatienda].warehouse.size;
-                cuentatienda = cuentatienda + 1;
-            } else {
-                cuentatienda = cuentatienda + 1;
-            }
-            total = total + guardar;
+        this.#categories.forEach(categoria => {
+            categoria.products.forEach(producto => {
+                if (producto.product.name == product.name) {
+                    ExisteProductoEnCategoria = true;
+                }
+            });
         });
-        //asi borramos dicho producto de todas las categorias del array categorias
-        let cuentacategoria = 0;
-        this.#categories.forEach(elementCat => {
-            let posicionProducto = 0;
-            elementCat.products.forEach(elementProd => {
-                if (elementProd.ProductId == product.serialNumber) {
-                    this.#categories[cuentacategoria].products;
-                    this.#categories[cuentacategoria].products.splice(posicionProducto, 1)
-                    this.#categories[cuentacategoria].products.lenght;
+
+        if (!(ExisteProductoEnCategoria) || !(ExisteProductoEnTienda)) {
+            throw new InvalidValueException("product", "StoreHouse", 320);
+        }
+
+        this.#categories.forEach(categoria => {
+            let i = 0;
+            categoria.products.forEach((producto, index) => {
+
+                if (producto.product.name == product.name) {
+                    i = index;
                 }
-                else {
-                    posicionProducto += 1;
-                }
+
             })
-            cuentacategoria = cuentacategoria + 1;
+            categoria.products.splice(i, 1);
         });
-        return "se han eliminado " + total + " productos con numero de serie " + product.serialNumber
+
+
+        this.#stores.forEach(tienda => {
+            let i = 0;
+            tienda.warehouse.forEach((element, index) => {
+                if (element.product.name == product.name) {
+                    i = index;
+                }
+            });
+            tienda.warehouse.splice(i, 1);
+
+        });
+
+        /** 
+            CATEGORIES[    CATEGORY:CATEGORIA
+                           PRODUCTS[
+                                PRODUCT: PRODUCT
+                                SHOPS[CIF DE LA TIENDA]
+                           ]
+                       ]
+       
+           stores      [   SHOP:SHOP  
+                           WAREHOUSE{
+                                PRODUCT: PRODUCT
+                                STOCK:CANTIDAD EN TIENDA
+                            }
+                       ]
+            */
+
+        // let cuentatienda = 0;
+        // let guardar = 0;// variable q nos ayuda a contar la cantidad de productos eliminados
+        // let total = 0;// variable donde almacenamos todos los productos eliminados
+        // this.#stores.forEach(element => {
+        //     // if (element.warehouse.has(product.serialNumber)) {
+        //     if (element.warehouse.has(product.name)) {
+        //         // guardar = this.#stores[cuentatienda].warehouse.get(product.serialNumber);
+        //         guardar = this.#stores[cuentatienda].warehouse.get(product.name);
+
+
+        //         //this.#stores[cuentatienda].warehouse.delete(product.serialNumber);
+        //         this.#stores[cuentatienda].warehouse.delete(product.name);
+        //         this.#stores[cuentatienda].warehouse.size;
+        //         cuentatienda = cuentatienda + 1;
+        //     } else {
+        //         cuentatienda = cuentatienda + 1;
+        //     }
+        //     total = total + guardar;
+        // });
+        // //asi borramos dicho producto de todas las categorias del array categorias
+        // let cuentacategoria = 0;
+        // this.#categories.forEach(elementCat => {
+        //     let posicionProducto = 0;
+        //     elementCat.products.forEach(elementProd => {
+        //         if (elementProd.ProductId == product.serialNumber) {
+        //             this.#categories[cuentacategoria].products;
+        //             this.#categories[cuentacategoria].products.splice(posicionProducto, 1)
+        //             this.#categories[cuentacategoria].products.lenght;
+        //         }
+        //         else {
+        //             posicionProducto += 1;
+        //         }
+        //     })
+        //     cuentacategoria = cuentacategoria + 1;
+        // });
+        // return "se han eliminado " + total + " productos con numero de serie " + product.serialNumber
+
+    }
+
+    removeCategory(category) {
+        if (category == null) {
+            throw new InvalidValueException("category", "StoreHouse", 171);
+        }
+
+        // guardo la posicion de la categoria que vamos a eliminar del array this.#categories
+        let posicion = this.#categories.findIndex(function (elem) { return elem.category.title == category.title });
+
+        // si no encontramos esa categoria salta el error
+        // en caso de que si este recorro el array de productos de esa categoría y los voy añadiendo a la tienda por defecto si no los tenia registrados ya
+        //dandoles un valor de 0
+        if (posicion == -1) {
+            throw new InvalidValueException("category", "StoreHouse", 180);
+        }
+        // for (let i = 0; i < this.#categories[posicion].products.lenght; i++) {
+        //     if (!(this.#baseCategory.product.includes(this.#categories[posicion].products[i].ProductId))) {
+
+        //         this.#baseCategory.product.push(this.#categories[posicion].products[i].ProductId);
+        //     }
+
+        // }
+
+        this.#categories[posicion].products.forEach(element => {
+            // si no lo contiene, pushea el producto en la categoria base
+            if (!(this.#categories[0].products.includes(element.product.name))) {
+                this.#categories[0].products.push({
+                    // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
+                    product: element.product,
+                    shops: [] //Aqui van los ciffs de las tiendas a las que perteneces los productos
+
+                });
+            }
+
+        });
+
+        /** 
+            CATEGORIES[    CATEGORY:CATEGORIA
+                           PRODUCTS[
+                                PRODUCT: PRODUCT
+                                SHOPS[CIF DE LA TIENDA]
+                           ]
+                       ]
+       
+           stores      [   SHOP:SHOP  
+                           WAREHOUSE{
+                                PRODUCT: PRODUCT
+                                STOCK:CANTIDAD EN TIENDA
+                            }
+                       ]
+            */
+
+
+        this.#categories.splice(posicion, 1);
+
+
+        return this.#categories.length;
 
     }
 
@@ -545,28 +665,66 @@ class StoreHouse {
             throw new InvalidValueException("shop", "StoreHouse", 412);
 
         }
+        /**
+           * 
+           CATEGORIES[    CATEGORY:CATEGORIA
+                          PRODUCTS[
+                               PRODUCT: PRODUCT
+                               SHOPS[CIF DE LA TIENDA]
+                          ]
+                      ]
+      
+          stores      [   SHOP:SHOP  
+                          WAREHOUSE{
+                               PRODUCT: PRODUCT
+                               STOCK:CANTIDAD EN TIENDA
+                           }
+                      ]
+           */
 
-        let guardar = 0;
-        //   let total = 0;
-        let cuentatienda = 0;// esta variable me dice la posicion de la tienda en el array
-
-        let index = this.#stores.findIndex((elem) => {
-            return elem.store.CIF === shop.CIF
+        let tiendaPosicion = this.#stores.findIndex(function (buscar) {
+            return buscar.shop.CIF == shop.CIF
         });
-        this.#stores[index].warehouse.forEach((elem) => {
-            this.#categories.forEach((categoria) => {
-                categoria.products.forEach((product) => {
-                    if (product.serialNumber === elem.serialNumber) {
+        // esta variable me va a recorrer todos los productos y sus stocks
+        this.#stores[tiendaPosicion].warehouse.forEach(element => {
+            // si no lo contiene, pushea el producto en la categoria base
+            if (!(this.#stores[0].warehouse.includes(element.product.name))) {
+                this.#categories[0].products.push({
+                    // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
+                    product: element.product,
+                    stock: element.stock //Aqui van los ciffs de las tiendas a las que perteneces los productos
 
-                    }
-                })
-            })
-        })
+                });
+            }
+        });
+
+        this.#stores.splice(tiendaPosicion, 1);
 
 
-
-        this.#stores.splice(cuentatienda, 1);
         return this.#stores.length;
+
+        // let guardar = 0;
+        // //   let total = 0;
+        // let cuentatienda = 0;// esta variable me dice la posicion de la tienda en el array
+
+        // let index = this.#stores.findIndex((elem) => {
+        //     return elem.shop.CIF === shop.CIF
+        // });
+
+        // this.#stores[index].warehouse.forEach((elem) => {
+        //     this.#categories.forEach((categoria) => {
+        //         categoria.products.forEach((product) => {
+        //             if (product.serialNumber === elem.serialNumber) {
+
+        //             }
+        //         })
+        //     })
+        // })
+
+
+
+        // this.#stores.splice(cuentatienda, 1);
+        // return this.#stores.length;
 
     }
 
