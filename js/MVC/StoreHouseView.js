@@ -1,23 +1,18 @@
 'use strict'
 class StoreHouseView {
     constructor() {
-
-        this.main=$('main');
+        this.main = $('main');
+        this.categories = $('#categories');
+        this.menu = $('.navbar-nav'); 
     }
 
-init(){
-    this.main.empty();
-    this.main.append(`
-    
 
-`)
 }
 // aqui las funciones
 
 
 
     
-}
 
 
 export default StoreHouseView;
