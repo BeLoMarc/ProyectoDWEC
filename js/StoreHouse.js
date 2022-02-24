@@ -153,7 +153,7 @@ class StoreHouse {
     }
 
     // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
-    *getShopProducts(shop, product, type = Object) {
+    *getShopProducts(shop, type = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
 
         if (!(shop instanceof Store)) {
@@ -161,9 +161,23 @@ class StoreHouse {
             throw new InvalidValueException("shop", "StoreHouse", 436);
 
         }
-
-
-
+        /**
+         * el primer bucle me saca las tiendas del array de tiendas
+         * cojo todos los productos de esa tienda
+         * y los devuelvo con su stock
+         */
+        for (const tienda of this.#stores) {
+            if (tienda.shop.CIF == shop.CIF) {
+                for (const almacen of tienda.warehouse) {
+                    if (almacen.product instanceof type) {
+                        yield {
+                            producto: almacen.product,
+                            stock: almacen.stock
+                        }
+                    }
+                }
+            }
+        }
 
         // cada vez q se itere me devuelve el yields 
         /*for (const product of this.#products) {
@@ -172,61 +186,23 @@ class StoreHouse {
             }
         }*/
         /**
-     * 
+     * stores[       SHOP:SHOP  
+                     WAREHOUSE[
+                         PRODUCT: PRODUCT
+                         STOCK[CANTIDAD EN TIENDA]
+                     ]]
+
         CATEGORIES[    CATEGORY:CATEGORIA
                     PRODUCTS[
                         PRODUCT: PRODUCT
                         SHOPS[CIF DE LA TIENDA]
                     ]]
         */
-        for (const categoria of this.#categories) {
-            for (const producto of categoria.product) {
-                if (producto.name == product.name) {
-                    yield producto.name;
-                }
-            }
-        }
-
-
-
-
-
-        // el yield tiene q mostrar 
-        // SI PASAMOS UNA TIENDA:
-        //nos tiene que decir todos los productos y el stock de estos en esa tienda concreta
-        if ((product instanceof Product)) {
-            for (const siguiente of this.shops()) {
-                if (siguiente.value.CIF == shop.CIF)
-                    yield siguiente.value.CIF;
-            }
-
-        } else {
-
-            // el yield tiene q mostrar 
-            //SI PASAMOS UN PRODUCTO:
-            // devolvera todos el stock de ese producto en esa tienda en concreto
-
-            let cuentatienda = 0;
-            if (product instanceof Product) {
-                for (const siguiente of this.shops()) {
-                    if (siguiente.value.CIF == shop.CIF) {
-                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                        this.#stores[cuentatienda].warehouse.get(product.name);
-                    }
-                    cuentatienda += 1;
-                }
-
-            }
-        }
-
-
-
-
     }
 
 
     // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
-    * getCategoryProducts(category, product) {
+    * getCategoryProducts(category, type = Object) {
         /**Devuelve la relación de todos los productos
         añadidos en una categoría con sus
         cantidades en stock. Si pasamos un tipo de
@@ -238,35 +214,53 @@ class StoreHouse {
             throw new InvalidValueException("Category", "StoreHouse", 486);
 
         }
+        /* 
+        CATEGORIES[    CATEGORY:CATEGORIA
+                    PRODUCTS[
+                        PRODUCT: PRODUCT
+                        SHOPS[CIF DE LA TIENDA]
+                    ]]
 
-        // el yield tiene q mostrar 
-        // SI PASAMOS UNA CATEGORIA:
-        //no tiene que decir todos los productos y el stock de estos en esa CATEGORIA concreta y su stock
-        if (product == undefined) {
-            for (const siguiente of this.categories()) {
-                if (siguiente.value.title == category.title) {
-                    yield siguiente.value.title;
-                }
-            }
+        STORES[       SHOP:SHOP  
+                     WAREHOUSE[
+                         PRODUCT: PRODUCT
+                         STOCK[CANTIDAD EN TIENDA]
+                     ]]
+        */
+       //recorro el array de categorias con el forof
+       // avanzo si la categoria del array corresponde con la categoria introducida
+       //dentro busco los productos de esa categoria
+       //entonces al tener esos productos donde ademas guardo los cifs de sus tiendas
+       // recorro el array de tiendas para buscar esos productos y así sacar su stock
+        for (const categoria of this.#categories) {
+            if ((categoria.title === category.title) && (categoria.description === category.description)) {
+                for (const producto of categoria.products) {
+                    if (producto.product instanceof type) {
 
-        } else {
-
-            // el yield tiene q mostrar 
-            //SI PASAMOS UN PRODUCTO:
-            // devolvera todos el stock de ese producto en esa tienda en concreto
-
-            let cuentacategoria = 0;
-            if (product instanceof Product) {
-                for (const siguiente of this.categories()) {
-                    if (siguiente.value.title == category.title) {
-                        //  this.#stores[cuentatienda].warehouse.get(product.ID);
-                        this.#categories[cuentacategoria].products;
+                        for (const tienda of this.#stores) {
+                            if (tienda.shop.CIF == producto.shop) {
+                                for (const almacen of tienda.warehouse) {
+                                    if (almacen.product instanceof type) {
+                                        yield {
+                                            producto: producto.product,
+                                            stock: almacen.stock
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //Va sacando los productos si esta en la tienda y filtra por el tipo de Producto
+                        // yield {
+                        //     product: producto.product,
+                        //     stock: "ESTOCK"
+                        // };
                     }
-                    cuentacategoria += 1;
-                }
 
+                }
             }
+
         }
+
 
     }
 
@@ -314,7 +308,7 @@ class StoreHouse {
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
                     //{ ProductId: Product.serialNumber }
                     product: Product,
-                    shops: [] //Aqui van los ciffs de las tiendas a las que perteneces los productos
+                    shops: this.#stores[0].CIF //Aqui van los ciffs de las tiendas a las que perteneces los productos
 
                 });
             } else {
@@ -393,7 +387,30 @@ class StoreHouse {
             product: product,
             stock: number
         });
+        this.#categories.forEach(element => {
 
+            element.products.forEach(ele => {
+                if (ele.product.name === product.name) {
+                    ele.shops = shop.CIF
+                }
+            })
+        });
+        /**
+            *
+                CATEGORIES[    CATEGORY:CATEGORIA
+                            PRODUCTS[
+                                 PRODUCT: PRODUCT
+                                 SHOPS[CIF DE LA TIENDA]
+                            ]
+                        ]
+        
+            stores      [   SHOP:SHOP  
+                            WAREHOUSE{
+                                 PRODUCT: PRODUCT
+                                 STOCK:CANTIDAD EN TIENDA
+                             }
+                        ]
+             */
         return this.#stores[posiciontienda].warehouse.lenght;
 
     }
