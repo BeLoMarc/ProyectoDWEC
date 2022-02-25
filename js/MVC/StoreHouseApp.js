@@ -7,3 +7,4 @@ $(function(){
       StoreHouse.getInstance(), new StoreHouseView()
     );
   });
+  

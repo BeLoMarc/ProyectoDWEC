@@ -1,29 +1,25 @@
 'use strict'
 import {Product} from "./classProduct.js"
 import {EmptyValueException} from "./Excepciones.js";
-export class Headset extends Product {
+export class Dados extends Product {
     #model;
-    #microphone;
-    #frequency;
+    #color;
     constructor(serialNumber, name, description, price, tax, images,
-        //model=-->Internos,Pinganillos,De diadema-----> get
-        //micrphone Microauricular,----> get
-        //frequency--> 20 Hz y 20 000 Hz.--->set y get
-        model, microphone = "none", frequency) {
+        //model=-->metalicos,plastico
+        model, color) {
 
         super(serialNumber, name, description, price, tax, images);
         if (!model) {
-            throw new EmptyValueException("model","classHeadset",13);
+            throw new EmptyValueException("model","Dados",13);
         } else {
             this.#model = model;
         }
 
-        if (!frequency) {
-            throw new EmptyValueException("frequency","classheadset",19);
+        if (!color) {
+            throw new EmptyValueException("color","Dados",19);
         } else {
-            this.#frequency = frequency;
+            this.#color = color;
         }
-        this.#microphone = microphone;
     }
     //Los metodos aqui
     get model() {
@@ -32,16 +28,11 @@ export class Headset extends Product {
     set model(newModel) {
         return this.#model = newModel;
     }
-    get microphone() {
-        return this.#microphone;
+    get color() {
+        return this.#color;
     }
-    set microphone(newMicrophone) {
-        return this.#microphone = newMicrophone;
+    set color(newcolor) {
+        return this.#color = newcolor;
     }
-    get frequency() {
-        return this.#frequency;
-    }
-    set frequency(newFrequency) {
-        return this.#frequency = newFrequency;
-    }
+   
 }

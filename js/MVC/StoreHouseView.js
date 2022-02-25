@@ -3,7 +3,7 @@ class StoreHouseView {
     constructor() {
         this.main = $('main');
         this.categories = $('#categories');
-        this.menu = $('.navbar-nav'); 
+        this.menu = $('.navbar-nav');// la clase de mi nav es "nav" 
     }
 
 
