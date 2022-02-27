@@ -12,11 +12,11 @@ export class Manual extends Product {
         cover="none", author, target) {
 
         super(serialNumber, name, description, price, tax, images);
-        if (!cover) {
-            throw new EmptyValueException("cover","Manuales",16);
-        } else {
-            this.#model = model;
-        }
+        // if (!cover) {
+        //     throw new EmptyValueException("cover","Manuales",16);
+        // } else {
+            this.#cover = cover;
+        //}
 
         if (!author) {
             throw new EmptyValueException("size","Manuales",22);

@@ -3,12 +3,13 @@ import { Category } from "../classCategory.js";
 import { Coords } from "../classCoords.js";
 import { Product } from "../classProduct.js";
 import { Store } from "../classStore.js";
-
+import { Laptop } from "../classLaptop.js";
+import { Phone } from "../classPhone.js";
+import { Headset } from "../classHeadset.js";
 import { Pantalla } from "../Pantalla.js";
-import { Dados } from "../Dados";
-import { Manual } from "../Manual";
+import { Dados } from "../Dados.js";
+import { Manual } from "../Manual.js";
 import {
-   BaseException,
    InvalidAccessConstructorException,
    EmptyValueException,
    InvalidValueException,
@@ -19,19 +20,11 @@ class StoreHouseController {
    //Campos Privados
    #StoreHouse;
    #StoreHouseView;
-
-   constructor(model, view) {
-      console.log('Manager Controller');
-      this.#StoreHouse = model;
-      this.#StoreHouseView = view;
-   }
-   /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
-en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
-preposición on en respuesta a los eventos que nos ocurran en el Controlador. Estos eventos los
-tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
-
+   //Aqui cargamos todos los objetos con los que vamos a trabajr oncluyendo
+   //las tiendas y las categorias
    #loadStoreHouseObjects() {
-      // Creamos las categorias
+      let StoreHouse = this.#StoreHouse;
+      // Creamos las categorias                    las descripciones de las categorias creo que son las url de las fotos
       let category1 = new Category("Materiales", "Materiales que sirven para el desarrollo de dnd");
       let category2 = new Category("libros", "libros de reglas ");
       let category3 = new Category("electronica", "material electronico para llevar las campañas a distancia");
@@ -169,44 +162,85 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
          "keyboard fino");
 
       //Añadimos las categorias
-      this.#StoreHouse.addCategory(category1);
-      this.#StoreHouse.addCategory(category2);
-      this.#StoreHouse.addCategory(category3);
+      StoreHouse.addCategory(category1);
+      StoreHouse.addCategory(category2);
+      StoreHouse.addCategory(category3);
       //Añadimos las tiendas
-      this.#StoreHouse.addShop(TabernaHumeante);
-      this.#StoreHouse.addShop(PonyPisador);
-      this.#StoreHouse.addShop(CuernoInsaciable);
+      StoreHouse.addShop(TabernaHumeante);
+      StoreHouse.addShop(PonyPisador);
+      StoreHouse.addShop(CuernoInsaciable);
       //Añadimos productos a categorias
-      this.#StoreHouse.addProduct(d1, category1);
-      this.#StoreHouse.addProduct(d2, category1);
-      this.#StoreHouse.addProduct(d3, category1);
-      this.#StoreHouse.addProduct(p1, category1);
-      this.#StoreHouse.addProduct(p2, category1);
-      this.#StoreHouse.addProduct(p3, category1);
-      this.#StoreHouse.addProduct(m1, category2);
-      this.#StoreHouse.addProduct(m2, category2);
-      this.#StoreHouse.addProduct(m2, category2);
-      this.#StoreHouse.addProduct(msi, category3);
-      this.#StoreHouse.addProduct(asus, category3);
-      this.#StoreHouse.addProduct(nisu, category3);
+      StoreHouse.addProduct(d1, category1);
+      StoreHouse.addProduct(d2, category1);
+      StoreHouse.addProduct(d3, category1);
+      StoreHouse.addProduct(p1, category1);
+      StoreHouse.addProduct(p2, category1);
+      StoreHouse.addProduct(p3, category1);
+      StoreHouse.addProduct(m1, category2);
+      StoreHouse.addProduct(m2, category2);
+      StoreHouse.addProduct(m2, category2);
+      StoreHouse.addProduct(msi, category3);
+      StoreHouse.addProduct(asus, category3);
+      StoreHouse.addProduct(nisu, category3);
       // Añadimos los productos a las tiendas con una cantidad
-      this.#StoreHouse.addProduct(d1, TabernaHumeante, 10);
-      this.#StoreHouse.addProduct(d2, TabernaHumeante, 10);
-      this.#StoreHouse.addProduct(d3, PonyPisador, 10);
-      this.#StoreHouse.addProduct(p1, PonyPisador, 10);
-      this.#StoreHouse.addProduct(p2, TabernaHumeante, 10);
-      this.#StoreHouse.addProduct(p3, PonyPisador, 10);
-      this.#StoreHouse.addProduct(m1, CuernoInsaciable, 10);
-      this.#StoreHouse.addProduct(m2, CuernoInsaciable, 10);
-      this.#StoreHouse.addProduct(m3, CuernoInsaciable, 10);
-      this.#StoreHouse.addProduct(msi, TabernaHumeante, 10);
-      this.#StoreHouse.addProduct(asus, CuernoInsaciable, 10);
-      this.#StoreHouse.addProduct(nisu, PonyPisador, 10);
-      
+      StoreHouse.addProduct(d1, TabernaHumeante, 10);
+      StoreHouse.addProduct(d2, TabernaHumeante, 10);
+      StoreHouse.addProduct(d3, PonyPisador, 10);
+      StoreHouse.addProduct(p1, PonyPisador, 10);
+      StoreHouse.addProduct(p2, TabernaHumeante, 10);
+      StoreHouse.addProduct(p3, PonyPisador, 10);
+      StoreHouse.addProduct(m1, CuernoInsaciable, 10);
+      StoreHouse.addProduct(m2, CuernoInsaciable, 10);
+      StoreHouse.addProduct(m3, CuernoInsaciable, 10);
+      StoreHouse.addProduct(msi, TabernaHumeante, 10);
+      StoreHouse.addProduct(asus, CuernoInsaciable, 10);
+      StoreHouse.addProduct(nisu, PonyPisador, 10);
+
+
    }
 
+   constructor(model, view) {
+      console.log('StoreHouse Controller');
+      this.#StoreHouse = model;
+      this.#StoreHouseView = view;
+      // Eventos iniciales del controlador
+
+      this.onInit();//estos venetos van dirigos al view que se encargara de pintar
+      this.onLoad();// esto nos vale para cargar los productos
+
+      //enlazamos handlers con la vista
+      this.#StoreHouseView.bindInit(this.handleInit);
+      // this.#StoreHouseView.bindShowProducts(this.handleShowProducts);
+   }
+   /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
+en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
+preposición on en respuesta a los eventos que nos ocurran en el Controlador. Estos eventos los
+tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
 
 
+   onLoad = () => {
+      this.#loadStoreHouseObjects();
+      //   this.#StoreHouseView.showProductTypes();
+
+   }
+
+   onInit = () => {
+      this.#StoreHouseView.init();
+   }
+   handleInit = () => {
+      this.onInit();
+   }
+   //  handleShowProducts = () => {
+   //     let data = {
+   //        numProducts: this.#StoreHouse.getNumberProducts(),
+   //        products: this.#StoreHouse.products[Symbol.iterator](),
+   //        quantities: this.#StoreHouse.quantities[Symbol.iterator](),
+   //        totalWithoutTaxes: this.#StoreHouse.getTotalWithoutTaxes(),
+   //        taxes: this.#StoreHouse.getTaxes(),
+   //        total: this.#StoreHouse.getTotal()
+   //     }
+   //     this.#StoreHouseView.ShowProducts(data);
+   //  }
 }
 
 export default StoreHouseController;

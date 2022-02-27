@@ -30,8 +30,8 @@ import { Coords } from "../classCoords.js";
 import { Product } from "../classProduct.js";
 import { Store } from "../classStore.js";
 import {Pantalla} from "../Pantalla.js";
-import {Dados} from "../Dados";
-import {Manual} from "../Manual";
+import {Dados} from "../Dados.js";
+import {Manual} from "../Manual.js";
 import {
     BaseException,
     InvalidAccessConstructorException,
