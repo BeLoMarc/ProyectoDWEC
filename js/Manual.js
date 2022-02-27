@@ -9,7 +9,7 @@ export class Manual extends Product {
         //cover=-->tapa dura o tapa blanda
         //target si va al jugador a los DMs o ambos
         //size tamaño
-        cover, size, target) {
+        cover="none", author, target) {
 
         super(serialNumber, name, description, price, tax, images);
         if (!cover) {
@@ -18,10 +18,10 @@ export class Manual extends Product {
             this.#model = model;
         }
 
-        if (!size) {
+        if (!author) {
             throw new EmptyValueException("size","Manuales",22);
         } else {
-            this.#size = size;
+            this.#size = author;
         }
 
         if (!target) {
