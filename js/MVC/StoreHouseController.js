@@ -227,8 +227,16 @@ class StoreHouseController {
       this.onLoad();// esto nos vale para cargar los productos
 
       //enlazamos handlers con la vista
+      //Este en concreto me pinta las tiendas desde la vista
       this.#StoreHouseView.bindLoadStores(this.handleShowStores);
       // this.#StoreHouseView.bindShowProducts(this.handleShowProducts);
+
+      //Este me pinta el submenu de la categoría
+      //llama al bindloadmenu del view y el handler me remanda al de aqui
+      this.#StoreHouseView.bindLoadSubMenuStores(this.handleLoadSubMenuStores);
+      this.#StoreHouseView.bindLoadSubMenuCategories(this.handleLoadSubMenuCategories);
+      // Estos van a cargar los productos de las tiendas
+      this.#StoreHouseView.bindShowProductStore(this.handleShowProductStore);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
 en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -247,9 +255,32 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapStores = {
          store: this.#StoreHouse.shops,
-
       };
       this.#StoreHouseView.ShowStores(mapStores)
+   }
+
+   handleLoadSubMenuStores = () => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapStores)
+   }
+   handleLoadSubMenuCategories = () => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapCategories = {
+         category: this.#StoreHouse.categories,
+      };
+      this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
+   }
+
+   handleShowProductStore = (shop,product) => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapStores = {
+         store: this.#StoreHouse.getShopProducts(),
+      };
+      this.#StoreHouseView.ShowProductStore(mapStores);
    }
    //onInit = () => {
    //this.#StoreHouseView.init();

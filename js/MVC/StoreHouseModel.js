@@ -29,9 +29,9 @@ import { Category } from "../classCategory.js";
 import { Coords } from "../classCoords.js";
 import { Product } from "../classProduct.js";
 import { Store } from "../classStore.js";
-import {Pantalla} from "../Pantalla.js";
-import {Dados} from "../Dados.js";
-import {Manual} from "../Manual.js";
+import { Pantalla } from "../Pantalla.js";
+import { Dados } from "../Dados.js";
+import { Manual } from "../Manual.js";
 import {
     BaseException,
     InvalidAccessConstructorException,
@@ -172,10 +172,6 @@ class StoreHouseModel {
             throw new InvalidValueException("shop", "StoreHouseModel", 436);
 
         }
-
-
-
-
         // cada vez q se itere me devuelve el yields 
         /*for (const product of this.#products) {
             if (product instanceof type) {
@@ -764,13 +760,13 @@ export default SingletonStoreHouseModel;
 
 
 
-export { Category } ;
+export { Category };
 export { Coords };
 export { Product };
-export { Store } ;
-export {Pantalla}
-export {Dados} ;
-export {Manual} ;
+export { Store };
+export { Pantalla }
+export { Dados };
+export { Manual };
 export {
     BaseException,
     InvalidAccessConstructorException,
