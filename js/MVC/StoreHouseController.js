@@ -33,9 +33,27 @@ class StoreHouseController {
       let coordenada2 = new Coords("00344", "22224");
       let coordenada3 = new Coords("59279", "36401");
       // Creamos las tiendas
-      let TabernaHumeante = new Store("1111", "Taberna Humeante", "bhalkia", "576545678", coordenada1);
-      let PonyPisador = new Store("2222", "Pony Pisador", "Tierra Media", "876548", coordenada2);
-      let CuernoInsaciable = new Store("3333", "Cuerno Insaciable", "Valhalla", "98765", coordenada3);
+      let TabernaHumeante = new Store(
+         "1111",
+         "Taberna Humeante",
+         "bhalkia",
+         "576545678",
+         coordenada1,
+         ["../Multimedia/tienda1.jpg"]);
+      let PonyPisador = new Store(
+         "2222",
+         "Pony Pisador",
+         "Tierra Media",
+         "876548",
+         coordenada2,
+         ["../Multimedia/tienda2.jpg"]);
+      let CuernoInsaciable = new Store(
+         "3333",
+         "Cuerno Insaciable",
+         "Valhalla",
+         "98765",
+         coordenada3,
+         ["../Multimedia/tienda3.jpg"]);
       // Creamos los objetos
       let d1 = new Dados
          ("111111",
@@ -205,11 +223,11 @@ class StoreHouseController {
       this.#StoreHouseView = view;
       // Eventos iniciales del controlador
 
-      this.onInit();//estos venetos van dirigos al view que se encargara de pintar
+      //this.onInit();estos eventos van dirigos al view que se encargara de pintar
       this.onLoad();// esto nos vale para cargar los productos
 
       //enlazamos handlers con la vista
-      this.#StoreHouseView.bindInit(this.handleInit);
+      this.#StoreHouseView.bindLoadStores(this.handleShowStores);
       // this.#StoreHouseView.bindShowProducts(this.handleShowProducts);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
@@ -223,13 +241,22 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
       //   this.#StoreHouseView.showProductTypes();
 
    }
+   // nos va a coger las tiendas
+   // se encargan de manejar los eventos q estan en el modelo
+   handleShowStores = () => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapStores = {
+         store: this.#StoreHouse.shops,
 
-   onInit = () => {
-      this.#StoreHouseView.init();
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
    }
-   handleInit = () => {
-      this.onInit();
-   }
+   //onInit = () => {
+   //this.#StoreHouseView.init();
+   //}
+   // handleInit = () => {
+   //  this.onInit();
+   //}
    //  handleShowProducts = () => {
    //     let data = {
    //        numProducts: this.#StoreHouse.getNumberProducts(),
