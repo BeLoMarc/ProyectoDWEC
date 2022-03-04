@@ -61,10 +61,11 @@ class StoreHouseView {
 
         for (const tienda of mapStores.store) {
             if (!(tienda.name == "tienda base")) {
-                let precargar = mapStores.a(tienda);
+                let precargar = mapStores.generador;
                 for (const store of precargar) {
                     this.main.append(` 
-                        ${store}
+                        ${store.nombre}
+                        ${store.cantidad}
                         `);
                 };
 

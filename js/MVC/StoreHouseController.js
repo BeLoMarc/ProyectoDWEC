@@ -201,18 +201,18 @@ class StoreHouseController {
       StoreHouse.addProduct(asus, category3);
       StoreHouse.addProduct(nisu, category3);
       // Añadimos los productos a las tiendas con una cantidad
-      StoreHouse.addProduct(d1, TabernaHumeante, 10);
-      StoreHouse.addProduct(d2, TabernaHumeante, 10);
-      StoreHouse.addProduct(d3, PonyPisador, 10);
-      StoreHouse.addProduct(p1, PonyPisador, 10);
-      StoreHouse.addProduct(p2, TabernaHumeante, 10);
-      StoreHouse.addProduct(p3, PonyPisador, 10);
-      StoreHouse.addProduct(m1, CuernoInsaciable, 10);
-      StoreHouse.addProduct(m2, CuernoInsaciable, 10);
-      StoreHouse.addProduct(m3, CuernoInsaciable, 10);
-      StoreHouse.addProduct(msi, TabernaHumeante, 10);
-      StoreHouse.addProduct(asus, CuernoInsaciable, 10);
-      StoreHouse.addProduct(nisu, PonyPisador, 10);
+      StoreHouse.addProductInShop(d1, TabernaHumeante, 10);
+      StoreHouse.addProductInShop(d2, TabernaHumeante, 10);
+      StoreHouse.addProductInShop(d3, PonyPisador, 10);
+      StoreHouse.addProductInShop(p1, PonyPisador, 10);
+      StoreHouse.addProductInShop(p2, TabernaHumeante, 10);
+      StoreHouse.addProductInShop(p3, PonyPisador, 10);
+      StoreHouse.addProductInShop(m1, CuernoInsaciable, 10);
+      StoreHouse.addProductInShop(m2, CuernoInsaciable, 10);
+      StoreHouse.addProductInShop(m3, CuernoInsaciable, 10);
+      StoreHouse.addProductInShop(msi, TabernaHumeante, 10);
+      StoreHouse.addProductInShop(asus, CuernoInsaciable, 10);
+      StoreHouse.addProductInShop(nisu, PonyPisador, 10);
 
 
    }
@@ -274,13 +274,13 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
       };
       this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
    }
-// Este parametro es el que se le pasa desde el bind de la vista
+   // Este parametro es el que se le pasa desde el bind de la vista
    handleShowProductStore = (tiendaCiff) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
-      let p = tiendaCiff;
+      let tiendaCIF = tiendaCiff;
       let mapStores = {
          store: this.#StoreHouse.shops,
-         a: this.#StoreHouse.getShopProducts()
+         generador: this.#StoreHouse.getShopProducts(tiendaCIF)
       };
       this.#StoreHouseView.ShowProductStore(mapStores);
    }

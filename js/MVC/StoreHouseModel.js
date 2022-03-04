@@ -167,22 +167,23 @@ class StoreHouseModel {
     *getShopProducts(shop, product = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
 
-        if (!(shop instanceof Store)) {
-            throw new InvalidValueException("shop", "StoreHouseModel", 436);
-        }
+        // if (!(shop instanceof Store)) {
+        //     throw new InvalidValueException("shop", "StoreHouseModel", 436);
+        // }
         // recorro el array de tiendas con un for of
         for (const tienda of this.#stores) {
             // si la tienda de mi array coincide con la tienda introducida por parametro
-            if (tienda.CIF === shop.CIF) {
+            if (tienda.shop.CIF === shop) {
                 //buscamos en los productos de la tienda de mi array
                 for (const productos of tienda.warehouse) {
                     //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
                     //actuando asi como filtro
                     if (productos.product instanceof product) {
-                        yield productos.product.name,
-                            productos.stock;
+                        yield {
+                            nombre: productos.product.name,
+                            cantidad: productos.stock
+                        };
                     }
-
                 }
             }
         }
@@ -229,8 +230,8 @@ class StoreHouseModel {
                     pertenece mi producto
                     */
                     for (const tienda of this.#stores) {
-                     // recorro mi array de tienas
-                     //Si hacen match el ciff de la tienda de mi producto en categorias con el ciff de mi tienda 
+                        // recorro mi array de tienas
+                        //Si hacen match el ciff de la tienda de mi producto en categorias con el ciff de mi tienda 
                         if (productos.shops.CIF === tienda.CIF) {
                             //podremos recorrer esa tienda y sacar su stock
                             for (const productotienda of tienda.warehouse) {
@@ -389,12 +390,15 @@ class StoreHouseModel {
         //Actualizamos El Ciff de ese producto
         let contcat = 0;
         this.#categories.forEach(categoria => {
-            let contprod = 0;
-            for (const productos of categoria) {
-                if (product.name == productos.product.name) {
-                    this.#categories[contcat].products[contprod].shops = shop.CIF;
+            if (!(categoria.category.title == "categoria base")) {
+                let contprod = 0;
+                for (const productos of categoria.products) {
+                    if (product.name == productos.product.name) {
+                        this.#categories[contcat].products[contprod].shops = shop.CIF;
+                    }
+                    contprod += 1;
                 }
-                contprod += 1;
+
             }
             contcat += 1;
         });

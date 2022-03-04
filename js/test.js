@@ -158,5 +158,11 @@ function test() {
   } catch (error) {
     console.error(error.message)
   }
+
+
+
+  for (const iterator of almacen.getShopProducts(TabernaHumeante)) {
+    console.log(iterator);
+  }
 }
 test();
