@@ -274,11 +274,13 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
       };
       this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
    }
-
-   handleShowProductStore = (shop,product) => {
+// Este parametro es el que se le pasa desde el bind de la vista
+   handleShowProductStore = (tiendaCiff) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let p = tiendaCiff;
       let mapStores = {
-         store: this.#StoreHouse.getShopProducts(),
+         store: this.#StoreHouse.shops,
+         a: this.#StoreHouse.getShopProducts()
       };
       this.#StoreHouseView.ShowProductStore(mapStores);
    }
