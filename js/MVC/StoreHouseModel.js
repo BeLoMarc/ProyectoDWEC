@@ -216,37 +216,51 @@ class StoreHouseModel {
             throw new InvalidValueException("Category", "StoreHouseModel", 486);
 
         }
-        for (const tienda of this.#stores) {
-            // si la tienda de mi array coincide con la tienda introducida por parametro
-            if (tienda.CIF === shop.CIF) {
-                //buscamos en los productos de la tienda de mi array
-                for (const productos of tienda.warehouse) {
-                    //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
-                    //actuando asi como filtro
-                    if (productos.product instanceof product) {
-                        yield productos.product.name,
-                            productos.stock;
-                    }
 
+        // recorremos el array de categorias 
+        for (const categoria of this.#categories) {
+            // si la categoria de mi array coincide con la categoria introducida por parametro
+            if (categoria.category.title === category.title) {
+                //testamos en el array de productos de cateogrias
+                for (const productos of categoria.products) {
+                    /*
+                    por cada producto vamos a dar una vuelta a todo lo q hay aqui dentro
+                    asique voy a recorrer por producto el array de tiendas para buscar en mi array de tiendas a q tienda
+                    pertenece mi producto
+                    */
+                    for (const tienda of this.#stores) {
+                     // recorro mi array de tienas
+                     //Si hacen match el ciff de la tienda de mi producto en categorias con el ciff de mi tienda 
+                        if (productos.shops.CIF === tienda.CIF) {
+                            //podremos recorrer esa tienda y sacar su stock
+                            for (const productotienda of tienda.warehouse) {
+                                //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
+                                //actuando asi como filtro
+                                if (productotienda.product instanceof product) {
+                                    yield productos.product.name,
+                                        productotienda.stock;
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
         }
         /*
-               CATEGORIES[    CATEGORY:CATEGORIA
-                               PRODUCTS[
-                                   PRODUCT: PRODUCT
-                                   SHOPS[CIF DE LA TIENDA]
-                               ]
-                           ]
-               STORES[      SHOP:SHOP  
-                            WAREHOUSE[
-                                PRODUCT: PRODUCT
-                                STOCK[CANTIDAD EN TIENDA]
-                            ]
-                       ]
-               */
-
-
+                      CATEGORIES[    CATEGORY:CATEGORIA
+                                      PRODUCTS[
+                                          PRODUCT: PRODUCT
+                                          SHOPS:CIF DE LA TIENDA
+                                      ]
+                                  ]
+                      STORES[      SHOP:SHOP  
+                                   WAREHOUSE[
+                                       PRODUCT: PRODUCT
+                                       STOCK[CANTIDAD EN TIENDA]
+                                   ]
+                              ]
+                      */
     }
 
     addCategory(category) {
@@ -293,7 +307,7 @@ class StoreHouseModel {
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
                     //{ ProductId: Product.serialNumber }
                     product: Product,
-                    shops: 0000 //CIF DE LA TIENDA BASE
+                    shops: "0000" //CIF DE LA TIENDA BASE
 
                 });
             } else {
