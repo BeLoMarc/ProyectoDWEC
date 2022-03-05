@@ -239,8 +239,11 @@ class StoreHouseController {
       this.#StoreHouseView.bindShowProductStore(this.handleShowProductStore);
       //Estos van a cargar los productos de las categorias
       this.#StoreHouseView.bindShowProductCategory(this.handleShowProductCategory);
-   //Esto me va a recargar la pagina
-   this.#StoreHouseView.bindRecargar(this.handleRecargar);
+      //Esto me va a recargar la pagina
+      this.#StoreHouseView.bindRecargar(this.handleRecargar);
+      //Esto me va a mirar los detallles de un producto en particular
+      this.#StoreHouseView.bindShowProduct(this.handleShowProduct);
+
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -297,9 +300,18 @@ class StoreHouseController {
       this.#StoreHouseView.ShowProductCategory(mapCategories);
    }
 
-   handleRecargar=()=>{
+   handleShowProduct = (nombreProducto) => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let recoger = {
+         producto: this.#StoreHouse.getProduct(nombreProducto),
+      };
+
+      this.#StoreHouseView.ShowProduct(recoger)
+   }
+
+   handleRecargar = () => {
       //Esto recarga la pagina y la deja fina 
-    location.reload(true);
+      location.reload(true);
    }
    //onInit = () => {
    //this.#StoreHouseView.init();

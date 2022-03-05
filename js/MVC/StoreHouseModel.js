@@ -199,34 +199,56 @@ class StoreHouseModel {
                 ]
         */
     }
-    *getProduct(product) {
+    //Este product es el nombre
+    getProduct(product) {
+        let valores;
+        for (const categoria of this.#categories) {
+            if (!(categoria.category.title == "categoria base")) {
+                for (const producto of categoria.products) {
+                    if (producto.product.name == product) {
+                        valores = {
+                            imagen: producto.product.images,
+                            nombre: producto.product.name,
+                            descripcion: producto.product.description,
+                            precio: producto.product.price,
+                            IVA: producto.product.tax,
+                            numeroDeSerie: producto.product.serialNumber,
+                            CIF: producto.shops
+                        }
+                    }
+                }
+            }
+
+        }
+        let devolver;
         for (const tienda of this.#stores) {
             // si la tienda de mi array coincide con la tienda introducida por parametro
-            if (tienda.shop.CIF === shop) {
+            if (tienda.shop.CIF === valores.CIF) {
                 //buscamos en los productos de la tienda de mi array
                 for (const productos of tienda.warehouse) {
                     //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
                     //actuando asi como filtro
-                    if (productos.product instanceof product) {
-                        yield {
-                            nombre: productos.product.name,
+                    if (productos.product.name == product) {
+                        devolver = {
+                            imagen: valores.imagen,
+                            nombre: valores.nombre,
+                            descripcion: valores.descripcion,
+                            precio: valores.precio,
+                            IVA: valores.IVA,
+                            numeroDeSerie: valores.numeroDeSerie,
+                            CIF: valores.CIF,
                             cantidad: productos.stock,
-                            imagen: productos.product.images
+                            nombreTienda: tienda.shop.name
                         };
                     }
                 }
             }
         }
+        return devolver;
     }
 
     // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
     * getCategoryProducts(category, product = Object) {
-        /**Devuelve la relación de todos los productos
-        añadidos en una categoría con sus
-        cantidades en stock. Si pasamos un tipo de
-        producto, el resultado estará filtrado por
-        ese tipo */
-
         // if (!(category instanceof Category)) {
 
         //     throw new InvalidValueException("Category", "StoreHouseModel", 486);
