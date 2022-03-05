@@ -247,7 +247,6 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
    onLoad = () => {
       this.#loadStoreHouseObjects();
       //   this.#StoreHouseView.showProductTypes();
-
    }
    // nos va a coger las tiendas
    // se encargan de manejar los eventos q estan en el modelo

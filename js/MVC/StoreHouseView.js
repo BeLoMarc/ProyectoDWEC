@@ -22,7 +22,7 @@ class StoreHouseView {
                     <h5 class="card-title">${store.name}</h5>
                 <!-- pone shop.name porq miro como esta el objeto de la tienda en el modelo -->
                     <p class="card-text">Direccion: ${store.address}</p>
-                    <a href="#" id="tienda${cont}" value="${store.CIF}" class="btn btn-primary">Mostrar Productos</a>
+                    <a href="#" id="tienda${cont}" value="${store.CIF}" class="btn btn-primary botonTienda">Mostrar Productos</a>
                 </div>
                 </div>`);
             }
@@ -36,7 +36,7 @@ class StoreHouseView {
         for (const store of mapStores.store) {
             if (!(store.name == "tienda base")) {
                 this.navStor.append(` 
-                <a id="tienda${cont}" value="${store.CIF}" class="nav__options__link" href="#">${store.name}</a>`);
+                <a id="tienda${cont}" value="${store.CIF}" class="nav__options__link botonTienda" href="#">${store.name}</a>`);
             }
             cont += 1;
         };
@@ -103,18 +103,14 @@ class StoreHouseView {
     //Al no existir previamente no la encuentra, 
     //Espera a q ya exista y añade el evento
     bindShowProductStore(handler) {
+       $("#ShowStores").on("click", ".botonTienda", function () {
+                    //recogemos el valor del boton
+                    let tiendaCIF = $(this).attr("value");
+                    handler(tiendaCIF);
+            });
         $(document).ready(function () {
-            $("#tienda1").click(function () {
-                //recogemos el valor del boton
-                let tiendaCIF = $(this).attr("value");
-                handler(tiendaCIF);
-            });
-            $("#tienda2").click(function () {
-                //recogemos el valor del boton
-                let tiendaCIF = $(this).attr("value");
-                handler(tiendaCIF);
-            });
-            $("#tienda3").click(function () {
+            
+            $(".botonTienda").click(function () {
                 //recogemos el valor del boton
                 let tiendaCIF = $(this).attr("value");
                 handler(tiendaCIF);
