@@ -3,12 +3,10 @@ class StoreHouseView {
     constructor() {
         console.log("StoreHouse VIEW");
         this.main = $('#main');
-
-        // this.menu = $('.navbar-nav');// la clase de mi nav es "nav" 
         this.navCat = $('#Categories');
         this.navStor = $('#Stores');
     }
-    // la data es lo que vamos a mostrar para q sea dinamico
+    
     //este mapStores es el del controller
     ShowStores(mapStores) {
         this.main.empty();

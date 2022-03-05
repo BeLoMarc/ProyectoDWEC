@@ -257,6 +257,8 @@ class StoreHouseController {
    }
    // nos va a coger las tiendas
    // se encargan de manejar los eventos q estan en el modelo
+
+   // me carga las tiendas mediante el iterador del modelo
    handleShowStores = () => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapStores = {
@@ -264,7 +266,8 @@ class StoreHouseController {
       };
       this.#StoreHouseView.ShowStores(mapStores)
    }
-
+   // me carga las tiendas mediante el iterador del modelo del submenu
+   //en la vista controlo que los encuentre porque al generarse despues tratar con ellos da problemas
    handleLoadSubMenuStores = () => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapStores = {
@@ -273,6 +276,8 @@ class StoreHouseController {
 
       this.#StoreHouseView.ShowLoadSubMenuStores(mapStores)
    }
+   // me carga las tiendas mediante el iterador del modelo del submenu
+   //en la vista controlo que los encuentre porque al generarse despues tratar con ellos da problemas
    handleLoadSubMenuCategories = () => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapCategories = {
@@ -281,6 +286,7 @@ class StoreHouseController {
       this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
    }
    // Este parametro es el que se le pasa desde el bind de la vista
+   //tienda Ciff es el Ciff de la tienda y el getShopProducts el generador que necesita el Ciff como parametro
    handleShowProductStore = (tiendaCiff) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let tiendaCIF = tiendaCiff;
@@ -290,7 +296,8 @@ class StoreHouseController {
       };
       this.#StoreHouseView.ShowProductStore(mapStores);
    }
-
+// Este parametro es el que se le pasa desde el bind de la vista
+   //tienda Ciff es el Ciff de la tienda y el getCategoryProducts el generador que necesita el nombre de la categoria como parametro
    handleShowProductCategory = (tituloCategoria) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapCategories = {
@@ -313,23 +320,6 @@ class StoreHouseController {
       //Esto recarga la pagina y la deja fina 
       location.reload(true);
    }
-   //onInit = () => {
-   //this.#StoreHouseView.init();
-   //}
-   // handleInit = () => {
-   //  this.onInit();
-   //}
-   //  handleShowProducts = () => {
-   //     let data = {
-   //        numProducts: this.#StoreHouse.getNumberProducts(),
-   //        products: this.#StoreHouse.products[Symbol.iterator](),
-   //        quantities: this.#StoreHouse.quantities[Symbol.iterator](),
-   //        totalWithoutTaxes: this.#StoreHouse.getTotalWithoutTaxes(),
-   //        taxes: this.#StoreHouse.getTaxes(),
-   //        total: this.#StoreHouse.getTotal()
-   //     }
-   //     this.#StoreHouseView.ShowProducts(data);
-   //  }
 }
 
 export default StoreHouseController;

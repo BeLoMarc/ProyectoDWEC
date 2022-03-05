@@ -201,7 +201,7 @@ class StoreHouseModel {
     }
     //Este product es el nombre
     getProduct(product) {
-        let valores;
+        let valores;//declaro valores y aqui sera donde guarde todos los datos del producto una vez encontrado en categorias
         for (const categoria of this.#categories) {
             if (!(categoria.category.title == "categoria base")) {
                 for (const producto of categoria.products) {
@@ -221,13 +221,13 @@ class StoreHouseModel {
 
         }
         let devolver;
+        //busco en las tiendas este producto para encontrar su stock y uso la variable devovler para añadir los nuevos datos a los anteriores
         for (const tienda of this.#stores) {
             // si la tienda de mi array coincide con la tienda introducida por parametro
             if (tienda.shop.CIF === valores.CIF) {
                 //buscamos en los productos de la tienda de mi array
                 for (const productos of tienda.warehouse) {
-                    //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
-                    //actuando asi como filtro
+                    
                     if (productos.product.name == product) {
                         devolver = {
                             imagen: valores.imagen,
