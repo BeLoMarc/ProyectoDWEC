@@ -61,7 +61,7 @@ class StoreHouseController {
             "set de dados",
             5.34,
             "21%",
-            "IMAGEN",
+            "../Multimedia/Dados.jpg",
             "Plastico",
             "Rosa");
 
@@ -71,7 +71,7 @@ class StoreHouseController {
             "set de dados",
             3.34,
             "21%",
-            "IMAGEN",
+            "../Multimedia/dados2.jpg",
             "Plastico",
             "Negro");
 
@@ -99,7 +99,7 @@ class StoreHouseController {
          "Pantalla Para la campaña de stradh",
          15,
          "21%",
-         "IMAGEN",
+         "../Multimedia/curseOfStrahd.jpg",
          "Fisico",
          "20x35",
          "La Maldicion de Stradh");

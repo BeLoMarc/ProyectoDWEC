@@ -181,7 +181,8 @@ class StoreHouseModel {
                     if (productos.product instanceof product) {
                         yield {
                             nombre: productos.product.name,
-                            cantidad: productos.stock
+                            cantidad: productos.stock,
+                            imagen: productos.product.images
                         };
                     }
                 }
@@ -232,14 +233,17 @@ class StoreHouseModel {
                     for (const tienda of this.#stores) {
                         // recorro mi array de tienas
                         //Si hacen match el ciff de la tienda de mi producto en categorias con el ciff de mi tienda 
-                        if (productos.shops.CIF === tienda.CIF) {
+                        if (productos.shops.CIF === tienda.shop.CIF) {
                             //podremos recorrer esa tienda y sacar su stock
                             for (const productotienda of tienda.warehouse) {
                                 //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
                                 //actuando asi como filtro
                                 if (productotienda.product instanceof product) {
-                                    yield productos.product.name,
-                                        productotienda.stock;
+                                    yield {
+                                        nombreCategoria: categoria.category.title,
+                                        nombre: productos.product.name,
+                                        cantidad: productotienda.stock
+                                    }
                                 }
 
                             }

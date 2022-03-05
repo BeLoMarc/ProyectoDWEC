@@ -63,9 +63,15 @@ class StoreHouseView {
             if (!(tienda.name == "tienda base")) {
                 let precargar = mapStores.generador;
                 for (const store of precargar) {
-                    this.main.append(` 
-                        ${store.nombre}
-                        ${store.cantidad}
+                    this.main.append(`
+                    <div class="card" style="width: 18rem;">
+  <img src="${store.imagen}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">${store.nombre}</h5>
+    <p class="card-text">Cantidad: ${store.cantidad}.</p>
+    <a href="#" class="btn btn-primary">DETALLES DEL PRODUCTO</a>
+  </div>
+</div>
                         `);
                 };
 
@@ -100,12 +106,20 @@ class StoreHouseView {
         $(document).ready(function () {
             $("#tienda1").click(function () {
                 //recogemos el valor del boton
-              let tiendaCIF= $(this).attr("value");
+                let tiendaCIF = $(this).attr("value");
+                handler(tiendaCIF);
+            });
+            $("#tienda2").click(function () {
+                //recogemos el valor del boton
+                let tiendaCIF = $(this).attr("value");
+                handler(tiendaCIF);
+            });
+            $("#tienda3").click(function () {
+                //recogemos el valor del boton
+                let tiendaCIF = $(this).attr("value");
                 handler(tiendaCIF);
             });
         });
-
-
     }
 
     showProductTypes() {
