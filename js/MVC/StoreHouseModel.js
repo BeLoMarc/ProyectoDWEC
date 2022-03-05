@@ -166,10 +166,6 @@ class StoreHouseModel {
     // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
     *getShopProducts(shop, product = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
-
-        // if (!(shop instanceof Store)) {
-        //     throw new InvalidValueException("shop", "StoreHouseModel", 436);
-        // }
         // recorro el array de tiendas con un for of
         for (const tienda of this.#stores) {
             // si la tienda de mi array coincide con la tienda introducida por parametro
@@ -203,7 +199,25 @@ class StoreHouseModel {
                 ]
         */
     }
-
+    *getProduct(product) {
+        for (const tienda of this.#stores) {
+            // si la tienda de mi array coincide con la tienda introducida por parametro
+            if (tienda.shop.CIF === shop) {
+                //buscamos en los productos de la tienda de mi array
+                for (const productos of tienda.warehouse) {
+                    //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
+                    //actuando asi como filtro
+                    if (productos.product instanceof product) {
+                        yield {
+                            nombre: productos.product.name,
+                            cantidad: productos.stock,
+                            imagen: productos.product.images
+                        };
+                    }
+                }
+            }
+        }
+    }
 
     // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
     * getCategoryProducts(category, product = Object) {
@@ -213,16 +227,16 @@ class StoreHouseModel {
         producto, el resultado estará filtrado por
         ese tipo */
 
-        if (!(category instanceof Category)) {
+        // if (!(category instanceof Category)) {
 
-            throw new InvalidValueException("Category", "StoreHouseModel", 486);
+        //     throw new InvalidValueException("Category", "StoreHouseModel", 486);
 
-        }
+        // }
 
         // recorremos el array de categorias 
         for (const categoria of this.#categories) {
             // si la categoria de mi array coincide con la categoria introducida por parametro
-            if (categoria.category.title === category.title) {
+            if (categoria.category.title === category) {
                 //testamos en el array de productos de cateogrias
                 for (const productos of categoria.products) {
                     /*
@@ -233,19 +247,21 @@ class StoreHouseModel {
                     for (const tienda of this.#stores) {
                         // recorro mi array de tienas
                         //Si hacen match el ciff de la tienda de mi producto en categorias con el ciff de mi tienda 
-                        if (productos.shops.CIF === tienda.shop.CIF) {
+                        if (productos.shops === tienda.shop.CIF) {
                             //podremos recorrer esa tienda y sacar su stock
                             for (const productotienda of tienda.warehouse) {
-                                //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
-                                //actuando asi como filtro
-                                if (productotienda.product instanceof product) {
-                                    yield {
-                                        nombreCategoria: categoria.category.title,
-                                        nombre: productos.product.name,
-                                        cantidad: productotienda.stock
+
+                                if (productos.product instanceof product) {
+                                    // arriba seria el filtro, pero me repite los productos el
+                                    // mismo numero de veces qie el numero de tiendas distintas que recorro
+                                    if (productos.product.name == productotienda.product.name) {
+                                        yield {
+                                            imagen: productos.product.imagen,
+                                            nombre: productos.product.name,
+                                            cantidad: productotienda.stock
+                                        }
                                     }
                                 }
-
                             }
                         }
                     }

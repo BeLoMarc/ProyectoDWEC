@@ -237,11 +237,15 @@ class StoreHouseController {
       this.#StoreHouseView.bindLoadSubMenuCategories(this.handleLoadSubMenuCategories);
       // Estos van a cargar los productos de las tiendas
       this.#StoreHouseView.bindShowProductStore(this.handleShowProductStore);
+      //Estos van a cargar los productos de las categorias
+      this.#StoreHouseView.bindShowProductCategory(this.handleShowProductCategory);
+   //Esto me va a recargar la pagina
+   this.#StoreHouseView.bindRecargar(this.handleRecargar);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
-en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
-preposición on en respuesta a los eventos que nos ocurran en el Controlador. Estos eventos los
-tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
+      en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
+      preposición on en respuesta a los eventos que nos ocurran en el Controlador. Estos eventos los
+      tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
 
 
    onLoad = () => {
@@ -282,6 +286,20 @@ tenemos que invocar en respuesta a un cambio de datos en el Modelo. */
          generador: this.#StoreHouse.getShopProducts(tiendaCIF)
       };
       this.#StoreHouseView.ShowProductStore(mapStores);
+   }
+
+   handleShowProductCategory = (tituloCategoria) => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapCategories = {
+         category: this.#StoreHouse.categories,
+         generador: this.#StoreHouse.getCategoryProducts(tituloCategoria)
+      };
+      this.#StoreHouseView.ShowProductCategory(mapCategories);
+   }
+
+   handleRecargar=()=>{
+      //Esto recarga la pagina y la deja fina 
+    location.reload(true);
    }
    //onInit = () => {
    //this.#StoreHouseView.init();
