@@ -243,7 +243,8 @@ class StoreHouseController {
       this.#StoreHouseView.bindRecargar(this.handleRecargar);
       //Esto me va a mirar los detallles de un producto en particular
       this.#StoreHouseView.bindShowProduct(this.handleShowProduct);
-
+      //esto trata de abrir el producto en una nueva ventana 
+      this.#StoreHouseView.bindShowProductInWindow(this.handleShowProductInWindow);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -315,6 +316,17 @@ class StoreHouseController {
 
       this.#StoreHouseView.ShowProduct(recoger)
    }
+
+
+   handleShowProductInWindow = (nombreProducto) => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let recoger = {
+         producto: this.#StoreHouse.getProduct(nombreProducto),
+      };
+
+      this.#StoreHouseView.ShowProductInWindow(recoger)
+   }
+
 
    handleRecargar = () => {
       //Esto recarga la pagina y la deja fina 

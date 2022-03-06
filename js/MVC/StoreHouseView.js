@@ -68,6 +68,8 @@ class StoreHouseView {
                         <h5 class="card-title">${producto.nombre}</h5>
                         <p class="card-text">Cantidad: ${producto.cantidad}.</p>
                         <a href="#" value="${producto.nombre}" class="btn btn-primary botonProducto">DETALLES DEL PRODUCTO</a>
+                        <a href="#" value="${producto.nombre}" class="btn btn-danger botonNuevaVentana">DETALLES NUEVA PAGINA</a>
+
                     </div>
                         </div> `);
                 };
@@ -93,6 +95,8 @@ class StoreHouseView {
                             <h5 class="card-title">${producto.nombre}</h5>
                             <p class="card-text">Cantidad: ${producto.cantidad}.</p>
                             <a href="#" value="${producto.nombre}" class="btn btn-primary botonProducto">DETALLES DEL PRODUCTO</a>
+                            <a href="#" value="${producto.nombre}" class="btn btn-danger botonNuevaVentana">DETALLES NUEVA PAGINA</a>
+
                         </div>
                             </div>
                         `);
@@ -101,7 +105,6 @@ class StoreHouseView {
             }
 
         };
-
     }
     ShowProduct(producto) {
         this.main.empty();
@@ -124,7 +127,7 @@ class StoreHouseView {
                         <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
                     </ul>
                 </div>`);
-        }else  if (producto.producto.tipo == "Manual") {
+        } else if (producto.producto.tipo == "Manual") {
             this.main.append(`
                 <div class="card" style="width: 18rem;">
                     <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
@@ -222,6 +225,27 @@ class StoreHouseView {
         }
 
     }
+
+    ShowProductInWindow(producto) {
+        // Esto pinta nada más entrar
+        let a = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+            "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+        // this.main.empty(); esto efectivamente me limpia la pagina principal (en este caso el main)
+        if (!a || a.closed) {
+            this.main.append(a);
+
+        } else {
+            /**
+            Makes a request to bring the window to the front.
+            It may fail due to user settings and the window
+            isn't guaranteed to be frontmost before this method returns.
+             */
+            //   a.focus();
+            a.close();
+        }
+    }
+
+
     //los bind enlazan la vista con el controlador mediante el manejador(handler)
     //Las condiciones las maneja el controlador q es quien tiene los handler
     bindLoadStores(handler) {
@@ -292,6 +316,14 @@ class StoreHouseView {
         });
     }
 
+    bindShowProductInWindow(handler) {
+
+        $("#main").on("click", ".botonNuevaVentana", function () {
+            //recogemos el valor del boton
+            let nombreProducto = $(this).attr("value");
+            handler(nombreProducto);
+        });
+    }
 
     showProductTypes() {
         this.categories.empty();
