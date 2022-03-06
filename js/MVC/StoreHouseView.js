@@ -6,7 +6,7 @@ class StoreHouseView {
         this.navCat = $('#Categories');
         this.navStor = $('#Stores');
     }
-    
+
     //este mapStores es el del controller
     ShowStores(mapStores) {
         this.main.empty();
@@ -103,9 +103,86 @@ class StoreHouseView {
         };
 
     }
-    ShowProduct(producto){
+    ShowProduct(producto) {
         this.main.empty();
-        this.main.append(`
+        if (producto.producto.tipo == "Dados") {
+            //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor
+            this.main.append(`
+                <div class="card" style="width: 18rem;">
+                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${producto.producto.nombre}</h5>
+                    <p class="card-text">${producto.producto.descripcion}.</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                        <li class="list-group-item">Color: ${producto.producto.color}</li>
+                        <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
+                    </ul>
+                </div>`);
+        }else  if (producto.producto.tipo == "Manual") {
+            this.main.append(`
+                <div class="card" style="width: 18rem;">
+                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${producto.producto.nombre}</h5>
+                    <p class="card-text">${producto.producto.descripcion}.</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                        <li class="list-group-item">Portada: ${producto.producto.portada}</li>
+                        <li class="list-group-item">autor: ${producto.producto.autor}</li>
+                        <li class="list-group-item">destinatario: ${producto.producto.destino}</li>
+                    </ul>
+                </div>`);
+        } else if (producto.producto.tipo == "Pantalla") {
+            this.main.append(`
+                <div class="card" style="width: 18rem;">
+                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${producto.producto.nombre}</h5>
+                    <p class="card-text">${producto.producto.descripcion}.</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                        <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
+                        <li class="list-group-item">tamaño: ${producto.producto.tamaño}</li>
+                        <li class="list-group-item">campaña: ${producto.producto.campaña}</li>
+                    </ul>
+                </div>`);
+        } else if (producto.producto.tipo == "Laptop") {
+            this.main.append(`
+                <div class="card" style="width: 18rem;">
+                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${producto.producto.nombre}</h5>
+                    <p class="card-text">${producto.producto.descripcion}.</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                        <li class="list-group-item">CPU: ${producto.producto.CPU}</li>
+                        <li class="list-group-item">Cargador: ${producto.producto.cargador}</li>
+                        <li class="list-group-item">Teclado: ${producto.producto.teclado}</li>
+                    </ul>
+                </div>`);
+        } else if (producto.producto.tipo == "Headset") {
+            this.main.append(`
         <div class="card" style="width: 18rem;">
             <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -117,10 +194,33 @@ class StoreHouseView {
                 <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
                 <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
                 <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                <li class="list-group-item">Modelo: ${producto.producto.modelo}</li>
+                <li class="list-group-item">Microfono: ${producto.producto.microfono}</li>
+                <li class="list-group-item">Frecuencia: ${producto.producto.frecuencia}</li>
             </ul>
+        </div>`);
+        } else if (producto.producto.tipo == "Phone") {
+            this.main.append(`
+        <div class="card" style="width: 18rem;">
+            <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">${producto.producto.nombre}</h5>
+            <p class="card-text">${producto.producto.descripcion}.</p>
         </div>
-                        `);
-                
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                <li class="list-group-item">Bateria: ${producto.producto.bateria}</li>
+                <li class="list-group-item">Pantalla: ${producto.producto.pantalla}</li>
+                <li class="list-group-item">Sistema Operativo: ${producto.producto.OS}</li>
+            </ul>
+        </div>`);
+        }
+
     }
     //los bind enlazan la vista con el controlador mediante el manejador(handler)
     //Las condiciones las maneja el controlador q es quien tiene los handler

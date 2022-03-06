@@ -158,7 +158,7 @@ class StoreHouseController {
          "keyboard fino");
       let asus = new Laptop(
          "22222",
-         "msi",
+         "ASUS",
          "ordenador",
          1000,
          "21%",
@@ -169,7 +169,7 @@ class StoreHouseController {
          "keyboard fino");
       let nisu = new Laptop(
          "33333",
-         "msi",
+         "NISU",
          "ordenador",
          1000,
          "21%",
@@ -296,7 +296,7 @@ class StoreHouseController {
       };
       this.#StoreHouseView.ShowProductStore(mapStores);
    }
-// Este parametro es el que se le pasa desde el bind de la vista
+   // Este parametro es el que se le pasa desde el bind de la vista
    //tienda Ciff es el Ciff de la tienda y el getCategoryProducts el generador que necesita el nombre de la categoria como parametro
    handleShowProductCategory = (tituloCategoria) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON

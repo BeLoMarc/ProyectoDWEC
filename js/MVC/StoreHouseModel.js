@@ -39,6 +39,9 @@ import {
     InvalidValueException,
     AbstractClassException
 } from "../Excepciones.js";
+import { Laptop } from "../classLaptop.js";
+import { Headset } from "../classHeadset.js";
+import { Phone } from "../classPhone.js";
 
 class StoreHouseModel {
     #name;
@@ -199,54 +202,125 @@ class StoreHouseModel {
                 ]
         */
     }
+
     //Este product es el nombre
     getProduct(product) {
         let valores;//declaro valores y aqui sera donde guarde todos los datos del producto una vez encontrado en categorias
         for (const categoria of this.#categories) {
             if (!(categoria.category.title == "categoria base")) {
                 for (const producto of categoria.products) {
-                    if (producto.product.name == product) {
-                        valores = {
-                            imagen: producto.product.images,
-                            nombre: producto.product.name,
-                            descripcion: producto.product.description,
-                            precio: producto.product.price,
-                            IVA: producto.product.tax,
-                            numeroDeSerie: producto.product.serialNumber,
-                            CIF: producto.shops
+                    if (producto.product.name == product) {// busco de que tipo es el producto para actuar en consecuencia
+                        if (producto.product instanceof (Dados)) {
+                            //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                modelo: producto.product.model,
+                                color: producto.product.color,
+                                tipo: "Dados"
+                            }
+                        } else if (producto.product instanceof (Manual)) {
+                            //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                portada: producto.product.cover,
+                                autor: producto.product.author,
+                                destino: producto.product.target,
+                                tipo: "Manual"
+
+                            }
+                        } else if (producto.product instanceof (Pantalla)) {
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                modelo: producto.product.model,
+                                tamaño: producto.product.size,
+                                campaña: producto.product.campaign,
+                                tipo: "Pantalla"
+                            }
+                        } else if (producto.product instanceof (Laptop)) {
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                modelo: producto.product.model,
+                                CPU: producto.product.CPU,
+                                cargador: producto.product.charger,
+                                teclado: producto.product.keyboard,
+                                tipo: "Laptop"
+                            }
+                        }else  if (producto.product instanceof (Headset)) {
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                modelo: producto.product.model,
+                                microfono: producto.product.microphone,
+                                frecuencia: producto.product.frequency,
+                                tipo: "Headset"
+                            }
+                        } else if (producto.product instanceof (Phone)) {
+                            valores = {
+                                imagen: producto.product.images,
+                                nombre: producto.product.name,
+                                descripcion: producto.product.description,
+                                precio: producto.product.price,
+                                IVA: producto.product.tax,
+                                numeroDeSerie: producto.product.serialNumber,
+                                CIF: producto.shops,
+                                bateria: producto.product.battery,
+                                pantalla: producto.product.screen,
+                                OS: producto.product.OS,
+                                tipo: "Phone"
+                            }
                         }
                     }
                 }
             }
-
         }
-        let devolver;
         //busco en las tiendas este producto para encontrar su stock y uso la variable devovler para añadir los nuevos datos a los anteriores
         for (const tienda of this.#stores) {
             // si la tienda de mi array coincide con la tienda introducida por parametro
             if (tienda.shop.CIF === valores.CIF) {
                 //buscamos en los productos de la tienda de mi array
                 for (const productos of tienda.warehouse) {
-                    
+
                     if (productos.product.name == product) {
-                        devolver = {
-                            imagen: valores.imagen,
-                            nombre: valores.nombre,
-                            descripcion: valores.descripcion,
-                            precio: valores.precio,
-                            IVA: valores.IVA,
-                            numeroDeSerie: valores.numeroDeSerie,
-                            CIF: valores.CIF,
-                            cantidad: productos.stock,
-                            nombreTienda: tienda.shop.name
-                        };
+                        valores.cantidad = productos.stock;
+                        valores.nombreTienda = tienda.shop.name;
+
                     }
                 }
             }
         }
-        return devolver;
-    }
+        //return devolver;
+        return valores;
 
+    }
     // MIRAR COMO SACAR EL STOCK DE TODOS LOS PRODUCTOS DE TODAS LAS TIENDAS
     * getCategoryProducts(category, product = Object) {
         // if (!(category instanceof Category)) {
