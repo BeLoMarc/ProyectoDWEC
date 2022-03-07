@@ -196,7 +196,7 @@ class StoreHouseController {
       StoreHouse.addProduct(p3, category1);
       StoreHouse.addProduct(m1, category2);
       StoreHouse.addProduct(m2, category2);
-      StoreHouse.addProduct(m2, category2);
+      StoreHouse.addProduct(m3, category2);
       StoreHouse.addProduct(msi, category3);
       StoreHouse.addProduct(asus, category3);
       StoreHouse.addProduct(nisu, category3);

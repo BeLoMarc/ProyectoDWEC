@@ -1,6 +1,11 @@
 'use strict'
 class StoreHouseView {
     constructor() {
+        /**
+         * podria hacer aqui una variable provada llamada ventanas
+         * y cada vez q se crean ventanas ir añadiendolas
+         * despues recorrer dicho array y por posicion hacer un .focus y rezar porque funcione
+         */
         console.log("StoreHouse VIEW");
         this.main = $('#main');
         this.navCat = $('#Categories');
@@ -226,67 +231,51 @@ class StoreHouseView {
     }
 
     ShowProductInWindow(producto) {
-        //La llamada open devuelve una referencia a la nueva ventana
-        var miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-            "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
-       /**
-        * Por favor, tenga en cuenta: inmediatamente después de window.open la nueva ventana no 
-        * está cargada aún. Esto queda demostrado por el alert en la linea (*). 
-        * Así que esperamos a que onload lo modifique. También podríamos usar DOMContentLoaded 
-        * de los manejadores de newWin.document.
-        */
-       
-            if (miVentana && !(miVentana.closed)) {
-            miVentana.focus();
-            miVentana.onload = function () {
-                let objeto = `
-                <div class="card" style="width: 18rem;">
-                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">${producto.producto.nombre}</h5>
-                    <p class="card-text">${producto.producto.descripcion}.</p>
-                </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
-                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
-                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
-                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
-                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
-                        <li class="list-group-item">Color: ${producto.producto.color}</li>
-                        <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
-                    </ul>
-                </div>`
-                miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
-            }
-        } else {
-            miVentana.onload=function(){
-                miVentana.close();
-            }
-            
-        }
-
-        function mostrar() {
+        //La llamada open devuelve una referencia a la nueva ventana//el nombre de la ventana para abrir más debe ser diferente ``
+        // let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+        //     "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+        /**
+         * Por favor, tenga en cuenta: inmediatamente después de window.open la nueva ventana no 
+         * está cargada aún. Esto queda demostrado por el alert en la linea (*). 
+         * Así que esperamos a que onload lo modifique. También podríamos usar DOMContentLoaded 
+         * de los manejadores de newWin.document.
+         */
+        let objeto;
+      //  if (miVentana && !(miVentana.closed)) {
+      //      miVentana.focus();
             if (producto.producto.tipo == "Dados") {
-                //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor
-                return (`
-                        <div class="card" style="width: 18rem;">
-                            <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">${producto.producto.nombre}</h5>
-                            <p class="card-text">${producto.producto.descripcion}.</p>
-                        </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">precio: ${producto.producto.precio}</li>
-                                <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
-                                <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
-                                <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
-                                <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
-                                <li class="list-group-item">Color: ${producto.producto.color}</li>
-                                <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
-                            </ul>
-                        </div>`);
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+
+                miVentana.onload = function () {
+                    objeto = `
+                    <div class="card" style="width: 18rem;">
+                        <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">${producto.producto.nombre}</h5>
+                        <p class="card-text">${producto.producto.descripcion}.</p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                            <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                            <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                            <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                            <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                            <li class="list-group-item">Color: ${producto.producto.color}</li>
+                            <li class="list-group-item">modelo: ${producto.producto.modelo}</li>
+                        </ul>
+                    </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+                }
             } else if (producto.producto.tipo == "Manual") {
-                return (`
+                
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+                
+                miVentana.onload = function () {
+                    objeto = `
                         <div class="card" style="width: 18rem;">
                             <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -303,9 +292,17 @@ class StoreHouseView {
                                 <li class="list-group-item">autor: ${producto.producto.autor}</li>
                                 <li class="list-group-item">destinatario: ${producto.producto.destino}</li>
                             </ul>
-                        </div>`);
+                        </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+
+                }
             } else if (producto.producto.tipo == "Pantalla") {
-                this.main.append(`
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+                
+                miVentana.onload = function () {
+                    objeto = `
                         <div class="card" style="width: 18rem;">
                             <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -322,66 +319,99 @@ class StoreHouseView {
                                 <li class="list-group-item">tamaño: ${producto.producto.tamaño}</li>
                                 <li class="list-group-item">campaña: ${producto.producto.campaña}</li>
                             </ul>
-                        </div>`);
+                        </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+
+                }
             } else if (producto.producto.tipo == "Laptop") {
-                this.main.append(`
-                        <div class="card" style="width: 18rem;">
-                            <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">${producto.producto.nombre}</h5>
-                            <p class="card-text">${producto.producto.descripcion}.</p>
-                        </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">precio: ${producto.producto.precio}</li>
-                                <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
-                                <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
-                                <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
-                                <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
-                                <li class="list-group-item">CPU: ${producto.producto.CPU}</li>
-                                <li class="list-group-item">Cargador: ${producto.producto.cargador}</li>
-                                <li class="list-group-item">Teclado: ${producto.producto.teclado}</li>
-                            </ul>
-                        </div>`);
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+                
+                miVentana.onload = function () {
+                    objeto = `
+                            <div class="card" style="width: 18rem;">
+                                <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                <h5 class="card-title">${producto.producto.nombre}</h5>
+                                <p class="card-text">${producto.producto.descripcion}.</p>
+                            </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                                    <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                                    <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                                    <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                                    <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                                    <li class="list-group-item">CPU: ${producto.producto.CPU}</li>
+                                    <li class="list-group-item">Cargador: ${producto.producto.cargador}</li>
+                                    <li class="list-group-item">Teclado: ${producto.producto.teclado}</li>
+                                </ul>
+                            </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+
+                }
             } else if (producto.producto.tipo == "Headset") {
-                this.main.append(`
-                <div class="card" style="width: 18rem;">
-                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">${producto.producto.nombre}</h5>
-                    <p class="card-text">${producto.producto.descripcion}.</p>
-                </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
-                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
-                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
-                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
-                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
-                        <li class="list-group-item">Modelo: ${producto.producto.modelo}</li>
-                        <li class="list-group-item">Microfono: ${producto.producto.microfono}</li>
-                        <li class="list-group-item">Frecuencia: ${producto.producto.frecuencia}</li>
-                    </ul>
-                </div>`);
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+                
+                miVentana.onload = function () {
+                    objeto = `
+                    <div class="card" style="width: 18rem;">
+                        <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">${producto.producto.nombre}</h5>
+                        <p class="card-text">${producto.producto.descripcion}.</p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                            <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                            <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                            <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                            <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                            <li class="list-group-item">Modelo: ${producto.producto.modelo}</li>
+                            <li class="list-group-item">Microfono: ${producto.producto.microfono}</li>
+                            <li class="list-group-item">Frecuencia: ${producto.producto.frecuencia}</li>
+                        </ul>
+                    </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+
+                }
             } else if (producto.producto.tipo == "Phone") {
-                this.main.append(`
-                <div class="card" style="width: 18rem;">
-                    <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title">${producto.producto.nombre}</h5>
-                    <p class="card-text">${producto.producto.descripcion}.</p>
-                </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">precio: ${producto.producto.precio}</li>
-                        <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
-                        <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
-                        <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
-                        <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
-                        <li class="list-group-item">Bateria: ${producto.producto.bateria}</li>
-                        <li class="list-group-item">Pantalla: ${producto.producto.pantalla}</li>
-                        <li class="list-group-item">Sistema Operativo: ${producto.producto.OS}</li>
-                    </ul>
-                </div>`);
+                let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
+                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                miVentana.focus();
+                
+                miVentana.onload = function () {
+
+                    objeto = `
+                    <div class="card" style="width: 18rem;">
+                        <img src="${producto.producto.imagen}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">${producto.producto.nombre}</h5>
+                        <p class="card-text">${producto.producto.descripcion}.</p>
+                    </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">precio: ${producto.producto.precio}</li>
+                            <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${producto.producto.CIF}</li>
+                            <li class="list-group-item">Nombre de la Tienda: ${producto.producto.nombreTienda}</li>
+                            <li class="list-group-item">Cantidad: ${producto.producto.cantidad}</li>
+                            <li class="list-group-item">CARACTERISTICAS CONCRETAS</li>
+                            <li class="list-group-item">Bateria: ${producto.producto.bateria}</li>
+                            <li class="list-group-item">Pantalla: ${producto.producto.pantalla}</li>
+                            <li class="list-group-item">Sistema Operativo: ${producto.producto.OS}</li>
+                        </ul>
+                    </div>`;
+                    miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
+
+                }
+            } else {
+                miVentana.onload = function () {
+                    miVentana.close();
+                }
+
             }
-        }
+//        }
 
         // Esto pinta nada más entrar
         // window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana

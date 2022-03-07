@@ -3,7 +3,7 @@ import {Product} from "./classProduct.js"
 import {EmptyValueException} from "./Excepciones.js";
 export class Manual extends Product {
     #cover;
-    #size;
+    #author;
     #target;
     constructor(serialNumber, name, description, price, tax, images,
         //cover=-->tapa dura o tapa blanda
@@ -21,7 +21,7 @@ export class Manual extends Product {
         if (!author) {
             throw new EmptyValueException("size","Manuales",22);
         } else {
-            this.#size = author;
+            this.#author = author;
         }
 
         if (!target) {
@@ -37,11 +37,11 @@ export class Manual extends Product {
     set cover(newcover) {
         return this.#cover = newcover;
     }
-    get size() {
-        return this.#size;
+    get author() {
+        return this.#author;
     }
-    set size(newsize) {
-        return this.#size = newsize;
+    set author(newauthor) {
+        return this.#author = newauthor;
     }
     get target() {
         return this.#target;
