@@ -320,6 +320,7 @@ class StoreHouseController {
 
    handleShowProductInWindow = (nombreProducto) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      
       let recoger = {
          producto: this.#StoreHouse.getProduct(nombreProducto),
       };
