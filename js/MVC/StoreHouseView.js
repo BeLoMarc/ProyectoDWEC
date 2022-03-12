@@ -1,5 +1,6 @@
 'use strict'
 class StoreHouseView {
+    #ventanas;
     constructor() {
         /**
          * podria hacer aqui una variable provada llamada ventanas
@@ -10,6 +11,7 @@ class StoreHouseView {
         this.main = $('#main');
         this.navCat = $('#Categories');
         this.navStor = $('#Stores');
+        this.#ventanas = new Map();
     }
 
     //este mapStores es el del controller
@@ -241,11 +243,16 @@ class StoreHouseView {
          * de los manejadores de newWin.document.
          */
         let objeto;
-      //  if (miVentana && !(miVentana.closed)) {
-      //      miVentana.focus();
-            if (producto.producto.tipo == "Dados") {
+        //if (miVentana && !(miVentana.closed)) {
+        //      miVentana.focus();
+        if (producto.producto.tipo == "Dados") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
+
+
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
 
                 miVentana.onload = function () {
@@ -268,12 +275,17 @@ class StoreHouseView {
                     </div>`;
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
                 }
-            } else if (producto.producto.tipo == "Manual") {
-                
+
+                this.#ventanas.set(miVentana.name, miVentana);
+            }
+        } else if (producto.producto.tipo == "Manual") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-                
+
                 miVentana.onload = function () {
                     objeto = `
                         <div class="card" style="width: 18rem;">
@@ -296,11 +308,16 @@ class StoreHouseView {
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
 
                 }
-            } else if (producto.producto.tipo == "Pantalla") {
+                this.#ventanas.set(miVentana.name, miVentana);
+            }
+        } else if (producto.producto.tipo == "Pantalla") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-                
+
                 miVentana.onload = function () {
                     objeto = `
                         <div class="card" style="width: 18rem;">
@@ -323,11 +340,16 @@ class StoreHouseView {
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
 
                 }
-            } else if (producto.producto.tipo == "Laptop") {
+                this.#ventanas.set(miVentana.name, miVentana);
+            }
+        } else if (producto.producto.tipo == "Laptop") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-                
+
                 miVentana.onload = function () {
                     objeto = `
                             <div class="card" style="width: 18rem;">
@@ -350,11 +372,16 @@ class StoreHouseView {
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
 
                 }
-            } else if (producto.producto.tipo == "Headset") {
+                this.#ventanas.set(miVentana.name, miVentana);
+            }
+        } else if (producto.producto.tipo == "Headset") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-                
+
                 miVentana.onload = function () {
                     objeto = `
                     <div class="card" style="width: 18rem;">
@@ -377,11 +404,16 @@ class StoreHouseView {
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
 
                 }
-            } else if (producto.producto.tipo == "Phone") {
+                this.#ventanas.set(miVentana.name, miVentana);
+            }
+        } else if (producto.producto.tipo == "Phone") {
+            if (this.#ventanas.has(producto.producto.nombre)) {
+                this.#ventanas.get(producto.producto.nombre).focus();
+            } else {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-                "../../html/lienzo.html", `VentanaDe${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
+                    "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-                
+
                 miVentana.onload = function () {
 
                     objeto = `
@@ -405,13 +437,15 @@ class StoreHouseView {
                     miVentana.document.body.insertAdjacentHTML("afterbegin", objeto);
 
                 }
-            } else {
-                miVentana.onload = function () {
-                    miVentana.close();
-                }
-
+                this.#ventanas.set(miVentana.name, miVentana);
             }
-//        }
+            // } else {
+            //     miVentana.onload = function () {
+            //         miVentana.close();
+            //     }
+
+        }
+        //        }
 
         // Esto pinta nada más entrar
         // window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
