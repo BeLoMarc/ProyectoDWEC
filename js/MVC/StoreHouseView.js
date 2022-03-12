@@ -439,10 +439,7 @@ class StoreHouseView {
                 }
                 this.#ventanas.set(miVentana.name, miVentana);
             }
-            // } else {
-            //     miVentana.onload = function () {
-            //         miVentana.close();
-            //     }
+
 
         }
         //        }
@@ -470,6 +467,11 @@ class StoreHouseView {
     }
 
 
+    CleanMaps() {
+        for (const [key, value] of this.#ventanas) {
+            value.close();
+        }
+    }
     //los bind enlazan la vista con el controlador mediante el manejador(handler)
     //Las condiciones las maneja el controlador q es quien tiene los handler
     bindLoadStores(handler) {
@@ -548,6 +550,16 @@ class StoreHouseView {
             let nombreProducto = $(this).attr("value");
             handler(nombreProducto);
         });
+    }
+
+
+    bindCleanMaps(handler) {
+        //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
+        $("#Limpiar").click(function () {
+            //recogemos el valor del boton
+            handler();
+        });
+
     }
 
     showProductTypes() {

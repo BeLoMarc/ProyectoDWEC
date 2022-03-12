@@ -245,6 +245,9 @@ class StoreHouseController {
       this.#StoreHouseView.bindShowProduct(this.handleShowProduct);
       //esto trata de abrir el producto en una nueva ventana 
       this.#StoreHouseView.bindShowProductInWindow(this.handleShowProductInWindow);
+      //esto Borra las ventanas emergentes
+      this.#StoreHouseView.bindCleanMaps(this.handleCleanMaps);
+
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -320,12 +323,18 @@ class StoreHouseController {
 
    handleShowProductInWindow = (nombreProducto) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
-      
+
       let recoger = {
          producto: this.#StoreHouse.getProduct(nombreProducto),
       };
 
       this.#StoreHouseView.ShowProductInWindow(recoger)
+   }
+
+   handleCleanMaps = () => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+
+      this.#StoreHouseView.CleanMaps();
    }
 
 
