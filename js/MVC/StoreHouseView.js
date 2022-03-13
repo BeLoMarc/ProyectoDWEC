@@ -1,6 +1,8 @@
 'use strict'
 class StoreHouseView {
     #ventanas;
+    #estadoAnterior;
+    #estadoPosterior;
     constructor() {
         /**
          * podria hacer aqui una variable provada llamada ventanas
@@ -12,6 +14,8 @@ class StoreHouseView {
         this.navCat = $('#Categories');
         this.navStor = $('#Stores');
         this.#ventanas = new Map();
+        this.#estadoAnterior = [];
+        this.#estadoPosterior = [];
     }
 
     //este mapStores es el del controller
@@ -84,7 +88,6 @@ class StoreHouseView {
             }
 
         };
-
     }
 
     ShowProductCategory(mapCategories) {
@@ -238,10 +241,12 @@ class StoreHouseView {
         //     "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
         /**
          * Por favor, tenga en cuenta: inmediatamente después de window.open la nueva ventana no 
-         * está cargada aún. Esto queda demostrado por el alert en la linea (*). 
-         * Así que esperamos a que onload lo modifique. También podríamos usar DOMContentLoaded 
-         * de los manejadores de newWin.document.
-         */
+         * está cargada aún. 
+         * Así que esperamos a que onload lo modifique. 
+         * 
+         * insertAdjacentHTML:analiza la cadena de texto introducida como cadena HTML o XML e inserta al árbol DOM los nodos resultantes de dicho análisis en la posición especificada. Este método no re-analiza el elemento sobre el cual se está invocando y por lo tanto no corrompe los elementos ya existentes dentro de dicho elemento. Esto evita el paso adicional de la serialización, haciéndolo mucho más rápido que la manipulación directa con innerHTML.
+         * 'afterbegin': Justo dentro del elemento, antes de su primer elemento hijo.
+        */
         let objeto;
         //if (miVentana && !(miVentana.closed)) {
         //      miVentana.focus();
@@ -472,6 +477,18 @@ class StoreHouseView {
             value.close();
         }
     }
+    //el 0 es ir atras y el 1 es ir adelante
+    History(Direccion) {
+        if (Direccion == 0) {
+            window.history.go(-1);
+
+
+        } else {
+            window.history.go();
+        }
+
+    }
+
     //los bind enlazan la vista con el controlador mediante el manejador(handler)
     //Las condiciones las maneja el controlador q es quien tiene los handler
     bindLoadStores(handler) {
@@ -524,14 +541,14 @@ class StoreHouseView {
 
     bindRecargar(handler) {
 
-        $(document).ready(function () {
+        //     $(document).ready(function () {
 
-            $(".botonReiniciar").click(function () {
-                //recogemos el valor del boton
+        $(".botonReiniciar").click(function () {
+            //recogemos el valor del boton
 
-                handler();
-            });
+            handler();
         });
+        //   });
     }
 
     bindShowProduct(handler) {
@@ -562,16 +579,22 @@ class StoreHouseView {
 
     }
 
+    bindHistory(handler) {
+        //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
+        $(".History").click(function () {
+            //recogemos el valor del boton
+            let Direccion = $(this).attr("value");
+            handler(Direccion);
+        });
+
+    }
+
     showProductTypes() {
         this.categories.empty();
         this.categories.append();
     }
 
 }
-
-
-
-
 
 
 export default StoreHouseView;

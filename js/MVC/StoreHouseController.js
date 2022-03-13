@@ -247,7 +247,8 @@ class StoreHouseController {
       this.#StoreHouseView.bindShowProductInWindow(this.handleShowProductInWindow);
       //esto Borra las ventanas emergentes
       this.#StoreHouseView.bindCleanMaps(this.handleCleanMaps);
-
+      //esto Maneja el historial
+      this.#StoreHouseView.bindHistory(this.handleHistory);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -337,6 +338,11 @@ class StoreHouseController {
       this.#StoreHouseView.CleanMaps();
    }
 
+   handleHistory = (Direccion) => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+
+      this.#StoreHouseView.History(Direccion);
+   }
 
    handleRecargar = () => {
       //Esto recarga la pagina y la deja fina 
