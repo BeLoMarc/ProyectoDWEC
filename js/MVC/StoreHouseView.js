@@ -449,26 +449,7 @@ class StoreHouseView {
         }
         //        }
 
-        // Esto pinta nada más entrar
-        // window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
-        //     "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
-        // this.main.empty(); esto efectivamente me limpia la pagina principal (en este caso el main)
-        /**
-         * La propiedad closed devuelve un booleano indicando si
-          la ventana está abierta o se ha cerrado
-         */
-        // if (!a || a.closed) {
-        //     this.main.append(a);
-
-        // } else {
-        /**
-        Makes a request to bring the window to the front.
-        It may fail due to user settings and the window
-        isn't guaranteed to be frontmost before this method returns.
-         */
-        //   a.focus();
-        //     a.close();
-        // }
+       
     }
 
 
@@ -476,6 +457,7 @@ class StoreHouseView {
         for (const [key, value] of this.#ventanas) {
             value.close();
         }
+        this.#ventanas.clear();
     }
     //el 0 es ir atras y el 1 es ir adelante
     History(Direccion) {
@@ -589,10 +571,7 @@ class StoreHouseView {
 
     }
 
-    showProductTypes() {
-        this.categories.empty();
-        this.categories.append();
-    }
+   
 
 }
 
