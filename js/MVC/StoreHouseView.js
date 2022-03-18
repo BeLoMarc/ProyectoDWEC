@@ -240,7 +240,7 @@ class StoreHouseView {
         // let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
         //     "../../html/lienzo.html", "Mywindow", "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
         /**
-         * Por favor, tenga en cuenta: inmediatamente después de window.open la nueva ventana no 
+         * tener en cuenta: inmediatamente después de window.open la nueva ventana no 
          * está cargada aún. 
          * Así que esperamos a que onload lo modifique. 
          * 
@@ -259,7 +259,7 @@ class StoreHouseView {
                 let miVentana = window.open(//Recurso que quieri abrir //Nombre de la ventana// Opciones de como queremos que se visualice la ventana
                     "../../html/lienzo.html", `${producto.producto.nombre}`, "width=800, height=600, top=250, left=250, titlebar=yes, toolbar=no, menubar=no, location=no");
                 miVentana.focus();
-
+                // tan pronto como se carga la pagina
                 miVentana.onload = function () {
                     objeto = `
                     <div class="card" style="width: 18rem;">
@@ -449,7 +449,7 @@ class StoreHouseView {
         }
         //        }
 
-       
+
     }
 
 
@@ -571,7 +571,7 @@ class StoreHouseView {
 
     }
 
-   
+
 
 }
 

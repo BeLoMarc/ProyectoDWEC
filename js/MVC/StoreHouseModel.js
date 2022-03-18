@@ -44,6 +44,7 @@ import { Headset } from "../classHeadset.js";
 import { Phone } from "../classPhone.js";
 
 class StoreHouseModel {
+    #articles;
     #name;
     #categories;
     #stores;
@@ -69,6 +70,8 @@ class StoreHouseModel {
         this.#baseCategory = new Category("categoria base", "descripcion de la categoria por defecto");
         this.addShop(this.#baseShop);
         this.addCategory(this.#baseCategory);
+        //Este array me llevara la cuenta de las tiendas y de las categorias de cada producto
+        this.#articles = [];
     }
 
     get name() {
@@ -269,7 +272,7 @@ class StoreHouseModel {
                                 teclado: producto.product.keyboard,
                                 tipo: "Laptop"
                             }
-                        }else  if (producto.product instanceof (Headset)) {
+                        } else if (producto.product instanceof (Headset)) {
                             valores = {
                                 imagen: producto.product.images,
                                 nombre: producto.product.name,
@@ -431,6 +434,13 @@ class StoreHouseModel {
                 cont = cont + 1;
             }
         });
+
+        // this.#articles.push({
+        //     producto: Product,
+        //     tiendas: [],
+        //     categorias: [Category]
+        // });
+
         return this.#categories.length;
     }
     /**
@@ -518,7 +528,39 @@ class StoreHouseModel {
             }
             contcat += 1;
         });
+
+        // this.#articles.forEach(article => {
+        //     if (article.producto.name == product.name) {
+        //         article.tiendas.push({
+        //             cif: shop.CIF,
+        //             stock: number
+        //         });
+        //     }
+        // });
+
+
+        // let papaya = this.#articles.findIndex(article => {
+        //     return article.producto.name == product.name;
+        // });
+
+        // this.#articles[papaya].tiendas.push({
+        //     cif: shop.CIF,
+        //     stock: number
+        // });
+
+
         /**
+            ARTICLES[
+                        producto:Product
+                        tiendas:[
+                                    cif:CIF
+                                    stock:Stock
+                                ]
+                        Categorias:[
+                                    Category.name;
+                                ]
+            ]
+
             CATEGORIES[    CATEGORY:CATEGORIA
                            PRODUCTS[
                                 PRODUCT: PRODUCT
