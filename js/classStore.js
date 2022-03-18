@@ -6,28 +6,28 @@
 - coords. Objeto Coords donde se ubique la tienda.
 
  */
-import {EmptyValueException} from "./Excepciones.js";
+import { EmptyValueException } from "./Excepciones.js";
 
 export class Store {
     // solo hay gets porque entiendo que precisamente estos argumentos no deben cambiarse
-    
+
     #name;// get
     #CIF;//get
     #address;//get
     #phone;//get
     #coords;//get
-    #warehouse;//
-    constructor(CIF, name,address,phone,coords) {
+    #img;
+    constructor(CIF, name, address, phone, coords,img=[]) {
         if (!name) {
-            throw new EmptyValueException("name ","classStore","20");
+            throw new EmptyValueException("name ", "classStore", "20");
         } else {
             this.#name = name;
         }
-            this.#CIF=CIF;
-            this.#address=address;
-            this.#phone=phone;
-            this.#coords=coords
-            
+        this.#CIF = CIF;
+        this.#address = address;
+        this.#phone = phone;
+        this.#coords = coords
+        this.#img = img;
     }
     //Los metodos aqui
     get name() {
@@ -45,7 +45,8 @@ export class Store {
     get coords() {
         return this.#coords;
     }
-    get warehouse(){
-        return this.#warehouse;
+    get img() {
+        return this.#img;
     }
+    
 }
