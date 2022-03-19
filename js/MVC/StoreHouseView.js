@@ -47,6 +47,7 @@ class StoreHouseView {
                 this.navStor.append(` 
                 <a id="tienda${cont}" value="${store.CIF}" class="nav__options__link botonTienda" href="#">${store.name}</a>`);
             }
+
             cont += 1;
         };
     }
@@ -459,6 +460,33 @@ class StoreHouseView {
         }
         this.#ventanas.clear();
     }
+
+
+    LoadSelect(mapCategories,mapStores) {
+        $('#SelectEliminarCategorias').empty();
+        $('#SelectEliminarTiendas').empty();
+
+        let cont = 0;
+        for (const category of mapCategories.category) {
+
+            if (!(category.title == "categoria base")) {
+                $('#SelectEliminarCategorias').append(` 
+            <option id="Categoria${cont}" value="${category.title}" href="#">${category.title}</option>`);
+            }
+            cont += 1;
+        };
+        cont = 0;
+        for (const store of mapStores.store) {
+            if (!(store.name == "tienda base")) {
+                $('#SelectEliminarTienda').append(` 
+                <option id="tienda${cont}" value="${store.CIF} href="#">${store.name}</option>`);
+            }
+
+            cont += 1;
+        };
+    }
+
+
     //el 0 es ir atras y el 1 es ir adelante
     History(Direccion) {
         if (Direccion == 0) {
@@ -669,7 +697,36 @@ class StoreHouseView {
 
 
 
+    //MostrarEliminarCat boton del sibmenu
+    bindMostrarSelectBorrarCategorias() {
+        $('#MostrarEliminarCat').click(function () {
+            if ($('#ContainerEliminarCat').css("display") == "none") {
+                $('#ContainerEliminarCat').css("display", "block");
+            } else {
+                $('#ContainerEliminarCat').css("display", "none");
+            }
 
+        });
+
+    }
+
+    bindMostrarSelectBorrarTiendas() {
+        $('#MostrarEliminarTienda').click(function () {
+            if ($('#ContainerEliminarTienda').css("display") == "none") {
+                $('#ContainerEliminarTienda').css("display", "block");
+            } else {
+                $('#ContainerEliminarTienda').css("display", "none");
+            }
+
+        });
+
+    }
+
+    bindLoadSelects(handler) {
+        $(document).ready(function () {
+            handler();
+        });
+    }
 
     bindHistory(handler) {
         //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
@@ -800,14 +857,14 @@ function validadAñadirTienda() {
 
         inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
 
-    } else if (!(/[0-9]{6}/g.test(inputCIFTienda.val()))||(Number.parseInt(inputCIFTienda.val().length)>6)) {
+    } else if (!(/[0-9]{6}/g.test(inputCIFTienda.val())) || (Number.parseInt(inputCIFTienda.val().length) > 6)) {
         inputCIFTienda.addClass("is-invalid");
 
         inputCIFTienda.removeClass("is-valid");
 
         inputCIFTienda.closest(".invalid-feedback").html("El Cif de la tienda SOLO puede tener 6 DEL 0 AL 9 digitos")
     }
-    
+
     else {
 
         inputCIFTienda.addClass("is-valid");
@@ -853,7 +910,7 @@ function validadAñadirTienda() {
 
         inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
-    } else if (!(/[0-9]{3}-[0-9]{3}-[0-9]{3}/g.test(inputtelefonoTienda.val()))||(Number.parseInt(inputtelefonoTienda.val().length)>11)) {
+    } else if (!(/[0-9]{3}-[0-9]{3}-[0-9]{3}/g.test(inputtelefonoTienda.val())) || (Number.parseInt(inputtelefonoTienda.val().length) > 11)) {
         inputtelefonoTienda.addClass("is-invalid");
 
         inputtelefonoTienda.removeClass("is-valid");
@@ -881,7 +938,7 @@ function validadAñadirTienda() {
 
         inputLatitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
-    } else if (!(/[0-9]{4}/g.test(inputLatitudTienda.val()))||(Number.parseInt(inputLatitudTienda.val().length)>4)) {
+    } else if (!(/[0-9]{4}/g.test(inputLatitudTienda.val())) || (Number.parseInt(inputLatitudTienda.val().length) > 4)) {
         inputLatitudTienda.addClass("is-invalid");
 
         inputLatitudTienda.removeClass("is-valid");
@@ -909,7 +966,7 @@ function validadAñadirTienda() {
 
         inputLongitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
 
-    } else if (!(/[0-9]{4}/g.test(inputLongitudTienda.val()))||(Number.parseInt(inputLongitudTienda.val().length)>4)) {
+    } else if (!(/[0-9]{4}/g.test(inputLongitudTienda.val())) || (Number.parseInt(inputLongitudTienda.val().length) > 4)) {
         inputLongitudTienda.addClass("is-invalid");
 
         inputLongitudTienda.removeClass("is-valid");

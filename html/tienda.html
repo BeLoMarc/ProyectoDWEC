@@ -165,8 +165,8 @@
     <!--FIN AÑADIR CATEGORIAS-->
 
     <!--INICIO AÑADIR TIENDAS-->
-    <div class="container" id="ContainerAñadirTienda" style="display: none;">
-        <form id="AñadirTienda" action="#" enctype="multipart/form-data">
+    <div class="container"  id="ContainerAñadirTienda" style="display: none;">
+        <form id="AñadirTienda" method="post" action="#" enctype="multipart/form-data">
             <div class="form-row">
 
                 <div class="form-group col-md-6">
@@ -208,7 +208,7 @@
             </div>
             <div class="form-group">
                 <label for="FotoTienda">FotoTienda</label>
-                <input type="file" class="form-control" id="FotoTienda" >
+                <input type="file" class="form-control" id="FotoTienda">
                 <div class="invalid-feedback"></div>
                 <div class="valid-feedback"></div>
             </div>
@@ -216,7 +216,31 @@
             <button type="submit" class="btn btn-primary">Añadir Tienda</button>
         </form>
     </div>
-    <!--FINT AÑADIR TIENDAS-->
+    <!--ELIMINAR CATEGORIA-->
+    <div style="display:none" id="ContainerEliminarCat">
+        <form id="FormBorrarCategoria" action="#" enctype="multipart/form-data">
+            <h1>ELIMINAR CAT</h1>
+            <select id="SelectEliminarCategorias" class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example">
+
+            </select>
+            <button type="submit" class="btn btn-primary">Eliminar Categoria</button>
+        </form>
+
+
+    </div>
+    <!--ELIMINAR TIENDA-->
+    <div style="display:none" id="ContainerEliminarTienda">
+        <form id="FormBorrarTienda" action="#" enctype="multipart/form-data">
+            <h1>ELIMINAR TIENDA</h1>
+            <select id="SelectEliminarTienda" class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example">
+
+            </select>
+            <button type="submit" class="btn btn-primary">Eliminar Tienda</button>
+        </form>
+    </div>
+
 
 
 

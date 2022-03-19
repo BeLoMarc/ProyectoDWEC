@@ -258,6 +258,13 @@ class StoreHouseController {
       //Esto me Valida el formulario de la tienda
       this.#StoreHouseView.bindValidarAñadirTienda(this.handlerValidarAñadirTienda);
 
+      //Esto me muestra el select para borrar categorias
+      this.#StoreHouseView.bindMostrarSelectBorrarCategorias();
+      //Esto me muestra el select para borrar tiendas
+      this.#StoreHouseView.bindMostrarSelectBorrarTiendas();
+      
+      //Esto me muestra el formulario para rellenar la tienda
+      this.#StoreHouseView.bindLoadSelects(this.handleLoadSelects);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -364,7 +371,7 @@ class StoreHouseController {
       this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
    }
 
-   handlerValidarAñadirTienda = (nuevoNombre, nuevoCif, nuevaDireccion,nuevoTelefono, nuevaLatitud, nuevaLongitud, nuevaFoto) => {
+   handlerValidarAñadirTienda = (nuevoNombre, nuevoCif, nuevaDireccion, nuevoTelefono, nuevaLatitud, nuevaLongitud, nuevaFoto) => {
       let a = new Coords(nuevaLatitud, nuevaLongitud);
       let b = new Store(nuevoCif, nuevoNombre, nuevaDireccion, nuevoTelefono, a, nuevaFoto);
       this.#StoreHouse.addShop(b);
@@ -373,12 +380,24 @@ class StoreHouseController {
          store: this.#StoreHouse.shops,
       };
       this.#StoreHouseView.ShowStores(mapStores)
-      
+
       let mapsub = {
          store: this.#StoreHouse.shops,
       };
 
       this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
+   handleLoadSelects = () => {
+      //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+
+      let mapCategories = {
+         category: this.#StoreHouse.categories,
+      };
+      this.#StoreHouseView.LoadSelect(mapCategories, mapStores);
    }
 
    handleRecargar = () => {
