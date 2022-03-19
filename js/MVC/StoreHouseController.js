@@ -249,6 +249,15 @@ class StoreHouseController {
       this.#StoreHouseView.bindCleanMaps(this.handleCleanMaps);
       //esto Maneja el historial
       this.#StoreHouseView.bindHistory(this.handleHistory);
+      //Esto me muestra el formulario de añadir categoria
+      this.#StoreHouseView.bindMostrarAñadirCat();
+      //Esto me muestra el formulario de añadir categoria
+      this.#StoreHouseView.bindValidarAñadirCat(this.handlerValidarAñadirCat);
+      //Esto me muestra el formulario para rellenar la tienda
+      this.#StoreHouseView.bindMostrarAñadirTienda();
+      //Esto me Valida el formulario de la tienda
+      this.#StoreHouseView.bindValidarAñadirTienda(this.handlerValidarAñadirTienda);
+
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -342,6 +351,34 @@ class StoreHouseController {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
 
       this.#StoreHouseView.History(Direccion);
+   }
+
+   handlerValidarAñadirCat = (nuevoTitulo, nuevaDescripcion) => {
+      let a = new Category(nuevoTitulo, nuevaDescripcion);
+      this.#StoreHouse.addCategory(a);
+
+
+      let mapCategories = {
+         category: this.#StoreHouse.categories,
+      };
+      this.#StoreHouseView.ShowLoadSubMenuCategories(mapCategories);
+   }
+
+   handlerValidarAñadirTienda = (nuevoNombre, nuevoCif, nuevaDireccion,nuevoTelefono, nuevaLatitud, nuevaLongitud, nuevaFoto) => {
+      let a = new Coords(nuevaLatitud, nuevaLongitud);
+      let b = new Store(nuevoCif, nuevoNombre, nuevaDireccion, nuevoTelefono, a, nuevaFoto);
+      this.#StoreHouse.addShop(b);
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+      
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
    }
 
    handleRecargar = () => {

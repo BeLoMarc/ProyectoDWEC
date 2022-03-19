@@ -414,7 +414,7 @@ class StoreHouseModel {
                      ]]
      */
     //añade un nuevo producto asociado a una o mas categorias
-    addProduct(Product, Category) {
+    addProduct(Product, ...Category) {
         if (Product == null) {
             throw new InvalidValueException("Product", "StoreHouseModel", 194);
         }
@@ -422,7 +422,7 @@ class StoreHouseModel {
 
         this.#categories.forEach(element => {
 
-            if (element.category.title == Category.title) {
+            if (element.category.title == Category[0].title) {
                 this.#categories[cont].products.push({
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
                     //{ ProductId: Product.serialNumber }
@@ -487,11 +487,13 @@ class StoreHouseModel {
                     ]
                 ]
      */
+    //Product y shop son ahora nombres
     addProductInShop(product, shop, number) {
 
         // esto me mira si existe la tienda y me devuelve la posicion
         let posiciontienda = (this.#stores.findIndex(function (tienda) {
-            return tienda.shop.CIF == shop.CIF
+             return tienda.shop.CIF == shop.CIF
+            //return tienda.shop.CIF == shop
         }));
         if (posiciontienda == -1) {
             throw new InvalidValueException("shop", "StoreHouseModel", 318);
@@ -500,7 +502,8 @@ class StoreHouseModel {
         // Esto me busca si existe el producto
         let posicionProducto;
         posicionProducto = this.#stores[posiciontienda].warehouse.findIndex(function (producto) {
-            return producto.product.name == product.name;
+             return producto.product.name == product.name;
+            //return producto.product.name == product;
         })
 
 
@@ -519,8 +522,10 @@ class StoreHouseModel {
             if (!(categoria.category.title == "categoria base")) {
                 let contprod = 0;
                 for (const productos of categoria.products) {
-                    if (product.name == productos.product.name) {
-                        this.#categories[contcat].products[contprod].shops = shop.CIF;
+                     if (product.name == productos.product.name) {
+                   // if (product == productos.product.name) {
+                         this.#categories[contcat].products[contprod].shops = shop.CIF;
+                        //this.#categories[contcat].products[contprod].shops = shop;
                     }
                     contprod += 1;
                 }
@@ -578,6 +583,15 @@ class StoreHouseModel {
         return this.#stores[posiciontienda].warehouse.lenght;
 
     }
+    //Creo que hay cambiar esto para introducir solo el nombre
+    //Creo que hay cambiar esto para introducir solo el CIF
+    /**
+     * 
+     * @param {String} product 
+     * @param {String} shop 
+     * @param {number} number 
+     * @returns 
+     */
     addQuantityProductInShop(product, shop, number) {
         // el numero es positivo
         if (number < 0) {
@@ -587,6 +601,7 @@ class StoreHouseModel {
         // esto me mira si existe la tienda
         let posiciontienda = (this.#stores.findIndex(function (tienda) {
             return tienda.shop.CIF == shop.CIF
+            //return tienda.shop.CIF == shop
         }));
 
         if (posiciontienda == -1) {
@@ -596,7 +611,8 @@ class StoreHouseModel {
         // de esta forma saco la posicion del producto
         let posicionProducto;
         posicionProducto = this.#stores[posiciontienda].warehouse.findIndex(function (producto) {
-            return producto.product.name == product.name;
+             return producto.product.name == product.name;
+            //return producto.product.name == product;
         })
 
         let ValorAnterior = this.#stores[posiciontienda].warehouse[posicionProducto].stock;
@@ -620,7 +636,7 @@ class StoreHouseModel {
           */
 
     }
-
+    //Creo qye hay cambiar esto para introducir solo el nombre
     removeProduct(product) {
         if (Product == null) {
             throw new InvalidValueException("Product", "StoreHouseModel", 198);
@@ -632,7 +648,8 @@ class StoreHouseModel {
 
         this.#stores.forEach(tienda => {
             tienda.warehouse.forEach(element => {
-                if (element.product.name == product.name) {
+                   if (element.product.name == product.name) {
+                //if (element.product.name == product) {
                     ExisteProductoEnTienda = true;
                 }
             });
@@ -641,6 +658,7 @@ class StoreHouseModel {
         this.#categories.forEach(categoria => {
             categoria.products.forEach(producto => {
                 if (producto.product.name == product.name) {
+                //if (producto.product.name == product) {
                     ExisteProductoEnCategoria = true;
                 }
             });
@@ -654,11 +672,19 @@ class StoreHouseModel {
             let i = 0;
             categoria.products.forEach((producto, index) => {
 
-                if (producto.product.name == product.name) {
+                 if (producto.product.name == product.name) {
+                //if (producto.product.name == product) {
                     i = index;
+                    this.#categories[0].products.push({
+                        product: categoria.products[i].product,
+                        shops: "0000"
+                    });
                 }
 
             })
+
+            //añado a la categoria base el producto
+
             categoria.products.splice(i, 1);
         });
 
@@ -666,11 +692,19 @@ class StoreHouseModel {
         this.#stores.forEach(tienda => {
             let i = 0;
             tienda.warehouse.forEach((element, index) => {
-                if (element.product.name == product.name) {
+                  if (element.product.name == product.name) {
+             //    if (element.product.name == product) {
                     i = index;
+
+                    this.#stores[0].warehouse.push({
+                        product: tienda.warehouse[i].product,
+                        stock: tienda.warehouse[i].stock
+                    });
                 }
             });
             tienda.warehouse.splice(i, 1);
+
+
 
         });
 
@@ -700,6 +734,7 @@ class StoreHouseModel {
 
         // guardo la posicion de la categoria que vamos a eliminar del array this.#categories
         let posicion = this.#categories.findIndex(function (elem) { return elem.category.title == category.title });
+        // let posicion = this.#categories.findIndex(function (elem) { return elem.category.title == category });
 
         // si no encontramos esa categoria salta el error
         // en caso de que si este recorro el array de productos de esa categoría y los voy añadiendo a la tienda por defecto si no los tenia registrados ya
@@ -760,7 +795,8 @@ class StoreHouseModel {
             throw new EmptyValueException("shop", "StoreHouseModel", 405);
         }
         let comprueba = (this.#stores.findIndex(function (elem) {
-            return elem.shop.CIF == shop.CIF
+             return elem.shop.CIF == shop.CIF
+           // return elem.shop.CIF == shop;
         }));
         if (comprueba == -1) {
 
@@ -783,9 +819,10 @@ class StoreHouseModel {
                            }
                       ]
            */
-
+//Es literalmente lo mismo que comprueba
         let tiendaPosicion = this.#stores.findIndex(function (buscar) {
-            return buscar.shop.CIF == shop.CIF
+             return buscar.shop.CIF == shop.CIF
+           // return elem.shop.CIF == shop;
         });
         // esta variable me va a recorrer todos los productos y sus stocks
         this.#stores[tiendaPosicion].warehouse.forEach(element => {

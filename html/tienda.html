@@ -88,50 +88,45 @@
 
 
 
+        <div class="nav__index">
 
+            <span class="nav__category__link__span" style="color: white"> Formularios </span>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="nav__category">
-            <a href="formReg.html" class="nav__category__link"><span class="nav__category__link__span"> Registrarse
-                </span></a>
+            <div class="nav__options">
+                <a id="MostrarAñadirCat" class="nav__options__link">Añadir Categoria</a>
+                <a id="MostrarEliminarCat" class="nav__options__link">Eliminar Categoria</a>
+                <a id="MostrarAñadirTienda" class="nav__options__link">Añadir Tienda</a>
+                <a id="MostrarEliminarTienda" class="nav__options__link">Eliminar Tienda</a>
+                <a id="MostrarAñadirProducto" class="nav__options__link">Añadir Producto</a>
+                <a id="MostrarEliminarProducto" class="nav__options__link">Eliminar Producto</a>
+                <a id="MostrarModCantidad" class="nav__options__link">Modificar Cantidad De Un Producto</a>
+            </div>
         </div>
-        <div class="nav__category">
-            <a href="Clases.html" class="nav__category__link"><span class="nav__category__link__span"> Clases
-                </span></a>
-        </div>
-        <div class="nav__category">
-            <!--https://getbootstrap.com/docs/5.1/components/navbar/-->
-            <form class="d-flex">
-                <input class="form-control me-2" type="Buscar" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn btn-outline-warning" type="submit">Buscar</button>
-            </form>
-        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -141,6 +136,109 @@
     <main class="main" id="main">
 
     </main>
+
+
+
+
+    <!--INICIO AÑADIR CATEGORIAS-->
+    <div class="container" id="ContainerAñadirCat" style="display: none;">
+        <form id="AñadirCat" action="#">
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="TituloCat">Titulo Categoria</label>
+                    <input type="text" class="form-control" id="TituloCat" placeholder="titulo Cat">
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionCat">Descripcion</label>
+                <input type="text" class="form-control" id="DescripcionCat" placeholder="Descripcion Cat">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Añadir Categoria</button>
+        </form>
+    </div>
+    <!--FIN AÑADIR CATEGORIAS-->
+
+    <!--INICIO AÑADIR TIENDAS-->
+    <div class="container" id="ContainerAñadirTienda" style="display: none;">
+        <form id="AñadirTienda" action="#" enctype="multipart/form-data">
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="nombreTienda">Nombre Tienda</label>
+                    <input type="text" class="form-control" id="nombreTienda" placeholder="Nombre tienda">
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="CIFTienda">CIFTienda</label>
+                <input type="text" class="form-control" id="CIFTienda" placeholder="XXXXXX">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="DireccionTienda">DireccionTienda</label>
+                <input type="text" class="form-control" id="DireccionTienda" placeholder="DireccionTienda">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="telefonoTienda">telefonoTienda</label>
+                <input type="text" class="form-control" id="telefonoTienda" placeholder="XXX-XXX-XXX">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="LatitudTienda">LatitudTienda</label>
+                <input type="text" class="form-control" id="LatitudTienda" placeholder="LatitudTienda">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="LongitudTienda">LongitudTienda</label>
+                <input type="text" class="form-control" id="LongitudTienda" placeholder="LongitudTienda">
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="FotoTienda">FotoTienda</label>
+                <input type="file" class="form-control" id="FotoTienda" >
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Añadir Tienda</button>
+        </form>
+    </div>
+    <!--FINT AÑADIR TIENDAS-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

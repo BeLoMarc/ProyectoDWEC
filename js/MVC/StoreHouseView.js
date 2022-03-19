@@ -471,6 +471,9 @@ class StoreHouseView {
 
     }
 
+
+
+
     //los bind enlazan la vista con el controlador mediante el manejador(handler)
     //Las condiciones las maneja el controlador q es quien tiene los handler
     bindLoadStores(handler) {
@@ -561,6 +564,113 @@ class StoreHouseView {
 
     }
 
+    bindMostrarAñadirCat() {
+        $('#MostrarAñadirCat').click(function () {
+            if ($('#ContainerAñadirCat').css("display") == "none") {
+                $('#ContainerAñadirCat').css("display", "block");
+            } else {
+                $('#ContainerAñadirCat').css("display", "none");
+            }
+
+
+        });
+
+    }
+
+    bindValidarAñadirCat(handler) {
+        //Pongo aqui que niegue el submit del form
+        //Para que no me recarge la pagina/intente masndar datos fuera de esta
+        $('#AñadirCat').submit(function (event) {
+            event.preventDefault();
+            let inputTitulo = $('#TituloCat');
+            let inputDescripcion = $('#DescripcionCat');
+            if (correctoAñadirCategoria()) {
+
+                handler(
+                    inputTitulo.val(),
+                    inputDescripcion.val()
+                );
+
+                $('#ContainerAñadirCat').css("display", "none");
+
+            }
+
+        });
+
+        $('#AñadirCat').change(function (event) {
+            event.preventDefault();
+
+            validadAñadirCategoria();
+
+
+
+        })
+    }
+
+
+
+
+    bindMostrarAñadirTienda() {
+        $('#MostrarAñadirTienda').click(function () {
+            if ($('#ContainerAñadirTienda').css("display") == "none") {
+                $('#ContainerAñadirTienda').css("display", "block");
+            } else {
+                $('#ContainerAñadirTienda').css("display", "none");
+            }
+
+
+        });
+
+    }
+
+
+
+
+    bindValidarAñadirTienda(handler) {
+        //Pongo aqui que niegue el submit del form
+        //Para que no me recarge la pagina/intente masndar datos fuera de esta
+        $('#AñadirTienda').submit(function (event) {
+            event.preventDefault();
+            let inputnombreTienda = $('#nombreTienda');//
+            let inputCIFTienda = $('#CIFTienda');//
+            let inputDireccionTienda = $('#DireccionTienda');//
+            let inputtelefonoTienda = $('#telefonoTienda');//
+            let inputLatitudTienda = $('#LatitudTienda');//
+            let inputLongitudTienda = $('#LongitudTienda');//
+            let inputFotoTienda = $('#FotoTienda');
+
+            if (correctoAñadirTienda()) {
+
+                handler(
+                    inputnombreTienda.val(),
+                    inputCIFTienda.val(),
+                    inputDireccionTienda.val(),
+                    inputtelefonoTienda.val(),
+                    inputLatitudTienda.val(),
+                    inputLongitudTienda.val(),
+                    inputFotoTienda.val(),
+                );
+
+                $('#ContainerAñadirTienda').css("display", "none");
+
+            }
+
+        });
+
+        $('#AñadirTienda').change(function (event) {
+            // event.preventDefault();
+
+            validadAñadirTienda();
+
+
+
+        })
+    }
+
+
+
+
+
     bindHistory(handler) {
         //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
         $(".History").click(function () {
@@ -574,6 +684,296 @@ class StoreHouseView {
 
 
 }
+let TituloCorrecto;
+let DescripcionCorrecta;
+function validadAñadirCategoria() {
+    //ASi recojo los valores de los inputs
+    let inputTitulo = $('#TituloCat');
+    let inputDescripcion = $('#DescripcionCat');
+    if (!inputTitulo.val()) {
+
+        inputTitulo.addClass("is-invalid");
+
+        inputTitulo.removeClass("is-valid");
+
+        inputTitulo.closest(".invalid-feedback").html("No puede estar Vacio el titulo")
+
+    } else {
+
+        inputTitulo.addClass("is-valid");
+
+        inputTitulo.removeClass("is-invalid");
+
+        inputTitulo.closest(".valid-feedback").html("El titulo cumple los requisitos")
+        TituloCorrecto = true;
+    }
+
+    if (!inputDescripcion.val()) {
+
+        inputDescripcion.addClass("is-invalid");
+
+        inputDescripcion.removeClass("is-valid");
+
+        inputDescripcion.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+
+    } else {
+
+        inputDescripcion.addClass("is-valid");
+
+        inputDescripcion.removeClass("is-invalid");
+
+        inputDescripcion.closest(".valid-feedback").html("La categoria cumple los requisitos")
+        DescripcionCorrecta = true;
+    }
+
+
+}
+
+function correctoAñadirCategoria() {
+    if (TituloCorrecto && DescripcionCorrecta) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+let nombreTiendaCorrecto;//
+let CIFTiendaCorrecto;//
+let DireccionTiendaCorrecto;//
+let telefonoTiendaCorrecto;//
+let LatitudTiendaCorrecto;//
+let LongitudTiendaCorrecto;//
+let FotoTiendaCorrecto;
+let regexCIF = /[0-9]{6}/g;
+let regexCoordenadas = /[0-9]{4}/g;
+let regextelefono = /[0-9]{3}-[0-9]{3}-[0-9]{3}/g;
+let regexFoto = /.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
+
+// inputnameTienda
+//     inputCIFTienda
+//     inputaddressTienda
+//     inputphoneTienda
+//     inputlatitudTienda
+//     inputlongitudTienda
+//     inputimgTienda
+function validadAñadirTienda() {
+    //ASi recojo los valores de los inputs
+    let inputnombreTienda = $('#nombreTienda');//
+    let inputCIFTienda = $('#CIFTienda');//
+    let inputDireccionTienda = $('#DireccionTienda');//
+    let inputtelefonoTienda = $('#telefonoTienda');//
+    let inputLatitudTienda = $('#LatitudTienda');//
+    let inputLongitudTienda = $('#LongitudTienda');//
+    let inputFotoTienda = $('#FotoTienda');
+
+    /**
+     * INICIO VALIDACION NOMBRE TIENDA
+     */
+    if (!inputnombreTienda.val()) {
+
+        inputnombreTienda.addClass("is-invalid");
+
+        inputnombreTienda.removeClass("is-valid");
+
+        inputnombreTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+
+    } else {
+
+        inputnombreTienda.addClass("is-valid");
+
+        inputnombreTienda.removeClass("is-invalid");
+
+        inputnombreTienda.closest(".valid-feedback").html("El nombre de la tienda esta correcto")
+        nombreTiendaCorrecto = true;
+    }
+
+    /**
+     * INICIO VALIDACION CIF TIENDA
+     */
+    if (!inputCIFTienda.val()) {
+
+        inputCIFTienda.addClass("is-invalid");
+
+        inputCIFTienda.removeClass("is-valid");
+
+        inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+
+    } else if (!(/[0-9]{6}/g.test(inputCIFTienda.val()))||(Number.parseInt(inputCIFTienda.val().length)>6)) {
+        inputCIFTienda.addClass("is-invalid");
+
+        inputCIFTienda.removeClass("is-valid");
+
+        inputCIFTienda.closest(".invalid-feedback").html("El Cif de la tienda SOLO puede tener 6 DEL 0 AL 9 digitos")
+    }
+    
+    else {
+
+        inputCIFTienda.addClass("is-valid");
+
+        inputCIFTienda.removeClass("is-invalid");
+
+        inputCIFTienda.closest(".valid-feedback").html("La categoria cumple los requisitos")
+        CIFTiendaCorrecto = true;
+    }
+
+    /**
+     * INICIO VALIDACION DIRECCION TIENDA
+     */
+    if (!inputDireccionTienda.val()) {
+
+        inputDireccionTienda.addClass("is-invalid");
+
+        inputDireccionTienda.removeClass("is-valid");
+
+        inputDireccionTienda.closest(".invalid-feedback").html("No puede estar Vacio la direccion de la tienda")
+
+    }
+    else {
+
+        inputDireccionTienda.addClass("is-valid");
+
+        inputDireccionTienda.removeClass("is-invalid");
+
+        inputDireccionTienda.closest(".valid-feedback").html("la direccion de la tienda esta correcto")
+        DireccionTiendaCorrecto = true;
+    }
+
+
+
+    /**
+     * INICIO VALIDACION TELEFONO TIENDA
+     */
+    if (!inputtelefonoTienda.val()) {
+
+        inputtelefonoTienda.addClass("is-invalid");
+
+        inputtelefonoTienda.removeClass("is-valid");
+
+        inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+
+    } else if (!(/[0-9]{3}-[0-9]{3}-[0-9]{3}/g.test(inputtelefonoTienda.val()))||(Number.parseInt(inputtelefonoTienda.val().length)>11)) {
+        inputtelefonoTienda.addClass("is-invalid");
+
+        inputtelefonoTienda.removeClass("is-valid");
+
+        inputtelefonoTienda.closest(".invalid-feedback").html("el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX")
+    }
+    else {
+
+        inputtelefonoTienda.addClass("is-valid");
+
+        inputtelefonoTienda.removeClass("is-invalid");
+
+        inputtelefonoTienda.closest(".valid-feedback").html("El telefono de la tienda esta correcto")
+
+        telefonoTiendaCorrecto = true;
+    }
+    /**
+     * INICIO VALIDACION LATITUD
+     */
+    if (!inputLatitudTienda.val()) {
+
+        inputLatitudTienda.addClass("is-invalid");
+
+        inputLatitudTienda.removeClass("is-valid");
+
+        inputLatitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+
+    } else if (!(/[0-9]{4}/g.test(inputLatitudTienda.val()))||(Number.parseInt(inputLatitudTienda.val().length)>4)) {
+        inputLatitudTienda.addClass("is-invalid");
+
+        inputLatitudTienda.removeClass("is-valid");
+
+        inputLatitudTienda.closest(".invalid-feedback").html("LA LAITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+    } else {
+
+        inputLatitudTienda.addClass("is-valid");
+
+        inputLatitudTienda.removeClass("is-invalid");
+
+        inputLatitudTienda.closest(".valid-feedback").html("LA LATITUD de la tienda esta correcto")
+        LatitudTiendaCorrecto = true;
+    }
+
+
+    /**
+     * INICIO VALIDACION LONGITUD
+     */
+    if (!inputLongitudTienda.val()) {
+
+        inputLongitudTienda.addClass("is-invalid");
+
+        inputLongitudTienda.removeClass("is-valid");
+
+        inputLongitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
+
+    } else if (!(/[0-9]{4}/g.test(inputLongitudTienda.val()))||(Number.parseInt(inputLongitudTienda.val().length)>4)) {
+        inputLongitudTienda.addClass("is-invalid");
+
+        inputLongitudTienda.removeClass("is-valid");
+
+        inputLongitudTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+    } else {
+
+        inputLongitudTienda.addClass("is-valid");
+
+        inputLongitudTienda.removeClass("is-invalid");
+
+        inputLongitudTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+        LongitudTiendaCorrecto = true;
+    }
+
+
+    /**
+     * INICIO VALIDACION FOTO
+     */
+    if (!inputFotoTienda.val()) {
+
+        inputFotoTienda.addClass("is-invalid");
+
+        inputFotoTienda.removeClass("is-valid");
+
+        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
+
+    } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputFotoTienda.val()))) {
+        inputFotoTienda.addClass("is-invalid");
+
+        inputFotoTienda.removeClass("is-valid");
+
+        inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+    } else {
+
+        inputFotoTienda.addClass("is-valid");
+
+        inputFotoTienda.removeClass("is-invalid");
+
+        inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+        FotoTiendaCorrecto = true;
+    }
+
+
+}
+function correctoAñadirTienda() {
+    if (nombreTiendaCorrecto &&
+        CIFTiendaCorrecto &&
+        DireccionTiendaCorrecto &&
+        telefonoTiendaCorrecto &&
+        LatitudTiendaCorrecto &&
+        LongitudTiendaCorrecto &&
+        FotoTiendaCorrecto) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
+
+
 
 
 export default StoreHouseView;
