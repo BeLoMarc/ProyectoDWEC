@@ -468,6 +468,10 @@ class StoreHouseModel {
                     shops: "0000" //CIF DE LA TIENDA BASE
 
                 });
+                /**
+                 * esto me añade el producto a la tienda base
+                 * y solo lo pushea una vez a esta mirando que ademas no este repetido
+                 */
                 let posiciontienda = this.#stores[0].warehouse.find(p => {
                     return p.product.name == Product.name;
                 });
@@ -478,10 +482,6 @@ class StoreHouseModel {
                     });
                 }
 
-                // this.#stores[0].warehouse.push({
-                //     product: Product,
-                //     stock: 0
-                // });
             } else {
                 cont = cont + 1;
             }

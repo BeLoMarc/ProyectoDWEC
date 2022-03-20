@@ -260,6 +260,14 @@ class StoreHouseController {
       //Esto me Valida el formulario Añadir Dados
       this.#StoreHouseView.bindValidarAñadirDados(this.handlerValidarAñadirDados);
 
+      //Esto me Valida el formulario Añadir manual
+      this.#StoreHouseView.bindValidarAñadirManual(this.handlerValidarAñadirManual);
+      //Esto me Valida el formulario Añadir pantalla
+      this.#StoreHouseView.bindValidarAñadirPantalla(this.handlerValidarAñadirPantalla);
+      //Esto me Valida el formulario Añadir ordenador
+      this.#StoreHouseView.bindValidarAñadirOrdenador(this.handlerValidarAñadirOrdenador);
+
+
       //Esto me muestra el select para borrar categorias
       this.#StoreHouseView.bindMostrarSelectBorrarCategorias();
       //Esto me muestra el select para borrar tiendas
@@ -411,6 +419,64 @@ class StoreHouseController {
       let arrcat = categoria.split(" ");
       arrcat.forEach(element => {
          let a = new Dados(SN, nombre, nuevaDireccion, Precio, Impuesto, foto, modelo, color);
+         this.#StoreHouse.addProduct(a, element);
+      });
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
+
+   handlerValidarAñadirManual = (SN, nombre, nuevaDireccion, Precio, Impuesto, cover, autor, targer, categoria, foto) => {
+      let arrcat = categoria.split(" ");
+      arrcat.forEach(element => {
+         let a = new Manual(SN, nombre, nuevaDireccion, Precio, Impuesto, foto, cover, autor, targer);
+         this.#StoreHouse.addProduct(a, element);
+      });
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
+   handlerValidarAñadirPantalla = (SN, nombre, descripcion, Precio, Impuesto, model, size, campaña, categoria, foto) => {
+      let arrcat = categoria.split(" ");
+      arrcat.forEach(element => {
+         let a = new Pantalla(SN, nombre, descripcion, Precio, Impuesto, foto, model, size, campaña);
+         this.#StoreHouse.addProduct(a, element);
+      });
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
+   handlerValidarAñadirOrdenador = (SN, nombre, descripcion, Precio, Impuesto, model, cpu, cargador, teclado,categoria, foto) => {
+      let arrcat = categoria.split(" ");
+      arrcat.forEach(element => {
+         let a = new Laptop(SN, nombre, descripcion, Precio, Impuesto, foto, model, cpu,cargador, teclado);
          this.#StoreHouse.addProduct(a, element);
       });
 
