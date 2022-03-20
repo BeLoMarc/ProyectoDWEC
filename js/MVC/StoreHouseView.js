@@ -487,16 +487,15 @@ class StoreHouseView {
             cont += 1;
         };
         cont = 0;
-        let gua = mapProducts.producto;
-        // for (const p of gua) {
-        //     if (!(p.producto.nombre == "tienda base")) {
-        //         $('#SelectEliminarProducto').append(` 
-        //         <option id="tienda${p.producto.nombre}" value="${p.producto.nombre}" href="#">${p.producto.nombre}</option>`);
+        let gua = mapProducts.Producto;
+        for (const p of gua) {
 
-        //     }
+            $('#SelectEliminarProducto').append(`<option id="tienda${p.nombre}" value="${p.nombre}" href="#">${p.nombre}</option>`);
 
 
-        // };
+
+
+        };
 
     }
 
@@ -621,6 +620,11 @@ class StoreHouseView {
 
     }
 
+
+
+
+
+
     bindValidarAñadirCat(handler) {
         //Pongo aqui que niegue el submit del form
         //Para que no me recarge la pagina/intente masndar datos fuera de esta
@@ -735,6 +739,18 @@ class StoreHouseView {
 
     }
 
+    bindMostrarSelectBorrarProducto() {
+        $('#MostrarEliminarProducto').click(function () {
+            if ($('#ContainerEliminarProducto').css("display") == "none") {
+                $('#ContainerEliminarProducto').css("display", "block");
+            } else {
+                $('#ContainerEliminarProducto').css("display", "none");
+            }
+
+        });
+
+    }
+
     bindLoadSelects(handler) {
         $("#ShowSelects").hover(function () {
             handler();
@@ -768,7 +784,17 @@ class StoreHouseView {
     }
 
 
+    bindEliminarProducto(handler) {
+        $('#FormBorrarProducto').submit(function (event) {
+            event.preventDefault();
+            let nombreproducto = $('#SelectEliminarProducto').val();
 
+            handler(nombreproducto);
+
+            $('#ContainerEliminarProducto').css("display", "none");
+
+        });
+    }
 
 
 
@@ -2569,30 +2595,30 @@ function validarAñadirOrdenador() {
     /**
      * INICIO VALIDACION FOTO
      */
-    if (!inputFotoOrdenador .val()) {
+    if (!inputFotoOrdenador.val()) {
 
-        inputFotoOrdenador .addClass("is-invalid");
+        inputFotoOrdenador.addClass("is-invalid");
 
-        inputFotoOrdenador .removeClass("is-valid");
+        inputFotoOrdenador.removeClass("is-valid");
 
         $('#malFotoPantalla').append(`No puede ESTAR la foto vacia`);
 
 
         //        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
 
-    } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputFotoOrdenador .val()))) {
-        inputFotoOrdenador .addClass("is-invalid");
+    } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputFotoOrdenador.val()))) {
+        inputFotoOrdenador.addClass("is-invalid");
 
-        inputFotoOrdenador .removeClass("is-valid");
+        inputFotoOrdenador.removeClass("is-valid");
 
         $('#malFotoOrdenador').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
 
-        inputFotoOrdenador .addClass("is-valid");
+        inputFotoOrdenador.addClass("is-valid");
 
-        inputFotoOrdenador .removeClass("is-invalid");
+        inputFotoOrdenador.removeClass("is-invalid");
         $('#buenFotoOrdenador').append(`La foto ta bien`);
         // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         FotoOrdenadorCorreccto = true;

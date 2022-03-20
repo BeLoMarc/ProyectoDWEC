@@ -272,14 +272,15 @@ class StoreHouseController {
       this.#StoreHouseView.bindMostrarSelectBorrarCategorias();
       //Esto me muestra el select para borrar tiendas
       this.#StoreHouseView.bindMostrarSelectBorrarTiendas();
-
-      //Esto me muestra el select para borrar tiendas
+      //Esto me muestra el select para borrar Productos
+      this.#StoreHouseView.bindMostrarSelectBorrarProducto();
+      //Esto me muestra el select para añadir dados
       this.#StoreHouseView.bindMostrarAñadirDados();
-      //Esto me muestra el select para borrar tiendas
+      //Esto me muestra el select para añadir Manual
       this.#StoreHouseView.bindMostrarMostrarAñadirManual();
-      //Esto me muestra el select para borrar tiendas
+      //Esto me muestra el select para añadir Pantalla
       this.#StoreHouseView.bindMostrarAñadirPantalla();
-      //Esto me muestra el select para borrar tiendas
+      //Esto me muestra el select para añadir Laptops
       this.#StoreHouseView.bindMostrarAñadirLaptop();
 
 
@@ -290,6 +291,9 @@ class StoreHouseController {
       this.#StoreHouseView.bindEliminarCategoria(this.handleEliminarCategoria);
       //Esto Me elimina las tiendas
       this.#StoreHouseView.bindEliminarTienda(this.handleEliminarTienda);
+      //Esto Me elimina los productos
+      this.#StoreHouseView.bindEliminarProducto(this.handleEliminarproducto);
+
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -473,10 +477,10 @@ class StoreHouseController {
       this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
    }
 
-   handlerValidarAñadirOrdenador = (SN, nombre, descripcion, Precio, Impuesto, model, cpu, cargador, teclado,categoria, foto) => {
+   handlerValidarAñadirOrdenador = (SN, nombre, descripcion, Precio, Impuesto, model, cpu, cargador, teclado, categoria, foto) => {
       let arrcat = categoria.split(" ");
       arrcat.forEach(element => {
-         let a = new Laptop(SN, nombre, descripcion, Precio, Impuesto, foto, model, cpu,cargador, teclado);
+         let a = new Laptop(SN, nombre, descripcion, Precio, Impuesto, foto, model, cpu, cargador, teclado);
          this.#StoreHouse.addProduct(a, element);
       });
 
@@ -502,7 +506,7 @@ class StoreHouseController {
          category: this.#StoreHouse.categories,
       };
       let mapProducts = {
-         Producto: this.#StoreHouse.getProducts,
+         Producto: this.#StoreHouse.getProducts(),
       };
 
       this.#StoreHouseView.LoadSelect(mapCategories, mapStores, mapProducts);
@@ -540,6 +544,25 @@ class StoreHouseController {
 
       this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
    }
+
+   handleEliminarproducto = (nombreproducto) => {
+
+      let a = new Dados(" ",nombreproducto," "," "," "," "," "," ");
+      this.#StoreHouse.removeProduct(a);
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
+
 
    handleRecargar = () => {
       //Esto recarga la pagina y la deja fina 

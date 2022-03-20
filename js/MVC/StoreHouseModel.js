@@ -172,7 +172,7 @@ class StoreHouseModel {
 
 
     // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
-    *getShopProducts(shop, product = Object) {
+    * getShopProducts(shop, product = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
         // recorro el array de tiendas con un for of
         for (const tienda of this.#stores) {
@@ -208,7 +208,7 @@ class StoreHouseModel {
         */
     }
 
-    *getProducts() {
+    * getProducts() {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
         // recorro el array de tiendas con un for of
         for (const tienda of this.#stores) {
@@ -700,21 +700,27 @@ class StoreHouseModel {
         let ExisteProductoEnTienda = false;
 
         this.#stores.forEach(tienda => {
-            tienda.warehouse.forEach(element => {
-                if (element.product.name == product.name) {
-                    //if (element.product.name == product) {
-                    ExisteProductoEnTienda = true;
-                }
-            });
+            if (!(tienda.shop.name == "tienda base")) {
+                tienda.warehouse.forEach(element => {
+                    if (element.product.name == product.name) {
+                        //if (element.product.name == product) {
+                        ExisteProductoEnTienda = true;
+                    }
+                });
+            }
+
         });
 
         this.#categories.forEach(categoria => {
-            categoria.products.forEach(producto => {
-                if (producto.product.name == product.name) {
-                    //if (producto.product.name == product) {
-                    ExisteProductoEnCategoria = true;
-                }
-            });
+            if (!(categoria.category.name == "categoria base")) {
+                categoria.products.forEach(producto => {
+                    if (producto.product.name == product.name) {
+                        //if (producto.product.name == product) {
+                        ExisteProductoEnCategoria = true;
+                    }
+                });
+            }
+
         });
 
         if (!(ExisteProductoEnCategoria) || !(ExisteProductoEnTienda)) {
@@ -724,39 +730,42 @@ class StoreHouseModel {
         this.#categories.forEach(categoria => {
             let i = 0;
             categoria.products.forEach((producto, index) => {
-
-                if (producto.product.name == product.name) {
-                    //if (producto.product.name == product) {
-                    i = index;
-                    this.#categories[0].products.push({
-                        product: categoria.products[i].product,
-                        shops: "0000"
-                    });
+                if (!(categoria.category.name == "categoria base")) {
+                    if (producto.product.name == product.name) {
+                        //if (producto.product.name == product) {
+                        i = index;
+                        this.#categories[0].products.push({
+                            product: categoria.products[i].product,
+                            shops: "0000"
+                        });
+                        categoria.products.splice(i, 1);
+                    }
                 }
-
             })
 
             //añado a la categoria base el producto
 
-            categoria.products.splice(i, 1);
+
         });
 
 
         this.#stores.forEach(tienda => {
-            let i = 0;
-            tienda.warehouse.forEach((element, index) => {
-                if (element.product.name == product.name) {
-                    //    if (element.product.name == product) {
-                    i = index;
+            if (!(tienda.shop.name == "tienda base")) {
+                let i = 0;
+                tienda.warehouse.forEach((element, index) => {
+                    if (element.product.name == product.name) {
+                        //    if (element.product.name == product) {
+                        i = index;
 
-                    this.#stores[0].warehouse.push({
-                        product: tienda.warehouse[i].product,
-                        stock: tienda.warehouse[i].stock
-                    });
-                }
-            });
-            tienda.warehouse.splice(i, 1);
+                        this.#stores[0].warehouse.push({
+                            product: tienda.warehouse[i].product,
+                            stock: tienda.warehouse[i].stock
+                        });
+                        tienda.warehouse.splice(i, 1);
+                    }
+                });
 
+            }
 
 
         });
