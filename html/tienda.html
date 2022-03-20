@@ -90,17 +90,17 @@
 
         <div class="nav__index">
             <a id="ShowSelects" href="#" class="nav__category__link">
-            <span class="nav__category__link__span" style="color: white"> Formularios </span>
+                <span class="nav__category__link__span" style="color: white"> Formularios </span>
 
-            <div class="nav__options">
-                <a id="MostrarAñadirCat" class="nav__options__link">Añadir Categoria</a>
-                <a id="MostrarEliminarCat" class="nav__options__link">Eliminar Categoria</a>
-                <a id="MostrarAñadirTienda" class="nav__options__link">Añadir Tienda</a>
-                <a id="MostrarEliminarTienda" class="nav__options__link">Eliminar Tienda</a>
-                <a id="MostrarAñadirProducto" class="nav__options__link">Añadir Producto</a>
-                <a id="MostrarEliminarProducto" class="nav__options__link">Eliminar Producto</a>
-                <a id="MostrarModCantidad" class="nav__options__link">Modificar Cantidad De Un Producto</a>
-            </div>
+                <div class="nav__options">
+                    <a id="MostrarAñadirCat" class="nav__options__link">Añadir Categoria</a>
+                    <a id="MostrarEliminarCat" class="nav__options__link">Eliminar Categoria</a>
+                    <a id="MostrarAñadirTienda" class="nav__options__link">Añadir Tienda</a>
+                    <a id="MostrarEliminarTienda" class="nav__options__link">Eliminar Tienda</a>
+                    <a id="MostrarAñadirProducto" class="nav__options__link">Añadir Producto</a>
+                    <a id="MostrarEliminarProducto" class="nav__options__link">Eliminar Producto</a>
+                    <a id="MostrarModCantidad" class="nav__options__link">Modificar Cantidad De Un Producto</a>
+                </div>
         </div>
 
 
@@ -148,15 +148,15 @@
                 <div class="form-group col-md-6">
                     <label for="TituloCat">Titulo Categoria</label>
                     <input type="text" class="form-control" id="TituloCat" placeholder="titulo Cat">
-                    <div class="invalid-feedback"></div>
-                    <div class="valid-feedback"></div>
+                    <div id="maltituloCategoria" class="invalid-feedback"></div>
+                    <div id="buentituloCategoria" class="valid-feedback"></div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="DescripcionCat">Descripcion</label>
                 <input type="text" class="form-control" id="DescripcionCat" placeholder="Descripcion Cat">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="malDescripcionCategoria" class="invalid-feedback"></div>
+                <div id="buenDescripcionCategoria" class="valid-feedback"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Añadir Categoria</button>
@@ -165,52 +165,52 @@
     <!--FIN AÑADIR CATEGORIAS-->
 
     <!--INICIO AÑADIR TIENDAS-->
-    <div class="container"  id="ContainerAñadirTienda" style="display: none;">
+    <div class="container" id="ContainerAñadirTienda" style="display: none;">
         <form id="AñadirTienda" method="post" action="#" enctype="multipart/form-data">
             <div class="form-row">
 
                 <div class="form-group col-md-6">
                     <label for="nombreTienda">Nombre Tienda</label>
                     <input type="text" class="form-control" id="nombreTienda" placeholder="Nombre tienda">
-                    <div class="invalid-feedback"></div>
-                    <div class="valid-feedback"></div>
+                    <div id="malNombreTienda" class="invalid-feedback"></div>
+                    <div id="buenNombreTienda" class="valid-feedback"></div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="CIFTienda">CIFTienda</label>
                 <input type="text" class="form-control" id="CIFTienda" placeholder="XXXXXX">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenCifTienda" class="invalid-feedback"></div>
+                <div id="malCifTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="DireccionTienda">DireccionTienda</label>
                 <input type="text" class="form-control" id="DireccionTienda" placeholder="DireccionTienda">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenDireccionTienda" class="invalid-feedback"></div>
+                <div id="malDireccionTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="telefonoTienda">telefonoTienda</label>
                 <input type="text" class="form-control" id="telefonoTienda" placeholder="XXX-XXX-XXX">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenTelefonoTienda" class="invalid-feedback"></div>
+                <div id="malTelefonoTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="LatitudTienda">LatitudTienda</label>
                 <input type="text" class="form-control" id="LatitudTienda" placeholder="LatitudTienda">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenLatitudTienda" class="invalid-feedback"></div>
+                <div id="malLatitudTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="LongitudTienda">LongitudTienda</label>
                 <input type="text" class="form-control" id="LongitudTienda" placeholder="LongitudTienda">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenLongitudTienda" class="invalid-feedback"></div>
+                <div id="malLongitudTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="FotoTienda">FotoTienda</label>
                 <input type="file" class="form-control" id="FotoTienda">
-                <div class="invalid-feedback"></div>
-                <div class="valid-feedback"></div>
+                <div id="buenFotoTienda" class="invalid-feedback"></div>
+                <div id="malFotoTienda" class="valid-feedback"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Añadir Tienda</button>
@@ -240,7 +240,17 @@
         </form>
     </div>
 
+    <!-- ELIMINAR PRODUCTO -->
 
+    <div style="display:none" id="ContainerEliminarTienda">
+        <form id="FormBorrarProducto" action="#" enctype="multipart/form-data">
+            <h1>ELIMINAR PRODUCTO</h1>
+            <select id="SelectEliminarProducto" class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example">
+            </select>
+            <button type="submit" class="btn btn-primary">Eliminar Producto</button>
+        </form>
+    </div>
 
 
 

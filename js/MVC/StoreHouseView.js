@@ -463,10 +463,10 @@ class StoreHouseView {
     }
 
 
-    LoadSelect(mapCategories, mapStores) {
+    LoadSelect(mapCategories, mapStores, mapProducts) {
         $('#SelectEliminarCategorias').empty();
         $('#SelectEliminarTienda').empty();
-
+        $('#SelectEliminarProducto').empty();
         let cont = 0;
         for (const category of mapCategories.category) {
 
@@ -481,11 +481,23 @@ class StoreHouseView {
             if (!(store.name == "tienda base")) {
                 $('#SelectEliminarTienda').append(` 
                 <option id="tienda${cont}" value="${store.CIF}" href="#">${store.name}</option>`);
-            console.log( store.name);
+
             }
 
             cont += 1;
         };
+        cont = 0;
+        let gua = mapProducts.producto;
+        for (const p of gua) {
+            if (!(p.producto.nombre == "tienda base")) {
+                $('#SelectEliminarProducto').append(` 
+                <option id="tienda${p.producto.nombre}" value="${p.producto.nombre}" href="#">${p.producto.nombre}</option>`);
+
+            }
+
+
+        };
+
     }
 
 
@@ -785,16 +797,15 @@ function validadAñadirCategoria() {
         inputTitulo.addClass("is-invalid");
 
         inputTitulo.removeClass("is-valid");
-
-        inputTitulo.closest(".invalid-feedback").html("No puede estar Vacio el titulo")
+        $('#maltituloCategoria').append(`No puede estar Vacio el titulo`);
 
     } else {
 
         inputTitulo.addClass("is-valid");
 
         inputTitulo.removeClass("is-invalid");
+        $('#buentituloCategoria').append(`El titulo cumple los requisitos`);
 
-        inputTitulo.closest(".valid-feedback").html("El titulo cumple los requisitos")
         TituloCorrecto = true;
     }
 
@@ -804,7 +815,9 @@ function validadAñadirCategoria() {
 
         inputDescripcion.removeClass("is-valid");
 
-        inputDescripcion.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+        $('#malDescripcionCategoria').append(`No puede estar Vacio la descripcion`);
+
+
 
     } else {
 
@@ -812,7 +825,9 @@ function validadAñadirCategoria() {
 
         inputDescripcion.removeClass("is-invalid");
 
-        inputDescripcion.closest(".valid-feedback").html("La categoria cumple los requisitos")
+        $('#buenDescripcionCategoria').append(`La categoria cumple los requisitos`);
+
+        // inputDescripcion.closest(".valid-feedback").html("La categoria cumple los requisitos")
         DescripcionCorrecta = true;
     }
 
@@ -867,15 +882,18 @@ function validadAñadirTienda() {
 
         inputnombreTienda.removeClass("is-valid");
 
-        inputnombreTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+        $('#malNombreTienda').append(`No puede estar Vacio el Nombre de la tienda`);
+
+        // inputnombreTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
     } else {
 
         inputnombreTienda.addClass("is-valid");
 
         inputnombreTienda.removeClass("is-invalid");
+        $('#buenNombreTienda').append(`El nombre de la tienda esta correcto`);
 
-        inputnombreTienda.closest(".valid-feedback").html("El nombre de la tienda esta correcto")
+        // inputnombreTienda.closest(".valid-feedback").html("El nombre de la tienda esta correcto")
         nombreTiendaCorrecto = true;
     }
 
@@ -887,15 +905,17 @@ function validadAñadirTienda() {
         inputCIFTienda.addClass("is-invalid");
 
         inputCIFTienda.removeClass("is-valid");
+        $('#malCifTienda').append(`No puede estar Vacio el cif de la tienda`);
 
-        inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+        //inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
 
     } else if (!(/[0-9]{6}/g.test(inputCIFTienda.val())) || (Number.parseInt(inputCIFTienda.val().length) > 6)) {
         inputCIFTienda.addClass("is-invalid");
 
         inputCIFTienda.removeClass("is-valid");
 
-        inputCIFTienda.closest(".invalid-feedback").html("El Cif de la tienda SOLO puede tener 6 DEL 0 AL 9 digitos")
+        $('#malCifTienda').append(`El Cif de la tienda SOLO puede tener 6 DEL 0 AL 9 digitos`);
+        //inputCIFTienda.closest(".invalid-feedback").html("El Cif de la tienda SOLO puede tener 6 DEL 0 AL 9 digitos")
     }
 
     else {
@@ -903,8 +923,8 @@ function validadAñadirTienda() {
         inputCIFTienda.addClass("is-valid");
 
         inputCIFTienda.removeClass("is-invalid");
-
-        inputCIFTienda.closest(".valid-feedback").html("La categoria cumple los requisitos")
+        $('#buenCifTienda').append(`La categoria cumple los requisitos`);
+        //inputCIFTienda.closest(".valid-feedback").html("La categoria cumple los requisitos")
         CIFTiendaCorrecto = true;
     }
 
@@ -916,8 +936,9 @@ function validadAñadirTienda() {
         inputDireccionTienda.addClass("is-invalid");
 
         inputDireccionTienda.removeClass("is-valid");
+        $('#malDireccionTienda').append(`No puede estar Vacio la direccion de la tienda`);
 
-        inputDireccionTienda.closest(".invalid-feedback").html("No puede estar Vacio la direccion de la tienda")
+        //inputDireccionTienda.closest(".invalid-feedback").html("No puede estar Vacio la direccion de la tienda")
 
     }
     else {
@@ -926,7 +947,9 @@ function validadAñadirTienda() {
 
         inputDireccionTienda.removeClass("is-invalid");
 
-        inputDireccionTienda.closest(".valid-feedback").html("la direccion de la tienda esta correcto")
+        $('#buenDireccionTienda').append(`la direccion de la tienda esta correcto`);
+
+        //        inputDireccionTienda.closest(".valid-feedback").html("la direccion de la tienda esta correcto")
         DireccionTiendaCorrecto = true;
     }
 
@@ -940,15 +963,17 @@ function validadAñadirTienda() {
         inputtelefonoTienda.addClass("is-invalid");
 
         inputtelefonoTienda.removeClass("is-valid");
-
-        inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+        $('#malTelefonoTienda').append(`el telefono no puede estar vacio`);
+        //inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
     } else if (!(/[0-9]{3}-[0-9]{3}-[0-9]{3}/g.test(inputtelefonoTienda.val())) || (Number.parseInt(inputtelefonoTienda.val().length) > 11)) {
         inputtelefonoTienda.addClass("is-invalid");
 
         inputtelefonoTienda.removeClass("is-valid");
 
-        inputtelefonoTienda.closest(".invalid-feedback").html("el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX")
+        $('#malTelefonoTienda').append(`el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX`);
+
+        //inputtelefonoTienda.closest(".invalid-feedback").html("el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX")
     }
     else {
 
@@ -956,7 +981,9 @@ function validadAñadirTienda() {
 
         inputtelefonoTienda.removeClass("is-invalid");
 
-        inputtelefonoTienda.closest(".valid-feedback").html("El telefono de la tienda esta correcto")
+        $('#buenTelefonoTienda').append(`El telefono de la tienda esta correcto`);
+
+        //inputtelefonoTienda.closest(".valid-feedback").html("El telefono de la tienda esta correcto")
 
         telefonoTiendaCorrecto = true;
     }
@@ -969,21 +996,28 @@ function validadAñadirTienda() {
 
         inputLatitudTienda.removeClass("is-valid");
 
-        inputLatitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+        $('#malLatitudTienda').append(`latutud no puede estar vacia`);
+
+
+        //inputLatitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
     } else if (!(/[0-9]{4}/g.test(inputLatitudTienda.val())) || (Number.parseInt(inputLatitudTienda.val().length) > 4)) {
         inputLatitudTienda.addClass("is-invalid");
 
         inputLatitudTienda.removeClass("is-valid");
 
-        inputLatitudTienda.closest(".invalid-feedback").html("LA LAITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+        $('#malLatitudTienda').append(`LA LATITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9`);
+
+        //inputLatitudTienda.closest(".invalid-feedback").html("LA LATITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
 
         inputLatitudTienda.addClass("is-valid");
 
         inputLatitudTienda.removeClass("is-invalid");
 
-        inputLatitudTienda.closest(".valid-feedback").html("LA LATITUD de la tienda esta correcto")
+        $('#buenLatitudTienda').append(`LA LATITUD de la tienda esta correcto`);
+
+        //inputLatitudTienda.closest(".valid-feedback").html("LA LATITUD de la tienda esta correcto")
         LatitudTiendaCorrecto = true;
     }
 
@@ -997,21 +1031,30 @@ function validadAñadirTienda() {
 
         inputLongitudTienda.removeClass("is-valid");
 
-        inputLongitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
+        $('#malLongitudTienda').append(`No puede estar Vacio el LONGITUD de la tienda`);
+
+
+        //inputLongitudTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
 
     } else if (!(/[0-9]{4}/g.test(inputLongitudTienda.val())) || (Number.parseInt(inputLongitudTienda.val().length) > 4)) {
         inputLongitudTienda.addClass("is-invalid");
 
         inputLongitudTienda.removeClass("is-valid");
 
-        inputLongitudTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+
+        $('#malLongitudTienda').append(`LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9`);
+
+
+        //inputLongitudTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
 
         inputLongitudTienda.addClass("is-valid");
 
         inputLongitudTienda.removeClass("is-invalid");
 
-        inputLongitudTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+        $('#buenLongitudTienda').append(`LA LONGITUD de la tienda esta correcto`);
+
+        //inputLongitudTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         LongitudTiendaCorrecto = true;
     }
 
@@ -1025,21 +1068,26 @@ function validadAñadirTienda() {
 
         inputFotoTienda.removeClass("is-valid");
 
-        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
+        $('#malFotoTienda').append(`No puede la foto vacia`);
+
+
+//        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
 
     } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputFotoTienda.val()))) {
         inputFotoTienda.addClass("is-invalid");
 
         inputFotoTienda.removeClass("is-valid");
+        
+        $('#malFotoTienda').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff? png webp bmp`);
 
-        inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
+        //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
 
         inputFotoTienda.addClass("is-valid");
 
         inputFotoTienda.removeClass("is-invalid");
-
-        inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+        $('#buenFotoTienda').append(`La foto ta bien`);
+        // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         FotoTiendaCorrecto = true;
     }
 

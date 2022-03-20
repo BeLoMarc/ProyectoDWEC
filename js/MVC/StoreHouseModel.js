@@ -139,6 +139,7 @@ class StoreHouseModel {
                     next: function () {
                         if (nextIndex < shops.length) {
                             return {
+                                // value: shops[nextIndex++].shop,
                                 value: shops[nextIndex++].shop,
                                 done: false
                             }
@@ -169,6 +170,7 @@ class StoreHouseModel {
         };
     }
 
+
     // el type lo igualamaos para q si no me pasas un tipo de producto devuelva todos
     *getShopProducts(shop, product = Object) {
         // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
@@ -191,7 +193,7 @@ class StoreHouseModel {
             }
         }
         /*
-        CATEGORIES[    CATEGORY:CATEGORIA
+        CATEGORIES[     CATEGORY:CATEGORIA
                         PRODUCTS[
                             PRODUCT: PRODUCT
                             SHOPS[CIF DE LA TIENDA]
@@ -205,9 +207,43 @@ class StoreHouseModel {
                 ]
         */
     }
-    ver() {
-        return this.#stores;
+
+    *getProducts() {
+        // el asterisco indica q es un generador y el yield pausa la funcion y proporciona el estado del generador
+        // recorro el array de tiendas con un for of
+        for (const tienda of this.#stores) {
+            // si la tienda de mi array coincide con la tienda introducida por parametro
+            if (!(tienda.shop.CIF === "0000")) {
+                //buscamos en los productos de la tienda de mi array
+                for (const productos of tienda.warehouse) {
+                    //si estos productos son de tipo objeto porque no se ha introducido ningun producto nos devuelve todos
+                    //actuando asi como filtro
+                    yield {
+                        nombre: productos.product.name,
+                        cantidad: productos.stock,
+                    };
+                }
+            }
+        }
+        /*
+        CATEGORIES[     CATEGORY:CATEGORIA
+                        PRODUCTS[
+                            PRODUCT: PRODUCT
+                            SHOPS[CIF DE LA TIENDA]
+                        ]
+                    ]
+        STORES[      SHOP:SHOP  
+                     WAREHOUSE[
+                         PRODUCT: PRODUCT
+                         STOCK[CANTIDAD EN TIENDA]
+                     ]
+                ]
+        */
     }
+
+    // ver() {
+    //     return this.#stores;
+    // }
     //Este product es el nombre
     getProduct(product) {
         let valores;//declaro valores y aqui sera donde guarde todos los datos del producto una vez encontrado en categorias

@@ -400,8 +400,13 @@ class StoreHouseController {
       let mapCategories = {
          category: this.#StoreHouse.categories,
       };
-      this.#StoreHouseView.LoadSelect(mapCategories, mapStores);
+      let mapProducts = {
+         Producto: this.#StoreHouse.getProducts,
+      };
+
+      this.#StoreHouseView.LoadSelect(mapCategories, mapStores,mapProducts);
    }
+
    handleEliminarCategoria = (nombreCat) => {
       let a = new Category(nombreCat, "");
 
