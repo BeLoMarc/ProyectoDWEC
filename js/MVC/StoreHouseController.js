@@ -257,14 +257,16 @@ class StoreHouseController {
       this.#StoreHouseView.bindMostrarAñadirTienda();
       //Esto me Valida el formulario de la tienda
       this.#StoreHouseView.bindValidarAñadirTienda(this.handlerValidarAñadirTienda);
-
       //Esto me muestra el select para borrar categorias
       this.#StoreHouseView.bindMostrarSelectBorrarCategorias();
       //Esto me muestra el select para borrar tiendas
       this.#StoreHouseView.bindMostrarSelectBorrarTiendas();
-      
       //Esto me muestra el formulario para rellenar la tienda
       this.#StoreHouseView.bindLoadSelects(this.handleLoadSelects);
+      //Esto Me elimina la categoria
+      this.#StoreHouseView.bindEliminarCategoria(this.handleEliminarCategoria);
+      //Esto Me elimina las tiendas
+      this.#StoreHouseView.bindEliminarTienda(this.handleEliminarTienda);
    }
    /**Desde el Controlador necesitamos un método que invoque el método que acabamos de crear
       en la Vista. Como nomenclatura para nombrar este tipo de métodos vamos a utilizar la
@@ -310,6 +312,7 @@ class StoreHouseController {
    //tienda Ciff es el Ciff de la tienda y el getShopProducts el generador que necesita el Ciff como parametro
    handleShowProductStore = (tiendaCiff) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
+      console.log(this.#StoreHouse.ver());
       let tiendaCIF = tiendaCiff;
       let mapStores = {
          store: this.#StoreHouse.shops,
@@ -398,6 +401,38 @@ class StoreHouseController {
          category: this.#StoreHouse.categories,
       };
       this.#StoreHouseView.LoadSelect(mapCategories, mapStores);
+   }
+   handleEliminarCategoria = (nombreCat) => {
+      let a = new Category(nombreCat, "");
+
+      this.#StoreHouse.removeCategory(a);
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapStores);
+   }
+
+
+
+   handleEliminarTienda = (nombreTienda) => {
+      
+      let a = new Coords("1111", "1111");
+      let b = new Store(nombreTienda, "aaa", "aaa", "aaaa", a, "aaaaa");
+      this.#StoreHouse.removeShop(b);
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
    }
 
    handleRecargar = () => {

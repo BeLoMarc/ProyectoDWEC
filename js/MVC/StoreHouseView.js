@@ -73,6 +73,7 @@ class StoreHouseView {
             if (!(tienda.name == "tienda base")) {
                 let precargar = mapStores.generador;
                 for (const producto of precargar) {
+
                     this.main.append(`
                <div class="card" style="width: 18rem;">
                     <img src="${producto.imagen}" class="card-img-top" alt="...">
@@ -462,9 +463,9 @@ class StoreHouseView {
     }
 
 
-    LoadSelect(mapCategories,mapStores) {
+    LoadSelect(mapCategories, mapStores) {
         $('#SelectEliminarCategorias').empty();
-        $('#SelectEliminarTiendas').empty();
+        $('#SelectEliminarTienda').empty();
 
         let cont = 0;
         for (const category of mapCategories.category) {
@@ -479,7 +480,8 @@ class StoreHouseView {
         for (const store of mapStores.store) {
             if (!(store.name == "tienda base")) {
                 $('#SelectEliminarTienda').append(` 
-                <option id="tienda${cont}" value="${store.CIF} href="#">${store.name}</option>`);
+                <option id="tienda${cont}" value="${store.CIF}" href="#">${store.name}</option>`);
+            console.log( store.name);
             }
 
             cont += 1;
@@ -530,14 +532,14 @@ class StoreHouseView {
             let tiendaCIF = $(this).attr("value");
             handler(tiendaCIF);
         });
-        $(document).ready(function () {
+        // $(document).ready(function () {
 
-            $(".botonTienda").click(function () {
-                //recogemos el valor del boton
-                let tiendaCIF = $(this).attr("value");
-                handler(tiendaCIF);
-            });
-        });
+        this.main.on("click", ".botonTienda", function () {
+            //recogemos el valor del boton
+            let tiendaCIF = $(this).attr("value");
+            handler(tiendaCIF);
+        })
+        // 
 
     }
 
@@ -723,10 +725,41 @@ class StoreHouseView {
     }
 
     bindLoadSelects(handler) {
-        $(document).ready(function () {
+        $("#ShowSelects").hover(function () {
             handler();
         });
     }
+
+
+    bindEliminarCategoria(handler) {
+        $('#FormBorrarCategoria').submit(function (event) {
+            event.preventDefault();
+            let nombreCat = $('#SelectEliminarCategorias').val();
+
+            handler(nombreCat);
+
+            $('#ContainerEliminarCat').css("display", "none");
+
+        });
+    }
+
+
+    bindEliminarTienda(handler) {
+        $('#FormBorrarTienda').submit(function (event) {
+            event.preventDefault();
+            let nombretienda = $('#SelectEliminarTienda').val();
+
+            handler(nombretienda);
+
+            $('#ContainerEliminarTienda').css("display", "none");
+
+        });
+    }
+
+
+
+
+
 
     bindHistory(handler) {
         //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
