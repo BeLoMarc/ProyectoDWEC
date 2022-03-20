@@ -98,8 +98,8 @@ class StoreHouseView {
 
         for (const categoria of mapCategories.category) {
             if (!(categoria.title == "categoria base")) {
-                let precargar = mapCategories.generador;
-                for (const producto of precargar) {
+
+                for (const producto of mapCategories.generador) {
                     this.main.append(`
                     <div class="card" style="width: 18rem;">
                         <img src="${producto.imagen}" class="card-img-top" alt="...">
@@ -488,15 +488,15 @@ class StoreHouseView {
         };
         cont = 0;
         let gua = mapProducts.producto;
-        for (const p of gua) {
-            if (!(p.producto.nombre == "tienda base")) {
-                $('#SelectEliminarProducto').append(` 
-                <option id="tienda${p.producto.nombre}" value="${p.producto.nombre}" href="#">${p.producto.nombre}</option>`);
+        // for (const p of gua) {
+        //     if (!(p.producto.nombre == "tienda base")) {
+        //         $('#SelectEliminarProducto').append(` 
+        //         <option id="tienda${p.producto.nombre}" value="${p.producto.nombre}" href="#">${p.producto.nombre}</option>`);
 
-            }
+        //     }
 
 
-        };
+        // };
 
     }
 
@@ -557,8 +557,10 @@ class StoreHouseView {
 
 
     bindShowProductCategory(handler) {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
         $("#ShowCategories").on("click", ".botonCategoria", function () {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             //recogemos el valor del boton
             let tituloCategoria = $(this).attr("value");
             handler(tituloCategoria);
@@ -659,10 +661,7 @@ class StoreHouseView {
             } else {
                 $('#ContainerAñadirTienda').css("display", "none");
             }
-
-
         });
-
     }
 
 
@@ -767,6 +766,115 @@ class StoreHouseView {
 
         });
     }
+
+
+
+
+
+
+
+    bindMostrarAñadirDados() {
+        $('#MostrarAñadirDados').click(function () {
+            if ($('#ContainerAñadirDados').css("display") == "none") {
+                $('#ContainerAñadirDados').css("display", "block");
+            } else {
+                $('#ContainerAñadirDados').css("display", "none");
+            }
+
+        });
+
+    }
+
+
+    bindValidarAñadirDados(handler) {
+        //Pongo aqui que niegue el submit del form
+        //Para que no me recarge la pagina/intente masndar datos fuera de esta
+        $('#AñadirDados').submit(function (event) {
+            event.preventDefault();
+            let inputinputNumeroSerieDado = $('#NumeroSerieDado');//
+            let inputnombreDado = $('#nombreDado');//
+            let inputDescripcionDado = $('#DescripcionDado');//
+            let inputprecioDado = $('#precioDado');//
+            let inputImpuestoDado = $('#ImpuestoDado');//
+            let inputModeloDado = $('#ModeloDado');//
+            let inputcolorDado = $('#colorDado');//
+            let inputCategoriaDado = $('#CategoriaDado');//
+            let inputFotoDado = $('#FotoDado');//
+
+            if (correctoAñadirDados()) {
+
+                handler(
+                    inputinputNumeroSerieDado.val(),
+                    inputnombreDado.val(),
+                    inputDescripcionDado.val(),
+                    inputprecioDado.val(),
+                    inputImpuestoDado.val(),
+                    inputModeloDado.val(),
+                    inputcolorDado.val(),
+                    inputCategoriaDado.val(),
+                    inputFotoDado.val(),
+                );
+
+                $('#ContainerAñadirTienda').css("display", "none");
+
+            }
+
+        });
+
+        $('#AñadirDados').change(function (event) {
+            // event.preventDefault();
+
+            validarAñadirDados();
+
+        })
+    }
+
+
+
+
+    bindMostrarMostrarAñadirManual() {
+        $('#MostrarAñadirManual').click(function () {
+            if ($('#ContainerAñadirManual').css("display") == "none") {
+                $('#ContainerAñadirManual').css("display", "block");
+            } else {
+                $('#ContainerAñadirManual').css("display", "none");
+            }
+
+        });
+
+    }
+
+    bindMostrarAñadirPantalla() {
+        $('#MostrarAñadirPantalla').click(function () {
+            if ($('#ContainerAñadirPantalla').css("display") == "none") {
+                $('#ContainerAñadirPantalla').css("display", "block");
+            } else {
+                $('#ContainerAñadirPantalla').css("display", "none");
+            }
+
+        });
+
+    }
+
+    bindMostrarAñadirLaptop() {
+        $('#MostrarAñadirLaptop').click(function () {
+            if ($('#ContainerAñadirOrdenador').css("display") == "none") {
+                $('#ContainerAñadirOrdenador').css("display", "block");
+            } else {
+                $('#ContainerAñadirOrdenador').css("display", "none");
+            }
+
+        });
+
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -960,9 +1068,12 @@ function validadAñadirTienda() {
      */
     if (!inputtelefonoTienda.val()) {
 
+
+
         inputtelefonoTienda.addClass("is-invalid");
 
         inputtelefonoTienda.removeClass("is-valid");
+
         $('#malTelefonoTienda').append(`el telefono no puede estar vacio`);
         //inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
@@ -1071,13 +1182,13 @@ function validadAñadirTienda() {
         $('#malFotoTienda').append(`No puede la foto vacia`);
 
 
-//        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
+        //        inputFotoTienda.closest(".invalid-feedback").html("No puede estar Vacio el LONGITUD de la tienda")
 
     } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputFotoTienda.val()))) {
         inputFotoTienda.addClass("is-invalid");
 
         inputFotoTienda.removeClass("is-valid");
-        
+
         $('#malFotoTienda').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff? png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
@@ -1093,6 +1204,20 @@ function validadAñadirTienda() {
 
 
 }
+
+let NumeroSerieDadoCorrecto = true;
+let nombreDadoCorrecto = true;
+let DescripcionDadoCorrecto = true;
+let precioDadoCorrecto = true;
+let ImpuestoDadoCorrecto = true;
+let ModeloDadoCorrecto = true;
+let colorDadoCorrecto = true;
+let CategoriaDadoCorrecto = true;
+let FotoDadoCorrecto = true;
+function validarAñadirDados() {
+    /*aqui irian las validaciones de los dados*/
+}
+
 function correctoAñadirTienda() {
     if (nombreTiendaCorrecto &&
         CIFTiendaCorrecto &&
@@ -1109,7 +1234,21 @@ function correctoAñadirTienda() {
 
 
 
-
+function correctoAñadirDados() {
+    if (NumeroSerieDadoCorrecto &&
+        nombreDadoCorrecto &&
+        DescripcionDadoCorrecto &&
+        precioDadoCorrecto &&
+        ImpuestoDadoCorrecto &&
+        ModeloDadoCorrecto &&
+        colorDadoCorrecto &&
+        CategoriaDadoCorrecto &&
+        FotoDadoCorrecto) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
 

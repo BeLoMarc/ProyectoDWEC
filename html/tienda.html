@@ -97,7 +97,10 @@
                     <a id="MostrarEliminarCat" class="nav__options__link">Eliminar Categoria</a>
                     <a id="MostrarAñadirTienda" class="nav__options__link">Añadir Tienda</a>
                     <a id="MostrarEliminarTienda" class="nav__options__link">Eliminar Tienda</a>
-                    <a id="MostrarAñadirProducto" class="nav__options__link">Añadir Producto</a>
+                    <a id="MostrarAñadirDados" class="nav__options__link">Añadir Dados</a>
+                    <a id="MostrarAñadirManual" class="nav__options__link">Añadir Manual</a>
+                    <a id="MostrarAñadirPantalla" class="nav__options__link">Añadir Pantalla</a>
+                    <a id="MostrarAñadirLaptop" class="nav__options__link">Añadir Laptop</a>
                     <a id="MostrarEliminarProducto" class="nav__options__link">Eliminar Producto</a>
                     <a id="MostrarModCantidad" class="nav__options__link">Modificar Cantidad De Un Producto</a>
                 </div>
@@ -179,38 +182,38 @@
             <div class="form-group">
                 <label for="CIFTienda">CIFTienda</label>
                 <input type="text" class="form-control" id="CIFTienda" placeholder="XXXXXX">
-                <div id="buenCifTienda" class="invalid-feedback"></div>
-                <div id="malCifTienda" class="valid-feedback"></div>
+                <div id="malCifTienda" class="invalid-feedback"></div>
+                <div id="buenCifTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="DireccionTienda">DireccionTienda</label>
                 <input type="text" class="form-control" id="DireccionTienda" placeholder="DireccionTienda">
-                <div id="buenDireccionTienda" class="invalid-feedback"></div>
-                <div id="malDireccionTienda" class="valid-feedback"></div>
+                <div id="malDireccionTienda" class="invalid-feedback"></div>
+                <div id="buenDireccionTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="telefonoTienda">telefonoTienda</label>
                 <input type="text" class="form-control" id="telefonoTienda" placeholder="XXX-XXX-XXX">
-                <div id="buenTelefonoTienda" class="invalid-feedback"></div>
-                <div id="malTelefonoTienda" class="valid-feedback"></div>
+                <div id="malTelefonoTienda" class="invalid-feedback"></div>
+                <div id="buenTelefonoTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="LatitudTienda">LatitudTienda</label>
                 <input type="text" class="form-control" id="LatitudTienda" placeholder="LatitudTienda">
-                <div id="buenLatitudTienda" class="invalid-feedback"></div>
-                <div id="malLatitudTienda" class="valid-feedback"></div>
+                <div id="malLatitudTienda" class="invalid-feedback"></div>
+                <div id="buenLatitudTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="LongitudTienda">LongitudTienda</label>
                 <input type="text" class="form-control" id="LongitudTienda" placeholder="LongitudTienda">
-                <div id="buenLongitudTienda" class="invalid-feedback"></div>
-                <div id="malLongitudTienda" class="valid-feedback"></div>
+                <div id="malLongitudTienda" class="invalid-feedback"></div>
+                <div id="buenLongitudTienda" class="valid-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="FotoTienda">FotoTienda</label>
                 <input type="file" class="form-control" id="FotoTienda">
-                <div id="buenFotoTienda" class="invalid-feedback"></div>
-                <div id="malFotoTienda" class="valid-feedback"></div>
+                <div id="malFotoTienda" class="invalid-feedback"></div>
+                <div id="buenFotoTienda" class="valid-feedback"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Añadir Tienda</button>
@@ -253,18 +256,301 @@
     </div>
 
 
+    <!--INICIO AÑADIR DADOS-->
+    <div class="container" id="ContainerAñadirDados" style="display: none;">
+      <h1>AÑADIR DADOS</h1>
+        <form id="AñadirDados" method="post" action="#" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="NumeroSerieDado">NumeroSerieDado</label>
+                    <input type="text" class="form-control" id="NumeroSerieDado" placeholder="NumeroSerieDado">
+                    <div id="malNumeroSerieDado" class="invalid-feedback"></div>
+                    <div id="buenNumeroSerieDado" class="valid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nombreDado">Nombre Dado</label>
+                    <input type="text" class="form-control" id="nombreDado" placeholder="nombreDado">
+                    <div id="malNombreDado" class="invalid-feedback"></div>
+                    <div id="buenNombreDado" class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionDado">DescripcionDado</label>
+                <input type="text" class="form-control" id="DescripcionDado" placeholder="DescripcionDado">
+                <div id="malDescripcionDado" class="invalid-feedback"></div>
+                <div id="buenDescripcionDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="precioDado">precioDado</label>
+                <input type="text" class="form-control" id="precioDado" placeholder="precioDado">
+                <div id="malprecioDado" class="invalid-feedback"></div>
+                <div id="buenprecioDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ImpuestoDado">ImpuestoDado</label>
+                <input type="text" class="form-control" id="ImpuestoDado" placeholder="ImpuestoDado">
+                <div id="malImpuestoDado" class="invalid-feedback"></div>
+                <div id="buenImpuestoDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ModeloDado">ModeloDado</label>
+                <input type="text" class="form-control" id="ModeloDado" placeholder="ModeloDado">
+                <div id="malModeloDado" class="invalid-feedback"></div>
+                <div id="buenModeloDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="colorDado">colorDado</label>
+                <input type="text" class="form-control" id="colorDado" placeholder="colorDado">
+                <div id="malcolorDado" class="invalid-feedback"></div>
+                <div id="buencolorDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <h1>ESCRIBIR LAS CATEGORIAS CON UN ESPACIO ENTRE ELLAS</h1>
+                <label for="CategoriaDado">CategoriaDado</label>
+                <input type="text" class="form-control" id="CategoriaDado" placeholder="CategoriaDado">
+                <div id="malCategoriaDado" class="invalid-feedback"></div>
+                <div id="buenCategoriaDado" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="FotoDado">FotoDado</label>
+                <input type="file" class="form-control" id="FotoDado">
+                <div id="malFotoDado" class="invalid-feedback"></div>
+                <div id="buenFotoDado" class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Añadir PRODUCTO</button>
+        </form>
+    </div>
+
+
+    <!--INICIO AÑADIR MANUAL-->
+    <div class="container" id="ContainerAñadirManual" style="display: none;">
+        <H1>AÑADIR MANUAL</H1>
+        <form id="AñadirManual" method="post" action="#" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="NumeroSerieManual">NumeroSerieManual</label>
+                    <input type="text" class="form-control" id="NumeroSerieManual" placeholder="NumeroSerieManual">
+                    <div id="malNumeroSerieManual" class="invalid-feedback"></div>
+                    <div id="buenNumeroSerieManual" class="valid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nombreManual">Nombre Manual</label>
+                    <input type="text" class="form-control" id="nombreManual" placeholder="nombreManual">
+                    <div id="malNombreManual" class="invalid-feedback"></div>
+                    <div id="buenNombreManual" class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionManual">DescripcionManual</label>
+                <input type="text" class="form-control" id="DescripcionManual" placeholder="DescripcionManual">
+                <div id="malDescripcionManual" class="invalid-feedback"></div>
+                <div id="buenDescripcionManual" class="valid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="precioManual">precioManual</label>
+                <input type="text" class="form-control" id="precioManual" placeholder="precioManual">
+                <div id="malprecioManual" class="invalid-feedback"></div>
+                <div id="buenprecioManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ImpuestoManual">ImpuestoManual</label>
+                <input type="text" class="form-control" id="ImpuestoManual" placeholder="ImpuestoManual">
+                <div id="malImpuestoManual" class="invalid-feedback"></div>
+                <div id="buenImpuestoManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CoverManual">CoverManual</label>
+                <input type="text" class="form-control" id="CoverManual" placeholder="CoverManual">
+                <div id="malCoverManual" class="invalid-feedback"></div>
+                <div id="buenCoverManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="AuthorManual">AuthorManual</label>
+                <input type="text" class="form-control" id="AuthorManual" placeholder="AuthorManual">
+                <div id="malAuthorManual" class="invalid-feedback"></div>
+                <div id="buenAuthorManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="TargetManual">TargetManual</label>
+                <input type="text" class="form-control" id="TargetManual" placeholder="TargetManual">
+                <div id="malTargetManual" class="invalid-feedback"></div>
+                <div id="buenTargetManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CategoriaManual">CategoriaManual</label>
+                <input type="text" class="form-control" id="CategoriaManual" placeholder="CategoriaManual">
+                <div id="malCategoriaManual" class="invalid-feedback"></div>
+                <div id="buenCategoriaManual" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="FotoManual">FotoManual</label>
+                <input type="file" class="form-control" id="FotoManual">
+                <div id="malFotoManual" class="invalid-feedback"></div>
+                <div id="buenFotoManual" class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Añadir MANUAL</button>
+        </form>
+    </div>
 
 
 
 
+    <!--INICIO AÑADIR PANTALLA-->
+
+    <div class="container" id="ContainerAñadirPantalla" style="display: none;">
+       <H1>AÑADIR PANTALLA</H1>
+        <form id="AñadirPantalla" method="post" action="#" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="NumeroSeriePantalla">NumeroSeriePantalla</label>
+                    <input type="text" class="form-control" id="NumeroSeriePantalla" placeholder="NumeroSeriePantalla">
+                    <div id="malNumeroSeriePantalla" class="invalid-feedback"></div>
+                    <div id="buenNumeroSeriePantalla" class="valid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nombrePantalla">Nombre Pantalla</label>
+                    <input type="text" class="form-control" id="nombrePantalla" placeholder="nombrePantalla">
+                    <div id="malNombrePantalla" class="invalid-feedback"></div>
+                    <div id="buenNombrePantalla" class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionPantalla">DescripcionPantalla</label>
+                <input type="text" class="form-control" id="DescripcionPantalla" placeholder="DescripcionPantalla">
+                <div id="malDescripcionPantalla" class="invalid-feedback"></div>
+                <div id="buenDescripcionPantalla" class="valid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="precioPantalla">precioPantalla</label>
+                <input type="text" class="form-control" id="precioPantalla" placeholder="precioPantalla">
+                <div id="malprecioPantalla" class="invalid-feedback"></div>
+                <div id="buenprecioPantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ImpuestoPantalla">ImpuestoPantalla</label>
+                <input type="text" class="form-control" id="ImpuestoPantalla" placeholder="ImpuestoPantalla">
+                <div id="malImpuestoPantalla" class="invalid-feedback"></div>
+                <div id="buenImpuestoPantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ModelPantalla">ModelPantalla</label>
+                <input type="text" class="form-control" id="ModelPantalla" placeholder="ModelPantalla">
+                <div id="malModelPantalla" class="invalid-feedback"></div>
+                <div id="buenModelPantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="SizePantalla">SizePantalla</label>
+                <input type="text" class="form-control" id="SizePantalla" placeholder="SizePantalla">
+                <div id="malSizePantalla" class="invalid-feedback"></div>
+                <div id="buenSizePantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CampañaPantalla">CampañaPantalla</label>
+                <input type="text" class="form-control" id="CampañaPantalla" placeholder="CampañaPantalla">
+                <div id="malCampañaPantalla" class="invalid-feedback"></div>
+                <div id="buenCampañaPantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CategoriaPantalla">CategoriaPantalla</label>
+                <input type="text" class="form-control" id="CategoriaPantalla" placeholder="CategoriaPantalla">
+                <div id="malCategoriaPantalla" class="invalid-feedback"></div>
+                <div id="buenCategoriaPantalla" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="FotoPantalla">FotoPantalla</label>
+                <input type="file" class="form-control" id="FotoPantalla">
+                <div id="malFotoPantalla" class="invalid-feedback"></div>
+                <div id="buenFotoPantalla" class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Añadir PANTALLA</button>
+        </form>
+    </div>
+
+    <!--INICIO AÑADIR LAPTOP-->
 
 
+    <div class="container" id="ContainerAñadirOrdenador" style="display: none;">
+       <H1>AÑADIR ORDENADOR</H1>
+        <form id="AñadirOrdenador" method="post" action="#" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="NumeroSerieOrdenador">NumeroSerieOrdenador</label>
+                    <input type="text" class="form-control" id="NumeroSerieOrdenador"
+                        placeholder="NumeroSerieOrdenador">
+                    <div id="malNumeroSerieOrdenador" class="invalid-feedback"></div>
+                    <div id="buenNumeroSerieOrdenador" class="valid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nombreOrdenador">Nombre Ordenador</label>
+                    <input type="text" class="form-control" id="nombreOrdenador" placeholder="nombreOrdenador">
+                    <div id="malNombreOrdenador" class="invalid-feedback"></div>
+                    <div id="buenNombreOrdenador" class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionOrdenador">DescripcionOrdenador</label>
+                <input type="text" class="form-control" id="DescripcionOrdenador" placeholder="DescripcionOrdenador">
+                <div id="malDescripcionOrdenador" class="invalid-feedback"></div>
+                <div id="buenDescripcionOrdenador" class="valid-feedback"></div>
+            </div>
 
+            <div class="form-group">
+                <label for="precioOrdenador">precioOrdenador</label>
+                <input type="text" class="form-control" id="precioOrdenador" placeholder="precioOrdenador">
+                <div id="malprecioOrdenador" class="invalid-feedback"></div>
+                <div id="buenprecioOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ImpuestoOrdenador">ImpuestoOrdenador</label>
+                <input type="text" class="form-control" id="ImpuestoOrdenador" placeholder="ImpuestoOrdenador">
+                <div id="malImpuestoOrdenador" class="invalid-feedback"></div>
+                <div id="buenImpuestoOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="ModelOrdenador">ModelOrdenador</label>
+                <input type="text" class="form-control" id="ModelOrdenador" placeholder="ModelPOrdenador">
+                <div id="malModelOrdenador" class="invalid-feedback"></div>
+                <div id="buenModelOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CPUOrdenador">CPUOrdenador</label>
+                <input type="text" class="form-control" id="CPUOrdenador" placeholder="CPUOrdenador">
+                <div id="malCPUOrdenador" class="invalid-feedback"></div>
+                <div id="buenCPUOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CargadorOrdenador">CargadorOrdenador</label>
+                <input type="text" class="form-control" id="CargadorOrdenador" placeholder="CargadorOrdenador">
+                <div id="malCargadorOrdenador" class="invalid-feedback"></div>
+                <div id="buenCargadorOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="KeyboardOrdenador">KeyboardOrdenador</label>
+                <input type="text" class="form-control" id="KeyboardOrdenador" placeholder="KeyboardOrdenador">
+                <div id="malKeyboardOrdenador" class="invalid-feedback"></div>
+                <div id="buenKeyboardOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="CategoriaOrdenador">CategoriaOrdenador</label>
+                <input type="text" class="form-control" id="CategoriaOrdenador" placeholder="CategoriaOrdenador">
+                <div id="malCategoriaOrdenador" class="invalid-feedback"></div>
+                <div id="buenCategoriaOrdenador" class="valid-feedback"></div>
+            </div>
+            <div class="form-group">
+                <label for="FotoOrdenador">FotoOrdenador</label>
+                <input type="file" class="form-control" id="FotoOrdenador">
+                <div id="malFotoOrdenador" class="invalid-feedback"></div>
+                <div id="buenFotoOrdenador" class="valid-feedback"></div>
+            </div>
 
-
-
-
-
+            <button type="submit" class="btn btn-primary">Añadir Ordenador</button>
+        </form>
+    </div>
 
 
 

@@ -257,10 +257,25 @@ class StoreHouseController {
       this.#StoreHouseView.bindMostrarAñadirTienda();
       //Esto me Valida el formulario de la tienda
       this.#StoreHouseView.bindValidarAñadirTienda(this.handlerValidarAñadirTienda);
+      //Esto me Valida el formulario Añadir Dados
+      this.#StoreHouseView.bindValidarAñadirDados(this.handlerValidarAñadirDados);
+
       //Esto me muestra el select para borrar categorias
       this.#StoreHouseView.bindMostrarSelectBorrarCategorias();
       //Esto me muestra el select para borrar tiendas
       this.#StoreHouseView.bindMostrarSelectBorrarTiendas();
+
+      //Esto me muestra el select para borrar tiendas
+      this.#StoreHouseView.bindMostrarAñadirDados();
+      //Esto me muestra el select para borrar tiendas
+      this.#StoreHouseView.bindMostrarMostrarAñadirManual();
+      //Esto me muestra el select para borrar tiendas
+      this.#StoreHouseView.bindMostrarAñadirPantalla();
+      //Esto me muestra el select para borrar tiendas
+      this.#StoreHouseView.bindMostrarAñadirLaptop();
+
+
+
       //Esto me muestra el formulario para rellenar la tienda
       this.#StoreHouseView.bindLoadSelects(this.handleLoadSelects);
       //Esto Me elimina la categoria
@@ -312,7 +327,7 @@ class StoreHouseController {
    //tienda Ciff es el Ciff de la tienda y el getShopProducts el generador que necesita el Ciff como parametro
    handleShowProductStore = (tiendaCiff) => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
-      console.log(this.#StoreHouse.ver());
+      // console.log(this.#StoreHouse.ver());
       let tiendaCIF = tiendaCiff;
       let mapStores = {
          store: this.#StoreHouse.shops,
@@ -328,6 +343,7 @@ class StoreHouseController {
          category: this.#StoreHouse.categories,
          generador: this.#StoreHouse.getCategoryProducts(tituloCategoria)
       };
+      console.log(mapCategories);
       this.#StoreHouseView.ShowProductCategory(mapCategories);
    }
 
@@ -391,6 +407,25 @@ class StoreHouseController {
       this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
    }
 
+   handlerValidarAñadirDados = (SN, nombre, nuevaDireccion, Precio, Impuesto, modelo, color, categoria, foto) => {
+      let arrcat = categoria.split(" ");
+      arrcat.forEach(element => {
+         let a = new Dados(SN, nombre, nuevaDireccion, Precio, Impuesto, foto, modelo, color);
+         this.#StoreHouse.addProduct(a, element);
+      });
+
+      let mapStores = {
+         store: this.#StoreHouse.shops,
+      };
+      this.#StoreHouseView.ShowStores(mapStores)
+
+      let mapsub = {
+         store: this.#StoreHouse.shops,
+      };
+
+      this.#StoreHouseView.ShowLoadSubMenuStores(mapsub);
+   }
+
    handleLoadSelects = () => {
       //Simulamos 1 peticion a la BBDD y la recogemos en formato JSON
       let mapStores = {
@@ -404,7 +439,7 @@ class StoreHouseController {
          Producto: this.#StoreHouse.getProducts,
       };
 
-      this.#StoreHouseView.LoadSelect(mapCategories, mapStores,mapProducts);
+      this.#StoreHouseView.LoadSelect(mapCategories, mapStores, mapProducts);
    }
 
    handleEliminarCategoria = (nombreCat) => {
@@ -423,7 +458,7 @@ class StoreHouseController {
 
 
    handleEliminarTienda = (nombreTienda) => {
-      
+
       let a = new Coords("1111", "1111");
       let b = new Store(nombreTienda, "aaa", "aaa", "aaaa", a, "aaaaa");
       this.#StoreHouse.removeShop(b);

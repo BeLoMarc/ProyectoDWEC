@@ -460,7 +460,7 @@ class StoreHouseModel {
 
         this.#categories.forEach(element => {
 
-            if (element.category.title == Category[0].title) {
+            if ((element.category.title == Category[0].title) || (element.category.title == Category[0])) {
                 this.#categories[cont].products.push({
                     // esto es un JSON y en el array de productos de la categoria pasada por parametro tendre el productID con valor de serialNumber de ese Producto
                     //{ ProductId: Product.serialNumber }
@@ -468,10 +468,25 @@ class StoreHouseModel {
                     shops: "0000" //CIF DE LA TIENDA BASE
 
                 });
+                let posiciontienda = this.#stores[0].warehouse.find(p => {
+                    return p.product.name == Product.name;
+                });
+                if (posiciontienda == undefined) {
+                    this.#stores[0].warehouse.push({
+                        product: Product,
+                        stock: 0
+                    });
+                }
+
+                // this.#stores[0].warehouse.push({
+                //     product: Product,
+                //     stock: 0
+                // });
             } else {
                 cont = cont + 1;
             }
         });
+
 
         // this.#articles.push({
         //     producto: Product,
