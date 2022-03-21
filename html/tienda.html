@@ -46,7 +46,7 @@
 
 
 
-        <div class="nav__index ">
+        <!-- <div class="nav__index ">
             <a class="History" value="0" href="#">
                 <img class="nav__index__img" src="../Multimedia/flechaIzq.png" alt="logo" />
             </a>
@@ -55,7 +55,7 @@
             <a class="History" value="1" href="#">
                 <img class="nav__index__img" src="../Multimedia/flechaDerecha.png" alt="logo" />
             </a>
-        </div>
+        </div> -->
 
 
 
@@ -85,8 +85,15 @@
                     Ventanas</span></a>
         </div>
 
-
-
+        <div class="nav__category">
+            <a id="MostrarFavs" class="nav__category__link"><span class="nav__category__link__span">
+                    Mostrar Favoritos</span></a>
+        </div>
+        <div class="nav__category">
+            <a id="Guardar" class="nav__options__link">
+                <span class="nav__category__link__span">Guardar</span>
+            </a>
+        </div>
 
         <div class="nav__index">
             <a id="ShowSelects" href="#" class="nav__category__link">
@@ -114,7 +121,7 @@
         </div>
 
 
-
+       
 
 
 
@@ -145,6 +152,11 @@
 
     </main>
 
+    <div id="containerGuardar" class="nav__index" style="display: none;">
+        <form id="FormGuardar" action="backup.php">
+            <button class="btn btn-success" id="Guardar" type="submit">Guardar Datos</button>
+        </form>
+    </div>
 
     <!-- LOGIN -->
     <div class="container" id="ContainerLogin" style="display: none;">

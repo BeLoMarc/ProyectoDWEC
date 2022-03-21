@@ -65,7 +65,7 @@ class StoreHouseController {
             }
             for (let j of StoreHouse.shops) {
                if (j.CIF == elem.CifTienda) {
-                  StoreHouse.addProductInShop(DadoInsertar, j,10);
+                  StoreHouse.addProductInShop(DadoInsertar, j, 10);
                }
             }
          });
@@ -85,7 +85,7 @@ class StoreHouseController {
             }
             for (let j of StoreHouse.shops) {
                if (j.CIF == elem.CifTienda) {
-                  StoreHouse.addProductInShop(PantallaInsertar, j,10);
+                  StoreHouse.addProductInShop(PantallaInsertar, j, 10);
                }
             }
          })
@@ -105,7 +105,7 @@ class StoreHouseController {
             }
             for (let j of StoreHouse.shops) {
                if (j.CIF == elem.CifTienda) {
-                  StoreHouse.addProductInShop(ManualInsertar, j,10);
+                  StoreHouse.addProductInShop(ManualInsertar, j, 10);
                }
             }
          });
@@ -126,7 +126,7 @@ class StoreHouseController {
             }
             for (let j of StoreHouse.shops) {
                if (j.CIF == elem.CifTienda) {
-                  StoreHouse.addProductInShop(LaptopInsertar, j,10);
+                  StoreHouse.addProductInShop(LaptopInsertar, j, 10);
                }
             }
          });
@@ -397,6 +397,9 @@ class StoreHouseController {
          this.#StoreHouseView.bindMostrarAñadirPantalla();
          //Esto me muestra el select para añadir Laptops
          this.#StoreHouseView.bindMostrarAñadirLaptop();
+         //Esto me muestra el select para añadir Laptops
+         this.#StoreHouseView.bindMostrarLogin();
+
 
          //Esto me muestra el formulario de login
          this.#StoreHouseView.bindValidarLogin(this.handleValidarLogin);
@@ -411,6 +414,10 @@ class StoreHouseController {
          //Esto Me elimina los productos
          this.#StoreHouseView.bindEliminarProducto(this.handleEliminarproducto);
 
+         //Esto me envia los datos al php
+         this.#StoreHouseView.bindGuardar(this.handleGuardar);
+         //Esto me envia los datos al php
+         this.#StoreHouseView.bindMostrarFavs(this.handleMostrarFavs);
       }, 200);
       //this.onInit();estos eventos van dirigos al view que se encargara de pintar
 
@@ -431,6 +438,33 @@ class StoreHouseController {
       }
       //   this.#StoreHouseView.showProductTypes();
    }
+   handleMostrarFavs = () => {
+      let mapProducts = {
+         Producto: this.#StoreHouse.getProduct(),
+      };
+      this.#StoreHouseView.MostrarFavs(mapProducts)
+   }
+
+   handleGuardar = () => {
+      let str = "";
+
+      for (const productos of this.#StoreHouse.getProducts) {
+         str += JSON.stringify(productos);
+      }
+      
+      this.#StoreHouseView.ShowGuardar(str);
+      // let mapStores = {
+      //    store: this.#StoreHouse.shops,
+      // };
+      // let mapCategories = {
+      //    category: this.#StoreHouse.categories,
+      // };
+      // let mapProducts = {
+      //    Producto: this.#StoreHouse.getProducts(),
+      // };
+   }
+
+
    // nos va a coger las tiendas
    // se encargan de manejar los eventos q estan en el modelo
 

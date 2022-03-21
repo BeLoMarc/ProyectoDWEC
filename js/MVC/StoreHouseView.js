@@ -3,6 +3,7 @@ class StoreHouseView {
     #ventanas;
     #estadoAnterior;
     #estadoPosterior;
+    #favoritos;
     constructor() {
         /**
          * podria hacer aqui una variable provada llamada ventanas
@@ -16,6 +17,7 @@ class StoreHouseView {
         this.#ventanas = new Map();
         this.#estadoAnterior = [];
         this.#estadoPosterior = [];
+        this.#favoritos = [];
     }
 
     //este mapStores es el del controller
@@ -82,6 +84,7 @@ class StoreHouseView {
                         <p class="card-text">Cantidad: ${producto.cantidad}.</p>
                         <a href="#" value="${producto.nombre}" class="btn btn-primary botonProducto">DETALLES DEL PRODUCTO</a>
                         <a href="#" value="${producto.nombre}" class="btn btn-danger botonNuevaVentana">DETALLES NUEVA PAGINA</a>
+                        <a href="#" value="${producto.nombre}" class="btn btn-danger botonFavoritos">AÑADIR A FAVORITOS</a>
 
                     </div>
                         </div> `);
@@ -108,6 +111,7 @@ class StoreHouseView {
                             <p class="card-text">Cantidad: ${producto.cantidad}.</p>
                             <a href="#" value="${producto.nombre}" class="btn btn-primary botonProducto">DETALLES DEL PRODUCTO</a>
                             <a href="#" value="${producto.nombre}" class="btn btn-danger botonNuevaVentana">DETALLES NUEVA PAGINA</a>
+                            <a href="#" value="${producto.nombre}" class="btn btn-danger botonFavoritos">AÑADIR A FAVORITOS</a>
 
                         </div>
                             </div>
@@ -994,7 +998,7 @@ class StoreHouseView {
 
     }
 
-    bindMostrarAñadirLaptop() {
+    bindMostrarLogin() {
         $('#Login').click(function () {
             if ($('#ContainerLogin').css("display") == "none") {
                 $('#ContainerLogin').css("display", "block");
@@ -1005,6 +1009,8 @@ class StoreHouseView {
         });
 
     }
+
+
     bindValidarLogin(handler) {
         $('#FormLogin').submit(function (event) {
             event.preventDefault();
@@ -1029,6 +1035,71 @@ class StoreHouseView {
         });
 
     }
+
+
+    bindGuardar(handler) {
+        $('#Guardar').click(function () {
+            handler();
+
+        });
+    }
+
+    ShowGuardar(str) {
+
+        if ($('#containerGuardar').css("display") == "none") {
+            $('#containerGuardar').css("display", "block");
+        } else {
+            $('#containerGuardar').css("display", "none");
+        }
+        $('$FormGuardar').append(`<input type="hidden" name="recogeGUardar" value="${str}">`);
+
+
+    }
+
+
+
+    MostrarFavs(MapaProdcuto) {
+
+        this.main.clear();
+        this.#favoritos.forEach(elem => {
+            p = MapaProdcuto.producto(elem);
+            this.main.append(`<div class="card" style="width: 18rem;">
+            <img src="${p.imagen}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">${p.nombre}</h5>
+            <p class="card-text">${p.descripcion}.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">precio: ${p.precio}</li>
+                <li class="list-group-item">CIF de Tienda que la puedes encontrar: ${p.CIF}</li>
+                <li class="list-group-item">Nombre de la Tienda: ${p.nombreTienda}</li>
+                <li class="list-group-item">Cantidad: ${p.cantidad}</li>
+                
+            </ul>
+            </div> `);
+        })
+
+    }
+
+    bindMostrarFavs(handler) {
+        //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
+        $("#MostrarFavs").click(function () {
+            //recogemos el valor del boton
+            handler();
+        });
+
+    }
+    bindAñadirFavs() {
+        //aqui es donde quiero pintar //el evento q lo triguea y como quiero q lo haga
+
+        $("#MostrarFavs").click(a => {
+            //recogemos el valor del boton
+            let Nombre = $(this).attr("value");
+            this.#favoritos.push[Nombre];
+        });
+
+    }
+
 
 
     bindValidarAñadirOrdenador(handler) {
@@ -1288,7 +1359,7 @@ function validadAñadirTienda() {
 
         inputtelefonoTienda.removeClass("is-valid");
 
-        $('#malTelefonoTienda').append(`el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX`);
+        $('#malTelefonoTienda').append(`el telefono debe tener 9 numeros siguiendo el patron XXX - XXX - XXX`);
 
         //inputtelefonoTienda.closest(".invalid-feedback").html("el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX")
     }
@@ -1395,7 +1466,7 @@ function validadAñadirTienda() {
 
         inputFotoTienda.removeClass("is-valid");
 
-        $('#malFotoTienda').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff? png webp bmp`);
+        $('#malFotoTienda').append(`El archivo no cumple con es ni.gif ni jpg, jpeg, tiff ? png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
@@ -1652,7 +1723,7 @@ function validarAñadirDados() {
         inputCategoriaDado.addClass("is-valid");
 
         inputCategoriaDado.removeClass("is-invalid");
-        $('#buenCategoriaDado').append(`CATEGORIA/AS RECOGIDA/AS`);
+        $('#buenCategoriaDado').append(`CATEGORIA / AS RECOGIDA / AS`);
         // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         CategoriaDadoCorrecto = true;
     }
@@ -1677,7 +1748,7 @@ function validarAñadirDados() {
 
         inputFotoDado.removeClass("is-valid");
 
-        $('#malFotoDado').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff png webp bmp`);
+        $('#malFotoDado').append(`El archivo no cumple con es ni.gif ni jpg, jpeg, tiff png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
@@ -1973,7 +2044,7 @@ function validarAñadirManual() {
         inputCategoriaManual.addClass("is-valid");
 
         inputCategoriaManual.removeClass("is-invalid");
-        $('#buenCategoriaManual').append(`CATEGORIA/AS RECOGIDA/AS`);
+        $('#buenCategoriaManual').append(`CATEGORIA / AS RECOGIDA / AS`);
         // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         CategoriaManualCorrecto = true;
     }
@@ -1996,7 +2067,7 @@ function validarAñadirManual() {
 
         inputFotoManual.removeClass("is-valid");
 
-        $('#malFotoManual').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff png webp bmp`);
+        $('#malFotoManual').append(`El archivo no cumple con es ni.gif ni jpg, jpeg, tiff png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
@@ -2284,7 +2355,7 @@ function validarAñadirPantalla() {
         inputCategoriaPantalla.addClass("is-valid");
 
         inputCategoriaPantalla.removeClass("is-invalid");
-        $('#buenCategoriaPantalla').append(`CATEGORIA/AS RECOGIDA/AS`);
+        $('#buenCategoriaPantalla').append(`CATEGORIA / AS RECOGIDA / AS`);
         // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         CategoriaPantallaCorrecto = true;
     }
@@ -2307,7 +2378,7 @@ function validarAñadirPantalla() {
 
         inputFotoPantalla.removeClass("is-valid");
 
-        $('#malFotoPantalla').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff png webp bmp`);
+        $('#malFotoPantalla').append(`El archivo no cumple con es ni.gif ni jpg, jpeg, tiff png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
@@ -2622,7 +2693,7 @@ function validarAñadirOrdenador() {
         inputCategoriaOrdenador.addClass("is-valid");
 
         inputCategoriaOrdenador.removeClass("is-invalid");
-        $('#buenCategoriaOrdenador').append(`CATEGORIA/AS RECOGIDA/AS`);
+        $('#buenCategoriaOrdenador').append(`CATEGORIA / AS RECOGIDA / AS`);
         // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
         CategoriaOrdenadorCorreccto = true;
     }
@@ -2645,7 +2716,7 @@ function validarAñadirOrdenador() {
 
         inputFotoOrdenador.removeClass("is-valid");
 
-        $('#malFotoOrdenador').append(`El archivo no cumple con es ni .gif ni jpg, jpeg,tiff png webp bmp`);
+        $('#malFotoOrdenador').append(`El archivo no cumple con es ni.gif ni jpg, jpeg, tiff png webp bmp`);
 
         //inputFotoTienda.closest(".invalid-feedback").html("LA LONGITUD de la tienda SOLO puede tener 4 digitos DEL 0 AL 9")
     } else {
