@@ -103,10 +103,15 @@
                     <a id="MostrarAñadirLaptop" class="nav__options__link">Añadir Laptop</a>
                     <a id="MostrarEliminarProducto" class="nav__options__link">Eliminar Producto</a>
                     <a id="MostrarModCantidad" class="nav__options__link">Modificar Cantidad De Un Producto</a>
+                    <a id="Login" class="nav__options__link">Login</a>
                 </div>
         </div>
 
-
+        <div id="containerCerrarSesion" class="nav__index" style="display: none;">
+            <form id="FormCerrarSesion" action="#">
+                <button class="btn btn-success" id="cerrarSesion" type="submit">Cerrar Sesion</button>
+            </form>
+        </div>
 
 
 
@@ -141,7 +146,28 @@
     </main>
 
 
+    <!-- LOGIN -->
+    <div class="container" id="ContainerLogin" style="display: none;">
+        <form id="FormLogin" action="#">
+            <div class="form-row">
 
+                <div class="form-group col-md-6">
+                    <label for="NombreLogin">NOMBRE</label>
+                    <input type="text" class="form-control" id="NombreLogin" placeholder="Nombre">
+                    <div id="malNombreLogin" class="invalid-feedback"></div>
+                    <div id="buenNombreLogin" class="valid-feedback"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ContraseñaLogin">CONTRASEÑA</label>
+                <input type="password" class="form-control" id="ContraseñaLogin">
+                <div id="malContraseñaLogin" class="invalid-feedback"></div>
+                <div id="buenContraseñaLogin" class="valid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">INICIAR SESION</button>
+        </form>
+    </div>
 
     <!--INICIO AÑADIR CATEGORIAS-->
     <div class="container" id="ContainerAñadirCat" style="display: none;">

@@ -994,7 +994,41 @@ class StoreHouseView {
 
     }
 
+    bindMostrarAñadirLaptop() {
+        $('#Login').click(function () {
+            if ($('#ContainerLogin').css("display") == "none") {
+                $('#ContainerLogin').css("display", "block");
+            } else {
+                $('#ContainerLogin').css("display", "none");
+            }
 
+        });
+
+    }
+    bindValidarLogin(handler) {
+        $('#FormLogin').submit(function (event) {
+            event.preventDefault();
+            let inputNombreLogin = $('#NombreLogin');//
+            let inputContraseñaLogin = $('#ContraseñaLogin');
+            handler(
+                inputNombreLogin.val(),
+                inputContraseñaLogin.val());
+
+
+
+
+        });
+    }
+
+    bindCerrarSesion(handler) {
+        //si cambiamos quitamos el form y aqui pongo un .click tambien funciona
+        $('#FormCerrarSesion').submit(function (event) {
+
+            handler();
+
+        });
+
+    }
 
 
     bindValidarAñadirOrdenador(handler) {

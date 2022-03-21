@@ -1,0 +1,217 @@
+{
+    "categories": [
+        {
+            "title": "materiales",
+            "description": "Materiales que sirven para el desarrollo de dnd"
+        },
+        {
+            "title": "libros",
+            "description": "libros de reglas"
+        },
+        {
+            "title": "electronica",
+            "description": "material electronico para llevar las campañas a distancia"
+        }
+    ],
+    "products": {
+        "Dados": [
+            {
+                "serialNumber": "111111",
+                "name": "dadoRosa",
+                "description": "set de dados",
+                "price": "5.34",
+                "tax": "21%",
+                "images": "../Multimedia/Dados.jpg",
+                "model": "Plastico",
+                "color": "Rosa",
+                "nombreCat":"materiales",
+                "CifTienda":"1111"
+            },
+            {
+                "serialNumber": "22222",
+                "name": "dadoNegro",
+                "description": "set de dados",
+                "price": "3.34",
+                "tax": "21%",
+                "images": "../Multimedia/dados2.jpg",
+                "model": "Plastico",
+                "color": "Negro",
+                "nombreCat":"materiales",
+                "CifTienda":"2222"
+            },
+            {
+                "serialNumber": "33333",
+                "name": "dadoVERDE",
+                "description": "set de dados",
+                "price": "25.34",
+                "tax": "21%",
+                "images": "../Multimedia/Dados.jpg",
+                "model": "Metalicos",
+                "color": "Dorado",
+                "nombreCat":"materiales",
+                "CifTienda":"3333"
+            }
+        ],
+        "Pantalla": [
+            {
+                "serialNumber": "1111",
+                "name": "PantallaDM",
+                "description": "Pantalla estandar del DM",
+                "price": "15",
+                "tax": "21%",
+                "images": "../Multimedia/PanrallaDND.jpg",
+                "model": "Fisico",
+                "size": "30x45",
+                "campaign": "",
+                "nombreCat":"materiales",
+                "CifTienda":"1111"
+            },
+            {
+                "serialNumber": "2222",
+                "name": "PantallaStradh",
+                "description": "Pantalla Para la campaña de stradh",
+                "price": "15",
+                "tax": "21%",
+                "images": "../Multimedia/Brujo.png",
+                "model": "Fisico",
+                "size": "20x35",
+                "campaign": "La Maldicion de Stradh",
+                "nombreCat":"materiales",
+                "CifTienda":"2222"
+            },
+            {
+                "serialNumber": "3333",
+                "name": "PantallaWaterdeep",
+                "description": "Pantalla Para la campaña de Waterdeep",
+                "price": "50",
+                "tax": "21%",
+                "images": "../Multimedia/Bardo.png",
+                "model": "Fisico",
+                "size": "20x35",
+                "campaign": "El golpe a los dragones",
+                "nombreCat":"materiales",
+                "CifTienda":"3333"
+            }
+        ],
+        "Manual": [
+            {
+                "serialNumber": "1111",
+                "name": "players handbook",
+                "description": "Manual del jugador para DND 5e",
+                "price": "50",
+                "tax": "21%",
+                "images": "../Multimedia/phbCaratula.jpg",
+                "cover": "Tapa Dura",
+                "author": "Wizard of the Coast",
+                "target": "Fisico",
+                "nombreCat":"libros",
+                "CifTienda":"1111"
+            },
+            {
+                "serialNumber": "2222",
+                "name": "Manual del DM",
+                "description": "Manual del DM para DND 5e",
+                "price": "50",
+                "tax": "21%",
+                "images": "../Multimedia/dmguideCaratula.jpg",
+                "cover": "Tapa dura",
+                "author": "Wizard of the coast",
+                "target": "Fisico",
+                "nombreCat":"libros",
+                "CifTienda":"2222"
+            },
+            {
+                "serialNumber": "3333",
+                "name": "Monster Manual",
+                "description": "Manual de monstruos para DND 5e",
+                "price": "50",
+                "tax": "21%",
+                "images": "../Multimedia/RiseOfTiamat.jpg",
+                "cover": "",
+                "author": "Wizard of the coast",
+                "target": "Fisico",
+                "nombreCat":"libros",
+                "CifTienda":"3333"
+            }
+        ],
+        "Laptop": [
+            {
+                "serialNumber": "111111",
+                "name": "msi",
+                "description": "ordenador",
+                "price": "1000",
+                "tax": "21%",
+                "images": "sasas",
+                "model": "masi",
+                "CPU": "Muy buena",
+                "charger": "17A",
+                "keyboard": "keyboard fino",
+                "nombreCat":"electronica",
+                "CifTienda":"1111"
+            },
+            {
+                "serialNumber": "22222",
+                "name": "ASUS",
+                "description": "ordenador",
+                "price": "1000",
+                "tax": "21%",
+                "images": "sasas",
+                "model": "asus",
+                "CPU": "Muy buena",
+                "charger": "17A",
+                "keyboard": "keyboard fino",
+                "nombreCat":"electronica",
+                "CifTienda":"2222"
+            },
+            {
+                "serialNumber": "33333",
+                "name": "NISU",
+                "description": "ordenador",
+                "price": "1000",
+                "tax": "21%",
+                "images": "sasas",
+                "model": "nisu",
+                "CPU": "Muy buena",
+                "charger": "17A",
+                "keyboard": "keyboard fino",
+                "nombreCat":"electronica",
+                "CifTienda":"3333"
+            }
+        ]
+    },
+    "stores": [
+        {
+            "CIF": "1111",
+            "name": "Taberna Humeante",
+            "address": "bhalkia",
+            "phone": "576545678",
+            "coords": {
+                "latitude": "2222",
+                "longitud": "1234"
+            },
+            "img": "../../Multimedia/tienda1.jpg"
+        },
+        {
+            "CIF": "2222",
+            "name": "Pony Pisador",
+            "address": "Tierra Media",
+            "phone": "876548",
+            "coords": {
+                "latitude": "9898",
+                "longitud": "1234"
+            },
+            "img": "../Multimedia/tienda2.jpg"
+        },
+        {
+            "CIF": "3333",
+            "name": "Cuerno Insaciable",
+            "address": "Valhalla",
+            "phone": "98765",
+            "coords": {
+                "latitude": "2121",
+                "longitud": "6789"
+            },
+            "img": "../Multimedia/tienda3.jpg"
+        }
+    ]
+}
